@@ -9,7 +9,7 @@ public class Interaction : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.gameObject.name == "Player")
+        if (other.gameObject.name == "Player")//!!!I am planning on doing this part in playerMovement on the player side of things
         {
             if (Input.GetKey(KeyCode.X))
             {

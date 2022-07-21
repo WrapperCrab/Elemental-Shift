@@ -43,4 +43,15 @@ public class PlayerMovement : MonoBehaviour
         //!!!Movement actas a little weird when 3 inputs at once.
         //Can't run in up-right direction. This is a problem
     }
+
+    private void OnTriggerStay2D(Collider2D other)//Note, other ALWAYS represents the object the current script does NOT belong to
+    {
+        //Debug.Log(other.gameObject.name);//Would return "sign", not "player"
+        if (Input.GetKey(KeyCode.X))//!!!In the future, I will also want to make sure the player is facing the correct direction
+        {
+            //!!!Activate other.gameObject's interaction method
+            //Not sure how to do this generally for different objects with wildly different methods
+            //I will sleep on this
+        }
+    }
 }
