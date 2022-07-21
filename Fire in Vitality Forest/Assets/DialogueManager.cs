@@ -7,6 +7,7 @@ using TMPro;
 public class DialogueManager : MonoBehaviour
 {
     public TextMeshProUGUI dialogueText;
+    public GameObject canvas;
 
     private Queue<string> sentences;
     bool isDisplayingText;
@@ -15,13 +16,15 @@ public class DialogueManager : MonoBehaviour
     void Start()
     {
         sentences = new Queue<string>();
+        isDisplayingText = false;
+        canvas.SetActive(false);
     }
 
     void Update()
     {
         if (isDisplayingText)
         {
-            if (Input.GetKeyDown(KeyCode.X))//!!!This is too fast
+            if (Input.GetKeyDown(KeyCode.X))
             {
                 displayNextSentence();
             }
@@ -35,6 +38,7 @@ public class DialogueManager : MonoBehaviour
         
         
         isDisplayingText = true;
+        canvas.SetActive(true);
 
         sentences.Clear();
 
@@ -62,6 +66,7 @@ public class DialogueManager : MonoBehaviour
     void endDialogue()
     {
         Debug.Log("end of conversation");
+        canvas.SetActive(false);
         isDisplayingText = false;
     }
 

@@ -12,6 +12,8 @@ public class PlayerMovement : MonoBehaviour
 
     Vector2 newVel;
     bool isRunning;
+    bool justPressedX;
+    int numTriggers;
 
 
     // Update is called once per frame
@@ -28,30 +30,49 @@ public class PlayerMovement : MonoBehaviour
         {
             isRunning = false;
         }
+
+        if (Input.GetKeyDown(KeyCode.X) && canInteract() && isInTrigger())
+        {
+            justPressedX = true;
+        }
+        Debug.Log(justPressedX);
     }
 
     void FixedUpdate()
     {
         // update the player's velocity
-        if (isRunning)
+        if (canInteract())//otherwise, no change to movement is made
         {
-            rigidBodyPlayer.MovePosition(rigidBodyPlayer.position + (newVel.normalized * runSpeed * Time.fixedDeltaTime));
-            Debug.Log("running");
+            if (isRunning)
+            {
+                rigidBodyPlayer.MovePosition(rigidBodyPlayer.position + (newVel.normalized * runSpeed * Time.fixedDeltaTime));
+            }
+            else
+            {
+                rigidBodyPlayer.MovePosition(rigidBodyPlayer.position + (newVel.normalized * walkSpeed * Time.fixedDeltaTime));
+            }
+            //!!!Movement actas a little weird when 3 inputs at once.
+            //Can't run in up-right direction. This is a problem
         }
-        else
-        {
-            rigidBodyPlayer.MovePosition(rigidBodyPlayer.position + (newVel.normalized * walkSpeed * Time.fixedDeltaTime));
-            Debug.Log("walking");
-        }
-        //!!!Movement actas a little weird when 3 inputs at once.
-        //Can't run in up-right direction. This is a problem
+
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        numTriggers++;
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        numTriggers--;
     }
 
     private void OnTriggerStay2D(Collider2D other)//Note, other ALWAYS represents the object the current script does NOT belong to
     {
         //!!!In the future, I will need to make sure I only activate one trigger at a time
-        if (Input.GetKey(KeyCode.X) && canInteract())//!!!In the future, I will also want to make sure the player is facing the correct direction
+        if (justPressedX && canInteract())//!!!In the future, I will also want to make sure the player is facing the correct direction
         {
+            justPressedX = false;
             //Activate other.gameObject's interaction method
             other.gameObject.GetComponent<Interaction>().interact();//I can't believe this actually works. It's like magic.
         }
@@ -60,6 +81,15 @@ public class PlayerMovement : MonoBehaviour
     public bool canInteract()
     {
         return !(dialogueManager.GetComponent<DialogueManager>().getIsDisplayingText());
+    }
+
+    public bool isInTrigger()
+    {
+        if (numTriggers > 0)
+        {
+            return true;
+        }
+        return false;
     }
 
 }
