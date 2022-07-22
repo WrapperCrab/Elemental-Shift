@@ -6,7 +6,6 @@ using TMPro;
 
 public class DialogueManager : Controllable
 {
-
     #region Singleton
 
     public static DialogueManager instance;//find inventory with Inventory.instance
@@ -39,13 +38,11 @@ public class DialogueManager : Controllable
     {
         if (hasControl &&!ControlManager.instance.getSwitched())
         {
-            Debug.Log("here");
             if (Input.GetKeyDown(KeyCode.X))
             {
                 displayNextSentence();
             }
         }
-        Debug.Log("get switched is "+ControlManager.instance.getSwitched());
     }
 
     public void startDialogue(Dialogue dialogue)

@@ -880,6 +880,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f4a0fca10dbddd43912d5e215511745, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasControl: 0
   dialogueText: {fileID: 733103895}
   canvas: {fileID: 381078051}
 --- !u!1 &733103893
@@ -1150,6 +1151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be04a13da8480454f88ea979b2e59e10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasControl: 0
   rigidBodyPlayer: {fileID: 793173345}
   dialogueManager: {fileID: 660162194}
   walkSpeed: 5
@@ -1190,6 +1192,7 @@ GameObject:
   m_Component:
   - component: {fileID: 807023796}
   - component: {fileID: 807023797}
+  - component: {fileID: 807023798}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -1225,10 +1228,43 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   space: 20
-  items: []
+  items:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   noSpace:
     sentences:
     - Your inventory is full
+--- !u!114 &807023798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 807023795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ce502320bcd3f1409cc542f80a63470, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  switchedThisFrame: 0
+  obWithControl: {fileID: 0}
 --- !u!1 &1054709960
 GameObject:
   m_ObjectHideFlags: 0

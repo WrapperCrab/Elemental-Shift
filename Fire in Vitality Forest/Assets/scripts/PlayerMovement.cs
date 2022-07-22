@@ -55,7 +55,7 @@ public class PlayerMovement : Controllable
                 isRunning = false;
             }
 
-            if (Input.GetKeyDown(KeyCode.X) && isInTrigger())
+            if (Input.GetKeyDown(KeyCode.X) && isInTrigger())//used for interacting with triggers
             {
                 justPressedX = true;
             }
@@ -98,8 +98,6 @@ public class PlayerMovement : Controllable
         {
             justPressedX = false;
             //Activate other.gameObject's interaction method
-
-
             other.gameObject.GetComponent<Interaction>().interact();//I can't believe this actually works. It's like magic.
         }
     }
