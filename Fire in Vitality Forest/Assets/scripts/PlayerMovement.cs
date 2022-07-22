@@ -70,7 +70,7 @@ public class PlayerMovement : MonoBehaviour
     private void OnTriggerStay2D(Collider2D other)//Note, other ALWAYS represents the object the current script does NOT belong to
     {
         //!!!In the future, I will need to make sure I only activate one trigger at a time
-        if (justPressedX && canInteract())//!!!In the future, I will also want to make sure the player is facing the correct direction
+        if (justPressedX)//!!!In the future, I will also want to make sure the player is facing the correct direction
         {
             justPressedX = false;
             //Activate other.gameObject's interaction method
@@ -78,9 +78,11 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public bool canInteract()
+    public bool canInteract()//This function will be expanded upon for other circumstances
     {
-        return !(dialogueManager.GetComponent<DialogueManager>().getIsDisplayingText());
+        bool isNotDisplayingText = !(dialogueManager.GetComponent<DialogueManager>().getIsDisplayingText());//want true
+        bool didNotJustClose = !(dialogueManager.GetComponent<DialogueManager>().getJustClosedText());//want true
+        return (isNotDisplayingText && didNotJustClose);
     }
 
     public bool isInTrigger()

@@ -11,6 +11,7 @@ public class DialogueManager : MonoBehaviour
 
     private Queue<string> sentences;
     bool isDisplayingText;
+    bool justClosedText;//I don't like that I need this, but it works
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +23,7 @@ public class DialogueManager : MonoBehaviour
 
     void Update()
     {
+        justClosedText = false;
         if (isDisplayingText)
         {
             if (Input.GetKeyDown(KeyCode.X))
@@ -68,10 +70,16 @@ public class DialogueManager : MonoBehaviour
         Debug.Log("end of conversation");
         canvas.SetActive(false);
         isDisplayingText = false;
+        justClosedText = true;
     }
 
     public bool getIsDisplayingText()
     {
         return isDisplayingText;
+    }
+
+    public bool getJustClosedText()
+    {
+        return justClosedText;
     }
 }
