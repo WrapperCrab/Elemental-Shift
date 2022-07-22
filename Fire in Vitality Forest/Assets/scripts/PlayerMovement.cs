@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public Rigidbody2D rigidBodyPlayer;
     public DialogueManager dialogueManager;
+    Camera cam;
 
     public float walkSpeed;
     public float runSpeed;
@@ -35,7 +36,6 @@ public class PlayerMovement : MonoBehaviour
         {
             justPressedX = true;
         }
-        Debug.Log(justPressedX);
     }
 
     void FixedUpdate()
