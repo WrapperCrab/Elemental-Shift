@@ -10,11 +10,6 @@ public class TreeInteract : Interaction
 
     public override void interact()
     {
-        deLeaveTree();
-    }
-
-    private void deLeaveTree()
-    {
         //change the sprite of the tree
         spriteRenderer.sprite = newSprite;
 
@@ -22,6 +17,5 @@ public class TreeInteract : Interaction
         //make text "you de-leaved the tree"
 
         triggerDialogue();
-
     }
 }
