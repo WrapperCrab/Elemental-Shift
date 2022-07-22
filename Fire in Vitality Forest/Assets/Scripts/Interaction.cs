@@ -13,6 +13,8 @@ public class Interaction : MonoBehaviour
 
     public void triggerDialogue()
     {
-        FindObjectOfType<DialogueManager>().startDialogue(dialogue);
+        //switch control to textbox
+        ControlManager.instance.switchControl(DialogueManager.instance);
+        DialogueManager.instance.startDialogue(dialogue);
     }
 }

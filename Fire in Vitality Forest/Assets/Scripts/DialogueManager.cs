@@ -4,42 +4,52 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class DialogueManager : MonoBehaviour
+public class DialogueManager : Controllable
 {
+
+    #region Singleton
+
+    public static DialogueManager instance;//find inventory with Inventory.instance
+    void Awake()
+    {
+        if (instance != null)
+        {
+            Debug.LogWarning("More than one instance of DialogueManager found!");
+            return;
+        }
+        instance = this;
+    }
+
+    #endregion
+
+
     public TextMeshProUGUI dialogueText;
     public GameObject canvas;
 
     private Queue<string> sentences;
-    bool isDisplayingText;
-    bool justClosedText;//I don't like that I need this, but it works
 
     // Start is called before the first frame update
     void Start()
     {
         sentences = new Queue<string>();
-        isDisplayingText = false;
         canvas.SetActive(false);
     }
 
     void Update()
     {
-        justClosedText = false;
-        if (isDisplayingText)
+        if (hasControl &&!ControlManager.instance.getSwitched())
         {
+            Debug.Log("here");
             if (Input.GetKeyDown(KeyCode.X))
             {
                 displayNextSentence();
             }
         }
+        Debug.Log("get switched is "+ControlManager.instance.getSwitched());
     }
 
     public void startDialogue(Dialogue dialogue)
     {
-        Debug.Log("starting conversation");
-        
-        
-        
-        isDisplayingText = true;
         canvas.SetActive(true);
 
         sentences.Clear();
@@ -59,27 +69,13 @@ public class DialogueManager : MonoBehaviour
             endDialogue();
             return;
         }
-
         string sentence = sentences.Dequeue();
-
         dialogueText.text = sentence;
     }
 
     void endDialogue()
     {
-        Debug.Log("end of conversation");
         canvas.SetActive(false);
-        isDisplayingText = false;
-        justClosedText = true;
-    }
-
-    public bool getIsDisplayingText()
-    {
-        return isDisplayingText;
-    }
-
-    public bool getJustClosedText()
-    {
-        return justClosedText;
+        ControlManager.instance.switchControl(PlayerMovement.instance);
     }
 }

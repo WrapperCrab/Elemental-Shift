@@ -18,7 +18,7 @@ public class ItemInteract : Interaction
             triggerDialogue();
 
             //destroy object in world
-            Destroy(gameObject);
+            Destroy(gameObject);//may want different behavior depending on object. Put into own function and add public bool to decide action
             return;
         }
         Dialogue noSpace = Inventory.instance.getDialogue();

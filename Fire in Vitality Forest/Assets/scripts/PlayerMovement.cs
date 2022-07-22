@@ -2,20 +2,41 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : Controllable
 {
+    #region Singleton
+
+    public static PlayerMovement instance;//find inventory with Inventory.instance
+    void Awake()
+    {
+        if (instance != null)
+        {
+            Debug.LogWarning("More than one instance of PlayerMovement found!");
+            return;
+        }
+        instance = this;
+    }
+
+    #endregion
+
+
     public Rigidbody2D rigidBodyPlayer;
     public DialogueManager dialogueManager;
-    Camera cam;
 
     public float walkSpeed;
     public float runSpeed;
 
     Vector2 newVel;
     bool isRunning;
+    
     bool justPressedX;
+
     int numTriggers;
 
+    void Start()
+    {
+        hasControl = true;
+    }
 
     // Update is called once per frame
     void Update()
@@ -23,25 +44,28 @@ public class PlayerMovement : MonoBehaviour
         newVel.x = Input.GetAxisRaw("Horizontal");
         newVel.y = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetKey(KeyCode.Space))//run button
+        if (hasControl && !ControlManager.instance.getSwitched())
         {
-            isRunning = true;
-        }
-        else
-        {
-            isRunning = false;
-        }
+            if (Input.GetKey(KeyCode.Space))//run button
+            {
+                isRunning = true;
+            }
+            else
+            {
+                isRunning = false;
+            }
 
-        if (Input.GetKeyDown(KeyCode.X) && canInteract() && isInTrigger())
-        {
-            justPressedX = true;
+            if (Input.GetKeyDown(KeyCode.X) && isInTrigger())
+            {
+                justPressedX = true;
+            }
         }
     }
 
     void FixedUpdate()
     {
         // update the player's velocity
-        if (canInteract())//otherwise, no change to movement is made
+        if (hasControl)//otherwise, no change to movement is made
         {
             if (isRunning)
             {
@@ -74,15 +98,10 @@ public class PlayerMovement : MonoBehaviour
         {
             justPressedX = false;
             //Activate other.gameObject's interaction method
+
+
             other.gameObject.GetComponent<Interaction>().interact();//I can't believe this actually works. It's like magic.
         }
-    }
-
-    public bool canInteract()//This function will be expanded upon for other circumstances
-    {
-        bool isNotDisplayingText = !(dialogueManager.GetComponent<DialogueManager>().getIsDisplayingText());//want true
-        bool didNotJustClose = !(dialogueManager.GetComponent<DialogueManager>().getJustClosedText());//want true
-        return (isNotDisplayingText && didNotJustClose);
     }
 
     public bool isInTrigger()
@@ -93,5 +112,4 @@ public class PlayerMovement : MonoBehaviour
         }
         return false;
     }
-
 }
