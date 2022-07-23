@@ -61,6 +61,7 @@ public class PlayerMovement : Controllable
             }
             else if (Input.GetKeyDown(KeyCode.E))
             {
+                Debug.Log("here");
                 ControlManager.instance.switchControl(OverworldMenuControl.instance);
             }
             

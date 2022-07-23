@@ -46,15 +46,11 @@ public class DialogueManager : Controllable
 
     public void startDialogue(Dialogue dialogue)
     {
-        canvas.SetActive(true);
-
         sentences.Clear();
-
         foreach (string sentence in dialogue.sentences)
         {
             sentences.Enqueue(sentence);
         }
-
         displayNextSentence();
     }
 
@@ -71,7 +67,12 @@ public class DialogueManager : Controllable
 
     void endDialogue()
     {
-        canvas.SetActive(false);
         ControlManager.instance.switchControl(PlayerMovement.instance);
+    }
+
+    public override void switchControl()
+    {
+        canvas.SetActive(!canvas.activeSelf);
+        hasControl = !hasControl; 
     }
 }
