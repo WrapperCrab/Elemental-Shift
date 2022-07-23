@@ -27,7 +27,6 @@ public class OverworldMenuControl : Controllable
     void Start()
     {
         canvas.SetActive(false);
-        firstButton.Select();
     }
 
     // Update is called once per frame
@@ -60,8 +59,8 @@ public class OverworldMenuControl : Controllable
             case 5:
                 //ControlManager.instance.switchControl();
                 break;
-            case 6:
-                //ControlManager.instance.switchControl();
+            case 6://quit
+                ControlManager.instance.switchControl(QuitMenuControl.instance);
                 break;
             default:
                 ControlManager.instance.switchControl(PlayerMovement.instance);
@@ -73,6 +72,9 @@ public class OverworldMenuControl : Controllable
     {
         canvas.SetActive(!canvas.activeSelf);//!!!I don't want canvas to disappear unless I am going back to player. It works for now
         hasControl = !hasControl;
-        Debug.Log(gameObject.activeSelf);
+        if (canvas.activeSelf)
+        {
+            firstButton.Select();
+        }
     }
 }
