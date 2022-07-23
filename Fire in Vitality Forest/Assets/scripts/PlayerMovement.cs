@@ -59,6 +59,11 @@ public class PlayerMovement : Controllable
             {
                 justPressedX = true;
             }
+            else if (Input.GetKeyDown(KeyCode.E))
+            {
+                ControlManager.instance.switchControl(OverworldMenuControl.instance);
+            }
+            
         }
     }
 

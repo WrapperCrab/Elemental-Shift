@@ -21,7 +21,6 @@ public class DialogueManager : Controllable
 
     #endregion
 
-
     public TextMeshProUGUI dialogueText;
     public GameObject canvas;
 
