@@ -36,6 +36,7 @@ public class PlayerMovement : Controllable
     void Start()
     {
         hasControl = true;
+        menuDepth = 0;
     }
 
     // Update is called once per frame
@@ -61,7 +62,6 @@ public class PlayerMovement : Controllable
             }
             else if (Input.GetKeyDown(KeyCode.E))
             {
-                Debug.Log("here");
                 ControlManager.instance.switchControl(OverworldMenuControl.instance);
             }
             

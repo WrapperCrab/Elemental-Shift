@@ -30,6 +30,7 @@ public class DialogueManager : Controllable
     void Start()
     {
         sentences = new Queue<string>();
+        menuDepth = 1;
         canvas.SetActive(false);
     }
 
@@ -70,9 +71,8 @@ public class DialogueManager : Controllable
         ControlManager.instance.switchControl(PlayerMovement.instance);
     }
 
-    public override void switchControl()
+    public override void changeActive()
     {
         canvas.SetActive(!canvas.activeSelf);
-        hasControl = !hasControl; 
     }
 }

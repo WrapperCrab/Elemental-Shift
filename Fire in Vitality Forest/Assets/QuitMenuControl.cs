@@ -26,6 +26,7 @@ public class QuitMenuControl : Controllable
     // Start is called before the first frame update
     void Start()
     {
+        menuDepth = 2;
         canvas.SetActive(false);
     }
 
@@ -41,10 +42,9 @@ public class QuitMenuControl : Controllable
         }
     }
 
-    public override void switchControl()
+    public override void changeActive()
     {
-        canvas.SetActive(!canvas.activeSelf);//!!!I don't want canvas to disappear unless I am going back to player. It works for now
-        hasControl = !hasControl;
+        canvas.SetActive(!canvas.activeSelf);
         if (canvas.activeSelf)
         {
             firstButton.Select();

@@ -45,6 +45,28 @@ public class ControlManager : MonoBehaviour
 
     public void switchControl(Controllable gainControl)
     {
+        int oldDepth = obWithControl.getMenuDepth();
+        int newDepth = gainControl.getMenuDepth();
+
+        if (oldDepth < newDepth)
+        {
+            //disable old menu
+            obWithControl.changeAble();
+            //activate new menu
+            gainControl.changeActive();
+
+        }
+        else if (oldDepth > newDepth)
+        {
+            //deactivate old menu
+            obWithControl.changeActive();
+            //enable new menu
+            gainControl.changeAble();
+        }
+        else
+        {
+            Debug.Log("consecutive menu depths are the same (no good)");
+        }
         obWithControl.switchControl();
         gainControl.switchControl();
         obWithControl = gainControl;
