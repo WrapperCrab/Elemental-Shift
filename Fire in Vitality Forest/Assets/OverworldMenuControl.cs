@@ -54,20 +54,20 @@ public class OverworldMenuControl : Controllable
         }
         switch (buttonNumber)
         {
-            case 1:
+            case 1://save
                 //ControlManager.instance.switchControl();
                 break;
-            case 2:
+            case 2://inventory
                 //ControlManager.instance.switchControl();
                 break;
-            case 3:
+            case 3://skills
                 //ControlManager.instance.switchControl();
                 break;
-            case 4:
+            case 4://enepedia
                 //ControlManager.instance.switchControl();
                 break;
-            case 5:
-                //ControlManager.instance.switchControl();
+            case 5://settings
+                ControlManager.instance.switchControl(SettingsMenuControl.instance);
                 break;
             case 6://quit
                 ControlManager.instance.switchControl(QuitMenuControl.instance);
@@ -107,7 +107,6 @@ public class OverworldMenuControl : Controllable
         if (selectedButton != null)
         {
             selectedButton.Select();
-            Debug.Log("selected button");
         }
         else
         {

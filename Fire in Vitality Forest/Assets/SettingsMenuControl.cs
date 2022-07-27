@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class QuitMenuControl : Controllable
+public class SettingsMenuControl : Controllable
 {
+
     #region Singleton
 
-    public static QuitMenuControl instance;//find inventory with Inventory.instance
+    public static SettingsMenuControl instance;//find inventory with Inventory.instance
     void Awake()
     {
         if (instance != null)
         {
-            Debug.LogWarning("More than one instance of OverworldMenuControl found!");
+            Debug.LogWarning("More than one instance of SettingsMenuControl found!");
             return;
         }
         instance = this;
@@ -21,7 +22,7 @@ public class QuitMenuControl : Controllable
     #endregion
 
     public GameObject canvas;
-    public Button firstButton;
+    public Button firstButton;//!!!Not sure if this will work for sliders
 
     // Start is called before the first frame update
     void Start()
@@ -51,13 +52,8 @@ public class QuitMenuControl : Controllable
         }
     }
 
-    public void noButtonPress()
+    public void setArbNum(float arbNum)
     {
-        ControlManager.instance.switchControl(OverworldMenuControl.instance);
-    }
-
-    public void yesButtonPress()
-    {
-        //!!!change scene to main menu
+        Debug.Log(arbNum);
     }
 }
