@@ -5,21 +5,6 @@ using UnityEngine.UI;
 
 public class QuitMenuControl : Controllable
 {
-    #region Singleton
-
-    public static QuitMenuControl instance;//find inventory with Inventory.instance
-    void Awake()
-    {
-        if (instance != null)
-        {
-            Debug.LogWarning("More than one instance of OverworldMenuControl found!");
-            return;
-        }
-        instance = this;
-    }
-
-    #endregion
-
     public GameObject canvas;
     public Button firstButton;
 

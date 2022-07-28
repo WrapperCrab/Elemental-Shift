@@ -58,7 +58,7 @@ public class OverworldMenuControl : Controllable
                 //ControlManager.instance.switchControl();
                 break;
             case 2://inventory
-                //ControlManager.instance.switchControl();
+                ControlManager.instance.switchControl(gameObject.transform.Find("InventoryMenu").GetComponent<Controllable>());
                 break;
             case 3://skills
                 //ControlManager.instance.switchControl();
@@ -67,10 +67,10 @@ public class OverworldMenuControl : Controllable
                 //ControlManager.instance.switchControl();
                 break;
             case 5://settings
-                ControlManager.instance.switchControl(SettingsMenuControl.instance);
+                ControlManager.instance.switchControl(gameObject.transform.Find("SettingsMenu").GetComponent<Controllable>());
                 break;
             case 6://quit
-                ControlManager.instance.switchControl(QuitMenuControl.instance);
+                ControlManager.instance.switchControl(gameObject.transform.Find("QuitMenu").GetComponent<Controllable>());
                 break;
             default:
                 ControlManager.instance.switchControl(PlayerMovement.instance);

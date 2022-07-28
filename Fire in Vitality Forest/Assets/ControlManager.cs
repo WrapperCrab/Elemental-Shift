@@ -19,7 +19,6 @@ public class ControlManager : MonoBehaviour
 
     #endregion
 
-
     //this is to be used to keep player control in only one place at a time. 
     //If a player switches to a different area of control in a frame, we have a bool here
     //which keeps the player's input from being counted again in the new area

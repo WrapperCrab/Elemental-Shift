@@ -4,6 +4,7 @@ using UnityEngine;
 public class Item : ScriptableObject
 {
     new public string name = "New Item";
-    public Sprite icon = null;
+    public string description = "New Description";
     public bool isDefaultItem = false;
+    public bool isKeyItem = false;
 }

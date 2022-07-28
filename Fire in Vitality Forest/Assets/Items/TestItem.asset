@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f860a8f5e1c34e43a3baf3445e2cb43, type: 3}
   m_Name: TestItem
   m_EditorClassIdentifier: 
-  name: poison berry
-  icon: {fileID: 0}
+  name: test item
+  description: test test test test test test
   isDefaultItem: 0
+  isKeyItem: 0

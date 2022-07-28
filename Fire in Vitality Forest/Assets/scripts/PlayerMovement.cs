@@ -23,6 +23,7 @@ public class PlayerMovement : Controllable
     public Rigidbody2D rigidBodyPlayer;
     public DialogueManager dialogueManager;
 
+
     public float walkSpeed;
     public float runSpeed;
 
