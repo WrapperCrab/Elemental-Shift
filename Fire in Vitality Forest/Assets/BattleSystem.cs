@@ -28,10 +28,10 @@ public class BattleSystem : MonoBehaviour
     void Start()
     {
         state = BattleState.START;
-        setupBattle();
+        StartCoroutine(setupBattle());
     }
 
-    void setupBattle()
+    IEnumerator setupBattle()
     {
         GameObject playerGO = Instantiate(playerPrefab, playerBattleStation);
         playerUnit = playerGO.GetComponent<Unit>();
@@ -42,5 +42,15 @@ public class BattleSystem : MonoBehaviour
         dialogueText.text = "A wild " + enemyUnit.unitName + " approaches";
 
         playerHUD.setHUD(playerUnit);
+
+        yield return new WaitForSeconds(2f);
+
+        state = BattleState.PLAYERSELECT;
+        playerSelect();
+    }
+
+    void playerSelect()
+    {
+        dialogueText.text = "Choose an action";
     }
 }

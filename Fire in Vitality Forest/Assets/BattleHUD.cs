@@ -30,8 +30,6 @@ public class BattleHUD : MonoBehaviour
         currentMagic.text = unit.currentM + "/" + unit.maxM;
 
         element.text = unit.element.getName();
-
-
     }
 
     public void setH(int h)
