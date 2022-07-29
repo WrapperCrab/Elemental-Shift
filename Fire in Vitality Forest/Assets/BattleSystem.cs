@@ -24,6 +24,8 @@ public class BattleSystem : MonoBehaviour
 
     public BattleHUD playerHUD;
 
+    public GameObject turnMenuCanvas;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -52,5 +54,6 @@ public class BattleSystem : MonoBehaviour
     void playerSelect()
     {
         dialogueText.text = "Choose an action";
+
     }
 }
