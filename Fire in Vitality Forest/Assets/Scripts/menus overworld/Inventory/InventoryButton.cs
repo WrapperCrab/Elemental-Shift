@@ -9,6 +9,7 @@ public class InventoryButton : MonoBehaviour, ISelectHandler
 
     public void OnSelect(BaseEventData eventData)//An item button has been selected
     {
+        //Debug.Log(gameObject.GetComponent<InventorySlot>() == null);
         canvas.GetComponent<InventoryUI>().updateDescription(gameObject.GetComponent<InventorySlot>().item);
     }
 }
