@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ControlManager : MonoBehaviour
 {
@@ -29,7 +30,21 @@ public class ControlManager : MonoBehaviour
     void Start()
     {
         switchedThisFrame = false;
-        obWithControl = PlayerMovement.instance;//!!!
+        //get the scene we are in
+        Scene currentScene = SceneManager.GetActiveScene();
+        string sceneName = currentScene.name;
+        if (sceneName == "Overworld")
+        {
+            obWithControl = PlayerMovement.instance;
+        }
+        else if (sceneName == "Battle")
+        {
+            obWithControl = BattleSystem.instance;
+        }
+        else
+        {
+            Debug.Log("No obWithControl. Shit's gone south");
+        }
     }
 
     void LateUpdate()

@@ -134,7 +134,7 @@ MonoBehaviour:
   maxH: 30
   currentM: 0
   maxM: 0
-  attack: 0
-  defense: 0
+  attack: 3
+  defense: 2
   speed: 0
   element: {fileID: 11400000, guid: dc08e53a30bf2ff46b7459439c968591, type: 2}

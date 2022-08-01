@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Unit : MonoBehaviour
 {
@@ -18,4 +19,19 @@ public class Unit : MonoBehaviour
 
     public ImbuedElement element;
 
+    public bool getAttacked(int _attack)//this will have more inputs later
+    {
+        int damage = (int)Math.Ceiling(((double)_attack/(double)defense));
+
+        currentH -= damage;
+
+        if (currentH <= 0)
+        {
+            return true;//unit has died
+        }
+        else
+        {
+            return false;
+        }
+    }
 }

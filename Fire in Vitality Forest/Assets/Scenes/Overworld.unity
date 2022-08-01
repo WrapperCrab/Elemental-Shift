@@ -551,9 +551,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasControl: 0
-  menuDepth: 0
+  menuDepth: 2
   canvas: {fileID: 537771176}
   firstButton: {fileID: 1258743063}
+  selectedButton: {fileID: 0}
+  backMenu: {fileID: 1111225304}
 --- !u!1 &117178751
 GameObject:
   m_ObjectHideFlags: 0
@@ -902,6 +904,8 @@ MonoBehaviour:
   menuDepth: 2
   canvas: {fileID: 952281582}
   firstButton: {fileID: 2108809263}
+  selectedButton: {fileID: 0}
+  backMenu: {fileID: 1111225304}
 --- !u!1 &235878785
 GameObject:
   m_ObjectHideFlags: 0
@@ -5368,10 +5372,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasControl: 0
-  menuDepth: 0
+  menuDepth: 1
   canvas: {fileID: 878261611}
   firstButton: {fileID: 1817240533}
   selectedButton: {fileID: 0}
+  backMenu: {fileID: 793173346}
 --- !u!1 &1123976576
 GameObject:
   m_ObjectHideFlags: 0
@@ -5990,10 +5995,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasControl: 0
-  menuDepth: 0
+  menuDepth: 2
   canvas: {fileID: 1990699996}
   firstButton: {fileID: 1851427095}
   selectedButton: {fileID: 0}
+  backMenu: {fileID: 1111225304}
 --- !u!1 &1323147445
 GameObject:
   m_ObjectHideFlags: 0

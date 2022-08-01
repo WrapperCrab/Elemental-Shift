@@ -65,7 +65,6 @@ public class PlayerMovement : Controllable
             {
                 ControlManager.instance.switchControl(OverworldMenuControl.instance);
             }
-            
         }
     }
 
