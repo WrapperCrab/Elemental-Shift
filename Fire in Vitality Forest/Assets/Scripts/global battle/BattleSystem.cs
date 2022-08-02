@@ -119,30 +119,31 @@ public class BattleSystem : Controllable
         //call actions one at a time
         foreach(Action action in actionsToUse)
         {
+            bool actionCompleted = false;
             //!!!make checks for things like unit death.
             if (action.getUser().currentH > 0)
             {//the user is alive
                 if (action.getTargets()[0].currentH > 0)
                 {//the target is alive
                     SkillList.instance.performAction(action);
+                    actionCompleted = true;
                 }
                 else
-                {//!!!the target is dead. target the first enemy/team member
-                    //if none are alive, skip
-                    
+                {//!!!the target is dead
+                    //if there is an alternative target, target them
+                    //else, skip this action
                 }
             }
-
-
-
-
 
             //update HUD
             playerHUD.setHUD(team[0]);
 
             //dialogueText may be chaned when action is performed. I'm not sure yet
-            dialogueText.text = action.getTargets()[0].name + " took damage!";
-            yield return new WaitForSeconds(2f);
+            if (actionCompleted)//is not called if would-be-user was dead
+            {
+                dialogueText.text = action.getTargets()[0].name + " took damage!";
+                yield return new WaitForSeconds(2f);
+            }
         }
 
         //we're done performing actions for this turn.
@@ -200,5 +201,11 @@ public class BattleSystem : Controllable
         int bUserSpeed = b.getUserSpeed();
 
         return aUserSpeed.CompareTo(bUserSpeed);
+    }
+
+    public Unit findBestTarget(Action action)
+    {//if the target is dead, it finds the best alternative if there is one. 
+        //!!!I haven't written this yet because it is pointless with only 1 enemy and 1 player.
+        return action.getTargets()[0];
     }
 }
