@@ -32,5 +32,4 @@ public class Action : ScriptableObject
     {
         return targets;
     }
-
 }

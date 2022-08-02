@@ -119,9 +119,23 @@ public class BattleSystem : Controllable
         //call actions one at a time
         foreach(Action action in actionsToUse)
         {
-            SkillList.instance.performAction(action);
+            //!!!make checks for things like unit death.
+            if (action.getUser().currentH > 0)
+            {//the user is alive
+                if (action.getTargets()[0].currentH > 0)
+                {//the target is alive
+                    SkillList.instance.performAction(action);
+                }
+                else
+                {//!!!the target is dead. target the first enemy/team member
+                    //if none are alive, skip
+                    
+                }
+            }
 
-            //!!!make checks for things like unit death. Remove from arrays if applicable
+
+
+
 
             //update HUD
             playerHUD.setHUD(team[0]);
