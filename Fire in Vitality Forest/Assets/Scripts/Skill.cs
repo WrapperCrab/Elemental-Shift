@@ -3,16 +3,20 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Item", menuName = "Skill")]
 public class Skill : ScriptableObject
 {
-    public string skillName = "new skill";
+    new public string name = "new skill";
     public string description = "new description";
-    public int skillIndex = 0;//unique for each skill
+    public int index = 0;//unique for each skill
 
-    public bool onEnemy;//true if used on enemy
-    public bool onTeam;//true if used on teammate(s)
+    //These attributes are used for when the player selects who to use the move on
+    public bool onEnemy = true;//true if useable on enemy
+    public bool onTeam = false;//true if useable on teammate(s)
 
-    public bool hitsAll;//true if affects all teammates or enemies at once
-    public bool usesImbue;//true if effect changes depending on user's imbued element
+    public bool hitsAll = false;//true if affects all teammates or enemies at once
+
+    public bool usableOutsideBattle = false;
 
 
-    //how do I add the different effects a skill has?
+    //skill's effects held in SkillList
+
+
 }

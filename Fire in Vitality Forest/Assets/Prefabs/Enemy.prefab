@@ -130,7 +130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitName: enemy
-  currentH: 25
+  currentH: 7
   maxH: 30
   currentM: 0
   maxM: 0

@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitName: Player
-  currentH: 2
+  currentH: 4
   maxH: 50
   currentM: 20
   maxM: 50

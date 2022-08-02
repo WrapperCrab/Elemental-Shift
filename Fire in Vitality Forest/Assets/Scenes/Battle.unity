@@ -493,6 +493,7 @@ GameObject:
   - component: {fileID: 239513533}
   - component: {fileID: 239513532}
   - component: {fileID: 239513531}
+  - component: {fileID: 239513534}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -547,6 +548,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &239513534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 239513530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41ed3c4293edbb1488cb805483a53968, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &244056411
 GameObject:
   m_ObjectHideFlags: 0
@@ -1465,6 +1478,7 @@ MonoBehaviour:
   firstButton: {fileID: 57622911}
   selectedButton: {fileID: 0}
   backMenu: {fileID: 57103815}
+  attack: {fileID: 11400000, guid: 705c3c1001edcfa419c004dab05625a8, type: 2}
 --- !u!1 &779177297
 GameObject:
   m_ObjectHideFlags: 0
@@ -1896,7 +1910,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -164.9, y: 70.6}
+  m_AnchoredPosition: {x: -164.9, y: 70.600006}
   m_SizeDelta: {x: -720.92, y: -307.28}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1106220640
@@ -2086,9 +2100,15 @@ MonoBehaviour:
   enemyPrefab: {fileID: 1657397430194816326, guid: 21589dca13b336a4ba21078995090c27, type: 3}
   playerBattleStation: {fileID: 1756372870}
   enemyBattleStation: {fileID: 849789020}
+  numTeam: 1
+  numEnemies: 1
+  numFighters: 2
+  team: []
+  enemies: []
   dialogueText: {fileID: 1933761867}
   playerHUD: {fileID: 1040013389}
   turnMenu: {fileID: 57103815}
+  attack: {fileID: 11400000, guid: 705c3c1001edcfa419c004dab05625a8, type: 2}
 --- !u!4 &1293975835
 Transform:
   m_ObjectHideFlags: 0

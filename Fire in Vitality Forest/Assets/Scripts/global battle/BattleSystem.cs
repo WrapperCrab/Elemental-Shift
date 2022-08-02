@@ -25,20 +25,30 @@ public class BattleSystem : Controllable
 
     public BattleState state;
 
-    public GameObject playerPrefab;
-    public GameObject enemyPrefab;
+    public GameObject playerPrefab;//will be array
+    public GameObject enemyPrefab;//will be array
 
     public Transform playerBattleStation;
     public Transform enemyBattleStation;
 
-    Unit playerUnit;
-    Unit enemyUnit;
+    public int numTeam;
+    public int numEnemies;
+    public int numFighters;
 
+    public Unit[] team;
+    public Unit[] enemies;
+
+    
+
+    List<Action> actionsToUse = new List<Action>();//It would be nice if this works
+    
     public TextMeshProUGUI dialogueText;
 
-    public BattleHUD playerHUD;
+    public BattleHUD playerHUD;//will be array
 
     public MenuControl turnMenu;
+
+    public Skill attack;//!!!This will not be here
 
     // Start is called before the first frame update
     void Start()
@@ -47,6 +57,9 @@ public class BattleSystem : Controllable
         //It gets control in START ENEMYSELECT ATTACK WON and LOST battle states
         //The only thing the player can do when this has control is (sometimes) speedup/skip text or press a key to end the battle in WON and LOST
         hasControl = true;
+
+        numFighters = numTeam + numEnemies;
+
         state = BattleState.START;
         StartCoroutine(setupBattle());
     }
@@ -54,14 +67,14 @@ public class BattleSystem : Controllable
     IEnumerator setupBattle()
     {
         GameObject playerGO = Instantiate(playerPrefab, playerBattleStation);
-        playerUnit = playerGO.GetComponent<Unit>();
+        team = new Unit[] { playerGO.GetComponent<Unit>() };
 
         GameObject enemyGO = Instantiate(enemyPrefab, enemyBattleStation);
-        enemyUnit = enemyGO.GetComponent<Unit>();
+        enemies = new Unit[] { enemyGO.GetComponent<Unit>() };
 
-        dialogueText.text = "A wild " + enemyUnit.unitName + " approaches";
+        dialogueText.text = "A wild " + enemies[0].unitName + " approaches";
 
-        playerHUD.setHUD(playerUnit);
+        playerHUD.setHUD(team[0]);
 
         yield return new WaitForSeconds(2f);
 
@@ -84,55 +97,61 @@ public class BattleSystem : Controllable
 
         Debug.Log("enemy is selecting moves");
 
+        Action enemyMove = ScriptableObject.CreateInstance<Action>();
+
+        Unit[] targets = new Unit[1];
+        targets[0] = team[0];
+
+        enemyMove.setAction(attack, enemies[0], targets);
+        addAction(enemyMove);
+        
         //change to BATTLE phase
         state = BattleState.BATTLE;
         StartCoroutine(battle());
     }
 
     IEnumerator battle()//!!!This will be completely different
-    {
-        //perform previously chosen actions one by one
-        //wait a few seconds after each action so player can react
-
+    {        
         Debug.Log("The battle is happening!");
+        //sort actionsToUse by unit speed
+        actionsToUse.Sort(compareActions);//!!!No way this works
 
-        bool isEnemyDead = enemyUnit.getAttacked(playerUnit.attack);
-        dialogueText.text = "the enemy took damage!";
-
-        yield return new WaitForSeconds(2f);
-
-        //!!!This is not how it will work
-        if (isEnemyDead)
+        //call actions one at a time
+        foreach(Action action in actionsToUse)
         {
+            SkillList.instance.performAction(action);
+
+            //!!!make checks for things like unit death. Remove from arrays if applicable
+
+            //update HUD
+            playerHUD.setHUD(team[0]);
+
+            //dialogueText may be chaned when action is performed. I'm not sure yet
+            dialogueText.text = action.getTargets()[0].name + " took damage!";
+            yield return new WaitForSeconds(2f);
+        }
+
+        //we're done performing actions for this turn.
+        //check if either side has won.
+        if (team[0].currentH==0)
+        {
+            //player lost
+            state = BattleState.LOST;
+            battleLost();
+        }
+        else if (enemies[0].currentH==0)
+        {
+            //player won!
             //change state to WON
             state = BattleState.WON;
             battleWon();
         }
         else
         {
-            //do enemy's action
-            bool isPlayerDead = playerUnit.getAttacked(enemyUnit.attack);
-
-            playerHUD.setHUD(playerUnit);
-
-            dialogueText.text = "you took damage!";
-
-            yield return new WaitForSeconds(2f);
-
-            if (isPlayerDead)
-            {
-                //change state to LOST
-                state = BattleState.LOST;
-                battleLost();
-            }
-            else
-            {
-                //change state to PLAYERSELECT
-                state = BattleState.PLAYERSELECT;
-                playerSelect();
-            }
+            //change state to PLAYERSELECT
+            state = BattleState.PLAYERSELECT;
+            playerSelect();
         }
-
     }
 
     public void battleWon()
@@ -143,5 +162,29 @@ public class BattleSystem : Controllable
     public void battleLost()
     {
         dialogueText.text = "you were defeated.";
+    }
+
+    public void addAction(Action action)
+    {
+        actionsToUse.Add(action);
+    }
+
+    public void clearSkills()//!!!I don't think this works yet
+    {
+        actionsToUse.Clear();
+    }
+
+    //used to sort actions in actionsToUse list
+    public int compareActions(Action a, Action b)
+    {
+        if (a == null || b == null)
+        {
+            return 0;
+        }
+
+        int aUserSpeed = a.getUserSpeed();
+        int bUserSpeed = b.getUserSpeed();
+
+        return aUserSpeed.CompareTo(bUserSpeed);
     }
 }

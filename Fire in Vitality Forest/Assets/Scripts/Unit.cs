@@ -34,4 +34,18 @@ public class Unit : MonoBehaviour
             return false;
         }
     }
+
+    public bool takeDamage(int damage)
+    {
+        currentH -= damage;
+        currentH = Math.Max(currentH, 0);
+        if (currentH == 0)
+        {
+            return true;//unit has died
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
