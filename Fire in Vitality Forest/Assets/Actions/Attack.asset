@@ -9,13 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9328c47c06274f2448ccb097d996c65c, type: 3}
+  m_Script: {fileID: 11500000, guid: 59c92195df2ef454f9c04b8b81aae4c0, type: 3}
   m_Name: Attack
   m_EditorClassIdentifier: 
   name: Attack
-  description: Attack one target
+  description: attack one enemy with your weapon
   index: 1
   onEnemy: 1
   onTeam: 0
   hitsAll: 0
+  selfMove: 0
   usableOutsideBattle: 0
+  user: {fileID: 0}
+  targets: []

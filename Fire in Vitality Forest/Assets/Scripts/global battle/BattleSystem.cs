@@ -48,7 +48,7 @@ public class BattleSystem : Controllable
 
     public MenuControl turnMenu;
 
-    public Skill attack;//!!!This will not be here
+    public Action attack;//!!!This will not be here
 
     // Start is called before the first frame update
     void Start()
@@ -97,14 +97,23 @@ public class BattleSystem : Controllable
 
         Debug.Log("enemy is selecting moves");
 
-        Action enemyMove = ScriptableObject.CreateInstance<Action>();
+        //!!!This should happen for each enemy in an enemy specific move selection function
+        //maybe the unit?
+        Action enemyMove = ScriptableObject.CreateInstance<ActionAttack>();
+        enemyMove.setAction(attack);
 
-        Unit[] targets = new Unit[1];
-        targets[0] = team[0];
+        List<Unit> targets = new List<Unit>();
+        targets.Add(team[0]);
 
-        enemyMove.setAction(attack, enemies[0], targets);
-        addAction(enemyMove);
-        
+        enemyMove.setUser(enemies[0]);
+        enemyMove.setTargets(targets);
+
+        //don't put moves with no targets into turn order
+        if (!enemyMove.hasNoTarget())
+        {
+            addAction(enemyMove);
+        }
+
         //change to BATTLE phase
         state = BattleState.BATTLE;
         StartCoroutine(battle());
@@ -112,27 +121,53 @@ public class BattleSystem : Controllable
 
     IEnumerator battle()//!!!This will be completely different
     {        
-        Debug.Log("The battle is happening!");
+        Debug.Log("The battle is happening!");       
         //sort actionsToUse by unit speed
-        actionsToUse.Sort(compareActions);//!!!No way this works
+        actionsToUse.Sort(compareActions);
+
+
 
         //call actions one at a time
-        foreach(Action action in actionsToUse)
+        foreach (Action action in actionsToUse)
         {
             bool actionCompleted = false;
-            //!!!make checks for things like unit death.
+            //make checks for things like unit death.
             if (action.getUser().currentH > 0)
             {//the user is alive
-                if (action.getTargets()[0].currentH > 0)
-                {//the target is alive
-                    SkillList.instance.performAction(action);
-                    actionCompleted = true;
+
+                if (!new List<int> { 0, 1 }.Contains(action.getTargetType()))
+                {//this is a move with potentially dead targets
+                    if (action.getHitsAll())
+                    {//We only need remove dead targets
+                     //get rid of all targets which are deaad
+                        List<int> unitsToDelete = new List<int>();
+                        for (int i = 0; i < action.getTargets().Count; i++)
+                        {
+                            if (action.getTargets()[i].currentH <= 0)
+                            {//this target is dead. No need to target them
+                                unitsToDelete.Add(i);
+                            }
+                        }
+                        //delete necessary units
+                        for (int j = 0; j < unitsToDelete.Count; j++)
+                        {//delete targets backwards to avoid problems of changing indeces
+                            action.removeTarget(unitsToDelete[unitsToDelete.Count - (j + 1)]);
+                        }
+                    }
+                    else
+                    {//We need to look for a suitable replacement target if the target is dead
+                        if (action.getTargets()[0].currentH <= 0)
+                        {
+                            //!!!Our target is dead. Find best replacement if there is one
+                            //if not, just delete this target and move on
+                            action.removeTarget(0);
+                        }
+                    }                    
                 }
-                else
-                {//!!!the target is dead
-                    //if there is an alternative target, target them
-                    //else, skip this action
-                }
+                //No targets for this move are dead. Now we can perform the move
+                //!!!This does not currently check if targetting move has no target
+                action.performAction();
+                actionCompleted = true;
             }
 
             //update HUD
@@ -141,10 +176,13 @@ public class BattleSystem : Controllable
             //dialogueText may be chaned when action is performed. I'm not sure yet
             if (actionCompleted)//is not called if would-be-user was dead
             {
-                dialogueText.text = action.getTargets()[0].name + " took damage!";
+                dialogueText.text = action.moveCompletedText();
                 yield return new WaitForSeconds(2f);
             }
         }
+
+        //clear the previous turn's actions
+        clearSkills();
 
         //we're done performing actions for this turn.
         //check if either side has won.
