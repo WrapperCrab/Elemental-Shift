@@ -36,16 +36,16 @@ public class TargetSelectMenuControl : MenuControl
 
     public void spawnTeamButton(Transform transform)
     {//spawns a target button above the player unit
-        Transform buttonTransform = transform;
-        buttonTransform.position = new Vector2(transform.position.x, transform.position.y + 10);//This number will be unique to the unit later on to accomadate differently sized enemies            
-        Button button = Instantiate(playerButtonPrefab, buttonTransform);
+        var buttonTransform = Instantiate(transform);
+        buttonTransform.position = new Vector2(transform.position.x, transform.position.y);//This number will be unique to the unit later on to accomadate differently sized enemies            
+        Button button = Instantiate(playerButtonPrefab, buttonTransform.position, Quaternion.identity, canvas.transform);
     }
 
     public void spawnEnemyButton(Transform transform)
     {//spawns target button above the enemy unit, unit
-        Transform buttonTransform = transform; 
-        buttonTransform.position = new Vector2(transform.position.x, transform.position.y + 10);
-        Button button = Instantiate(enemyButtonPrefab, buttonTransform);
+        Transform buttonTransform = Instantiate(transform); 
+        buttonTransform.position = new Vector2(transform.position.x, transform.position.y);
+        Button button = Instantiate(enemyButtonPrefab, buttonTransform.position, Quaternion.identity, canvas.transform);
     }
 
 }
