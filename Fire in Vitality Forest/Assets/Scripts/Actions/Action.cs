@@ -75,6 +75,16 @@ public class Action : ScriptableObject
         return hitsAll;
     }
 
+    public bool getOnEnemy()
+    {
+        return onEnemy;
+    }
+
+    public bool getOnTeam()
+    {
+        return onTeam;
+    }
+
     public bool hasNoTarget()
     {
         return (!onEnemy && !onTeam);

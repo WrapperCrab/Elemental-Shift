@@ -20,6 +20,8 @@ public class Unit : MonoBehaviour
     public List<Action> skills;
     public Action pass;
 
+    public bool isHighlighted = false;
+
     public bool getAttacked(int _attack)//this will have more inputs later
     {
         int damage = (int)Math.Ceiling(((double)_attack/(double)defense));
@@ -48,5 +50,17 @@ public class Unit : MonoBehaviour
         {
             return false;
         }
+    }
+
+    public void highlight()
+    {
+        sprite.color = new Color(0, 1, 0, 1);
+        isHighlighted = true;
+    }
+
+    public void unHighlight()
+    {
+        sprite.color = new Color(1, 1, 1, 1);
+        isHighlighted = false;
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class ActionSelectMenuControl : MenuControl
 {
     public PlayerUnit currentPlayer;//player having move selected right now
+    public TargetSelectMenuControl targetSelectMenuPrefab;
 
     public override void changeActive()
     {
@@ -25,6 +26,8 @@ public class ActionSelectMenuControl : MenuControl
         _action.setUser(currentPlayer);
 
         //send it to TargetSelectMenu to set targets
+        TargetSelectMenuControl targetSelectMenu = Instantiate(targetSelectMenuPrefab);
+        targetSelectMenu.setAction(action);
     }
 
 
