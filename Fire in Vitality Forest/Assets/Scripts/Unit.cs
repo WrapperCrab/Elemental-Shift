@@ -19,6 +19,8 @@ public class Unit : MonoBehaviour
 
     public ImbuedElement element;
 
+    public Action normalAttack;
+
     public bool getAttacked(int _attack)//this will have more inputs later
     {
         int damage = (int)Math.Ceiling(((double)_attack/(double)defense));

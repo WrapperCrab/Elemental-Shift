@@ -6,7 +6,6 @@ public class Action : ScriptableObject
 {//created when a unit's move has been decided and is to be added to the list
     new public string name = "new skill";
     public string description = "new skill description";
-    public int index = 0;//unique for each skill
 
     public bool onEnemy = true;//true if useable on enemy
     public bool onTeam = false;//true if useable on teammate(s)
@@ -32,11 +31,6 @@ public class Action : ScriptableObject
     public int getUserSpeed()
     {
         return user.speed;
-    }
-
-    public int getSkillIndex()//!!!I don't think I want the index anymore
-    {
-        return index;
     }
 
     public Unit getUser()
@@ -90,7 +84,6 @@ public class Action : ScriptableObject
     {
         name = action.name;
         description = action.description;
-        index = action.index;//unique for each skill
 
         onEnemy = action.onEnemy;
         onTeam = action.onTeam;

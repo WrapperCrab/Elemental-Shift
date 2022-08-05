@@ -54,6 +54,7 @@ MonoBehaviour:
   defense: 10
   speed: 10
   element: {fileID: 11400000, guid: dc08e53a30bf2ff46b7459439c968591, type: 2}
+  normalAttack: {fileID: 11400000, guid: c0a4810f2f90bf64e94440107df62fde, type: 2}
 --- !u!1 &3673253461104167955
 GameObject:
   m_ObjectHideFlags: 0

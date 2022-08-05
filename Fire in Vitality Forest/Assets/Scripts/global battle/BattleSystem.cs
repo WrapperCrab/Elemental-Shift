@@ -35,8 +35,8 @@ public class BattleSystem : Controllable
     public int numEnemies;
     public int numFighters;
 
-    public Unit[] team;
-    public Unit[] enemies;
+    public List<Unit> team;
+    public List<EnemyUnit> enemies;
 
     
 
@@ -67,10 +67,10 @@ public class BattleSystem : Controllable
     IEnumerator setupBattle()
     {
         GameObject playerGO = Instantiate(playerPrefab, playerBattleStation);
-        team = new Unit[] { playerGO.GetComponent<Unit>() };
+        team.Add(playerGO.GetComponent<Unit>());
 
         GameObject enemyGO = Instantiate(enemyPrefab, enemyBattleStation);
-        enemies = new Unit[] { enemyGO.GetComponent<Unit>() };
+        enemies.Add(enemyGO.GetComponent<EnemyUnit>());
 
         dialogueText.text = "A wild " + enemies[0].unitName + " approaches";
 
@@ -97,16 +97,9 @@ public class BattleSystem : Controllable
 
         Debug.Log("enemy is selecting moves");
 
-        //!!!This should happen for each enemy in an enemy specific move selection function
-        //maybe the unit?
+
         Action enemyMove = ScriptableObject.CreateInstance<ActionAttack>();
-        enemyMove.setAction(attack);
-
-        List<Unit> targets = new List<Unit>();
-        targets.Add(team[0]);
-
-        enemyMove.setUser(enemies[0]);
-        enemyMove.setTargets(targets);
+        enemyMove = enemies[0].selectAction();
 
         //don't put moves with no targets into turn order
         if (!enemyMove.hasNoTarget())
