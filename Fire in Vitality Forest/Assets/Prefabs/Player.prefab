@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 122260789378598669}
-  - component: {fileID: 122260789378598668}
+  - component: {fileID: 5430968342290966231}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &122260789378598668
+--- !u!114 &5430968342290966231
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,18 +42,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 122260789378598670}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 822659add4065b94c8c0abd1527bc553, type: 3}
+  m_Script: {fileID: 11500000, guid: 0111bfee18eec7c47b9d7f8a62ba9d44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   unitName: Player
   currentH: 5
   maxH: 50
-  currentM: 20
-  maxM: 50
   attack: 10
   defense: 10
   speed: 10
   element: {fileID: 11400000, guid: dc08e53a30bf2ff46b7459439c968591, type: 2}
+  skills: []
+  pass: {fileID: 11400000, guid: ffbe17b20a7ded54f943d4b97b09c66c, type: 2}
+  currentM: 10
+  maxM: 20
   normalAttack: {fileID: 11400000, guid: c0a4810f2f90bf64e94440107df62fde, type: 2}
 --- !u!1 &3673253461104167955
 GameObject:

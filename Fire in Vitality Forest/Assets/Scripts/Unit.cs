@@ -10,8 +10,6 @@ public class Unit : MonoBehaviour
 
     public int currentH;
     public int maxH;
-    public int currentM;
-    public int maxM;
 
     public int attack;
     public int defense;
@@ -19,7 +17,8 @@ public class Unit : MonoBehaviour
 
     public ImbuedElement element;
 
-    public Action normalAttack;
+    public List<Action> skills;
+    public Action pass;
 
     public bool getAttacked(int _attack)//this will have more inputs later
     {

@@ -25,17 +25,17 @@ public class BattleSystem : Controllable
 
     public BattleState state;
 
-    public GameObject playerPrefab;//will be array
-    public GameObject enemyPrefab;//will be array
+    public List<GameObject> playerPrefabs;
+    public List<GameObject> enemyPrefabs;
 
-    public Transform playerBattleStation;
-    public Transform enemyBattleStation;
+    public List<Transform> playerBattleStations;
+    public List<Transform> enemyBattleStations;
 
     public int numTeam;
     public int numEnemies;
     public int numFighters;
 
-    public List<Unit> team;
+    public List<PlayerUnit> team;
     public List<EnemyUnit> enemies;
 
     
@@ -44,11 +44,9 @@ public class BattleSystem : Controllable
     
     public TextMeshProUGUI dialogueText;
 
-    public BattleHUD playerHUD;//will be array
+    public List<BattleHUD> playerHUDs;
 
     public MenuControl turnMenu;
-
-    public Action attack;//!!!This will not be here
 
     // Start is called before the first frame update
     void Start()
@@ -66,15 +64,15 @@ public class BattleSystem : Controllable
 
     IEnumerator setupBattle()
     {
-        GameObject playerGO = Instantiate(playerPrefab, playerBattleStation);
-        team.Add(playerGO.GetComponent<Unit>());
+        GameObject playerGO = Instantiate(playerPrefabs[0], playerBattleStations[0]);
+        team.Add(playerGO.GetComponent<PlayerUnit>());
 
-        GameObject enemyGO = Instantiate(enemyPrefab, enemyBattleStation);
+        GameObject enemyGO = Instantiate(enemyPrefabs[0], enemyBattleStations[0]);
         enemies.Add(enemyGO.GetComponent<EnemyUnit>());
 
         dialogueText.text = "A wild " + enemies[0].unitName + " approaches";
 
-        playerHUD.setHUD(team[0]);
+        playerHUDs[0].setHUD(team[0]);
 
         yield return new WaitForSeconds(2f);
 
@@ -102,6 +100,7 @@ public class BattleSystem : Controllable
         enemyMove = enemies[0].selectAction();
 
         //don't put moves with no targets into turn order
+        //!!!Later on there may be moves with no targets that do do something. For now though, they are all treated as passes
         if (!enemyMove.hasNoTarget())
         {
             addAction(enemyMove);
@@ -164,7 +163,7 @@ public class BattleSystem : Controllable
             }
 
             //update HUD
-            playerHUD.setHUD(team[0]);
+            playerHUDs[0].setHUD(team[0]);
 
             //dialogueText may be chaned when action is performed. I'm not sure yet
             if (actionCompleted)//is not called if would-be-user was dead

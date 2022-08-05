@@ -4,21 +4,40 @@ using UnityEngine;
 
 public class ActionSelectMenuControl : MenuControl
 {
-    //every character has these skills, so I don't need to worry about this being in their skill list
-    public Action attack;
+    public PlayerUnit currentPlayer;//player having move selected right now
+
+    public override void changeActive()
+    {
+        canvas.SetActive(!canvas.activeSelf);
+        if (canvas.activeSelf)
+        {
+            selectButton();
+            currentPlayer = BattleSystem.instance.team[0];
+        }
+    }
+
+    public void playerAction(Action action)//called when a skill button is pressed
+    {
+        //create copy of action
+        var _action = Instantiate(action);//!!!Creates an independent clone of action... I think
+
+        //set user
+        _action.setUser(currentPlayer);
+
+        //send it to TargetSelectMenu to set targets
+    }
+
 
     public void playerAttack()
     {
         //!!!This is not yet made for more than 1 player
-        Action _attack = ScriptableObject.CreateInstance<ActionAttack>();
-        _attack.setAction(attack);
+        var _attack = Instantiate(currentPlayer.normalAttack);
+        _attack.setUser(currentPlayer);
 
         //initialize targets. Not sure if this is the best way to do this
         List<Unit> targets = new List<Unit>();
         targets.Add(BattleSystem.instance.enemies[0]);
 
-
-        _attack.setUser(BattleSystem.instance.team[0]);
         _attack.setTargets(targets);
         BattleSystem.instance.addAction(_attack);
 

@@ -17,7 +17,7 @@ public class BattleHUD : MonoBehaviour
     public TextMeshProUGUI element;
 
 
-    public void setHUD(Unit unit)
+    public void setHUD(PlayerUnit unit)
     {
         nameText.text = unit.unitName;
 
