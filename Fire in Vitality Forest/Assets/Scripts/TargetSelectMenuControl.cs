@@ -14,12 +14,10 @@ public class TargetSelectMenuControl : MenuControl
 
     public Action action;
 
-    public Button playerButtonPrefab;
-    public Button enemyButtonPrefab;
+    public Button targetButtonPrefab;
     public GameObject ConfirmationScreenPrefab;
 
-    public List<Button> playerButtons;
-    public List<Button> enemyButtons;
+    public List<Button> targetButtons;
 
     public override void Start()//want to pass in current action to this for initialization
     {
@@ -52,11 +50,11 @@ public class TargetSelectMenuControl : MenuControl
             bool onTeam = action.onTeam;
             if (onEnemy)
             {//add enemies to list of viable targets
-                viableTargets.AddRange(BattleSystem.instance.team);
+                viableTargets.AddRange(BattleSystem.instance.enemies);
             }
             if (onTeam)
             {//add team to list of viable targets
-                viableTargets.AddRange(BattleSystem.instance.enemies);
+                viableTargets.AddRange(BattleSystem.instance.team);
             }
 
             foreach (Unit unit in viableTargets)
@@ -64,10 +62,12 @@ public class TargetSelectMenuControl : MenuControl
                 //highlight unit
                 highlightUnit(unit);
                 //!!!create button above unit
-                spawnEnemyButton(unit.GetComponent<Transform>());
+                spawnTargetButton(unit.GetComponent<Transform>());
             }
+            //assign firstButton
+            targetButtons.AddRange(gameObject.GetComponentsInChildren<Button>());
+            firstButton = targetButtons[0];
         }
-
         selectedButton = firstButton;
     }
 
@@ -75,19 +75,20 @@ public class TargetSelectMenuControl : MenuControl
     {
         action = Instantiate(_action);
     }
-
-    public void spawnTeamButton(Transform transform)
-    {//spawns a target button above the player unit
-        var buttonTransform = Instantiate(transform);
-        buttonTransform.position = new Vector2(transform.position.x, transform.position.y);//This number will be unique to the unit later on to accomadate differently sized enemies            
-        Button button = Instantiate(playerButtonPrefab, buttonTransform.position, Quaternion.identity, canvas.transform);
+    public void setBackMenu(ActionSelectMenuControl _backMenu)
+    {
+        backMenu = _backMenu;
+    }
+    public void setCanvasCamera(Camera _camera)
+    {
+        canvas.GetComponent<Canvas>().worldCamera = _camera;
     }
 
-    public void spawnEnemyButton(Transform transform)
-    {//spawns target button above the enemy unit, unit
-        Transform buttonTransform = Instantiate(transform); 
-        buttonTransform.position = new Vector2(transform.position.x, transform.position.y);
-        Button button = Instantiate(enemyButtonPrefab, buttonTransform.position, Quaternion.identity, canvas.transform);
+    public void spawnTargetButton(Transform transform)
+    {//spawns a target button above the unit
+        var buttonTransform = Instantiate(transform);
+        buttonTransform.position = new Vector2(transform.position.x, transform.position.y);//This number will be unique to the unit later on to accomadate differently sized enemies            
+        Button button = Instantiate(targetButtonPrefab, buttonTransform.position, Quaternion.identity, canvas.transform);
     }
 
     public override void changeActive()

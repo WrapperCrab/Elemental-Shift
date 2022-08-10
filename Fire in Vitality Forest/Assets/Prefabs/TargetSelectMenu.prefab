@@ -51,10 +51,10 @@ MonoBehaviour:
   firstButton: {fileID: 0}
   selectedButton: {fileID: 0}
   backMenu: {fileID: 0}
-  playerButtonPrefab: {fileID: 1825651488789177249, guid: e8b39615162c6e946b4b348c42ed71c3, type: 3}
-  enemyButtonPrefab: {fileID: 1825651488789177249, guid: e8b39615162c6e946b4b348c42ed71c3, type: 3}
-  playerButtons: []
-  enemyButtons: []
+  action: {fileID: 0}
+  targetButtonPrefab: {fileID: 1825651488789177249, guid: e8b39615162c6e946b4b348c42ed71c3, type: 3}
+  ConfirmationScreenPrefab: {fileID: 0}
+  targetButtons: []
 --- !u!1 &162289769242792310
 GameObject:
   m_ObjectHideFlags: 0

@@ -28,28 +28,35 @@ public class ActionSelectMenuControl : MenuControl
         //send it to TargetSelectMenu to set targets
         TargetSelectMenuControl targetSelectMenu = Instantiate(targetSelectMenuPrefab);
         targetSelectMenu.setAction(action);
+        targetSelectMenu.setCanvasCamera(canvas.GetComponent<Canvas>().worldCamera);
+
+
+
+        ////!!!if all player's actions have been selected, change state to ENEMYSELECT
+        //ControlManager.instance.switchControl(BattleSystem.instance);
+        //BattleSystem.instance.enemySelect();
     }
 
 
-    public void playerAttack()
-    {
-        //!!!This is not yet made for more than 1 player
-        var _attack = Instantiate(currentPlayer.normalAttack);
-        _attack.setUser(currentPlayer);
+    //public void playerAttack()
+    //{
+    //    //!!!This is not yet made for more than 1 player
+    //    var _attack = Instantiate(currentPlayer.normalAttack);
+    //    _attack.setUser(currentPlayer);
 
-        //initialize targets. Not sure if this is the best way to do this
-        List<Unit> targets = new List<Unit>();
-        targets.Add(BattleSystem.instance.enemies[0]);
+    //    //initialize targets. Not sure if this is the best way to do this
+    //    List<Unit> targets = new List<Unit>();
+    //    targets.Add(BattleSystem.instance.enemies[0]);
 
-        _attack.setTargets(targets);
-        BattleSystem.instance.addAction(_attack);
+    //    _attack.setTargets(targets);
+    //    BattleSystem.instance.addAction(_attack);
 
-        //change to next player's attack menu... somehow
+    //    //change to next player's attack menu... somehow
 
-        //if all player's actions have been selected, change state to ENEMYSELECT
-        ControlManager.instance.switchControl(BattleSystem.instance);
-        BattleSystem.instance.enemySelect();
-    }
+    //    //if all player's actions have been selected, change state to ENEMYSELECT
+    //    ControlManager.instance.switchControl(BattleSystem.instance);
+    //    BattleSystem.instance.enemySelect();
+    //}
 
     public void playerPass()
     {
@@ -58,6 +65,5 @@ public class ActionSelectMenuControl : MenuControl
         //if all player's actions have been selected, change state to ENEMYSELECT
         ControlManager.instance.switchControl(BattleSystem.instance);
         BattleSystem.instance.enemySelect();
-
     }
 }
