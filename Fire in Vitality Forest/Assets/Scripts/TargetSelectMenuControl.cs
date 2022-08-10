@@ -16,7 +16,7 @@ public class TargetSelectMenuControl : MenuControl
 
     public Button playerButtonPrefab;
     public Button enemyButtonPrefab;
-    public Panel ConfirmationScreenPrefab;
+    public GameObject ConfirmationScreenPrefab;
 
     public List<Button> playerButtons;
     public List<Button> enemyButtons;
@@ -27,7 +27,7 @@ public class TargetSelectMenuControl : MenuControl
         bool useConfirmationScreen = false;
 
         int actionType = action.getTargetType();
-        List<int> confirmationTypes = { 0, 1, 3, 5, 7 };
+        List<int> confirmationTypes = new List<int>{ 0, 1, 3, 5, 7 };
         if (confirmationTypes.Contains(actionType))
         {
             useConfirmationScreen = true;
@@ -100,11 +100,11 @@ public class TargetSelectMenuControl : MenuControl
         else
         {
             //unhighlight all units
-            foreach (Unit unit in BattleSystem.team)
+            foreach (Unit unit in BattleSystem.instance.team)
             {
                 unHighlightUnit(unit);
             }
-            foreach (Unit unit in BattleSystem.enemies)
+            foreach (Unit unit in BattleSystem.instance.enemies)
             {
                 unHighlightUnit(unit);
             }

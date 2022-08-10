@@ -20,6 +20,7 @@ public class Unit : MonoBehaviour
     public List<Action> skills;
     public Action pass;
 
+    public SpriteRenderer sprite;
     public bool isHighlighted = false;
 
     public bool getAttacked(int _attack)//this will have more inputs later
