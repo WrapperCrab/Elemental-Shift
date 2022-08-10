@@ -112,7 +112,7 @@ public class BattleSystem : Controllable
     }
 
     IEnumerator battle()//!!!This will be completely different
-    {        
+    {
         Debug.Log("The battle is happening!");       
         //sort actionsToUse by unit speed
         actionsToUse.Sort(compareActions);

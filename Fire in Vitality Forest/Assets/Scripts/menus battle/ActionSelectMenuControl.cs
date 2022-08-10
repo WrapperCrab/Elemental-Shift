@@ -16,6 +16,10 @@ public class ActionSelectMenuControl : MenuControl
             currentPlayer = BattleSystem.instance.team[0];
         }
     }
+    public override void changeAble()
+    {
+        changeActive();
+    }
 
     public void playerAction(Action action)//called when a skill button is pressed
     {
@@ -27,14 +31,10 @@ public class ActionSelectMenuControl : MenuControl
 
         //send it to TargetSelectMenu to set targets
         TargetSelectMenuControl targetSelectMenu = Instantiate(targetSelectMenuPrefab);
-        targetSelectMenu.setAction(action);
+        targetSelectMenu.setAction(_action);
+        targetSelectMenu.canvas.SetActive(false);
         targetSelectMenu.setCanvasCamera(canvas.GetComponent<Canvas>().worldCamera);
-
-
-
-        ////!!!if all player's actions have been selected, change state to ENEMYSELECT
-        //ControlManager.instance.switchControl(BattleSystem.instance);
-        //BattleSystem.instance.enemySelect();
+        ControlManager.instance.switchControl(targetSelectMenu);   
     }
 
 

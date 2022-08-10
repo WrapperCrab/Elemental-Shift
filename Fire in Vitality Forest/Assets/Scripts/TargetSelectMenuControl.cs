@@ -16,6 +16,7 @@ public class TargetSelectMenuControl : MenuControl
 
     public Button targetButtonPrefab;
     public GameObject ConfirmationScreenPrefab;
+    public bool buttonsCreated = false;
 
     public List<Button> targetButtons;
 
@@ -62,13 +63,14 @@ public class TargetSelectMenuControl : MenuControl
                 //highlight unit
                 highlightUnit(unit);
                 //!!!create button above unit
-                spawnTargetButton(unit.GetComponent<Transform>());
+                spawnTargetButton(unit.GetComponent<Transform>(), unit.name, unit);
             }
             //assign firstButton
             targetButtons.AddRange(gameObject.GetComponentsInChildren<Button>());
             firstButton = targetButtons[0];
         }
-        selectedButton = firstButton;
+        buttonsCreated = true;
+        selectButton();
     }
 
     public void setAction(Action _action)
@@ -84,11 +86,18 @@ public class TargetSelectMenuControl : MenuControl
         canvas.GetComponent<Canvas>().worldCamera = _camera;
     }
 
-    public void spawnTargetButton(Transform transform)
-    {//spawns a target button above the unit
-        var buttonTransform = Instantiate(transform);
-        buttonTransform.position = new Vector2(transform.position.x, transform.position.y);//This number will be unique to the unit later on to accomadate differently sized enemies            
-        Button button = Instantiate(targetButtonPrefab, buttonTransform.position, Quaternion.identity, canvas.transform);
+    public void spawnTargetButton(Transform transform, string name, Unit unit)
+    {
+        ////spawn a target button above the unit
+        //var buttonTransform = Instantiate(transform);
+        //buttonTransform.position = new Vector2(transform.position.x, transform.position.y);
+        Button button = Instantiate(targetButtonPrefab, transform.position, Quaternion.identity, canvas.transform);
+
+        //change button text
+        button.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = name;
+
+        //change button's held members
+        button.GetComponent<TargetButton>().setButton(unit, action);
     }
 
     public override void changeActive()
@@ -96,7 +105,10 @@ public class TargetSelectMenuControl : MenuControl
         canvas.SetActive(!canvas.activeSelf);
         if (canvas.activeSelf)
         {
-            selectButton();
+            if (buttonsCreated)
+            {
+                selectButton();
+            }
         }
         else
         {
