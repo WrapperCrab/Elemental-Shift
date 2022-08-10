@@ -46,14 +46,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasControl: 0
-  menuDepth: 3
+  menuDepth: 4
   canvas: {fileID: 162289769242792310}
   firstButton: {fileID: 0}
   selectedButton: {fileID: 0}
   backMenu: {fileID: 0}
   action: {fileID: 0}
   targetButtonPrefab: {fileID: 1825651488789177249, guid: e8b39615162c6e946b4b348c42ed71c3, type: 3}
-  ConfirmationScreenPrefab: {fileID: 0}
+  ConfirmationScreenPrefab: {fileID: 1199300922034480489, guid: 009daeea4014fbc43a5310f710922aa0, type: 3}
+  buttonsCreated: 0
   targetButtons: []
 --- !u!1 &162289769242792310
 GameObject:

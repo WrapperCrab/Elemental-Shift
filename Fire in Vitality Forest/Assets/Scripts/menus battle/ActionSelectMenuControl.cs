@@ -34,6 +34,7 @@ public class ActionSelectMenuControl : MenuControl
         targetSelectMenu.setAction(_action);
         targetSelectMenu.canvas.SetActive(false);
         targetSelectMenu.setCanvasCamera(canvas.GetComponent<Canvas>().worldCamera);
+        targetSelectMenu.setBackMenu(gameObject.GetComponent<ActionSelectMenuControl>());
         ControlManager.instance.switchControl(targetSelectMenu);   
     }
 

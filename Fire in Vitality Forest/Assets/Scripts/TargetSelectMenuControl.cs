@@ -63,7 +63,7 @@ public class TargetSelectMenuControl : MenuControl
                 //highlight unit
                 highlightUnit(unit);
                 //!!!create button above unit
-                spawnTargetButton(unit.GetComponent<Transform>(), unit.name, unit);
+                spawnTargetButton(unit.GetComponent<Transform>().position, unit);
             }
             //assign firstButton
             targetButtons.AddRange(gameObject.GetComponentsInChildren<Button>());
@@ -86,15 +86,15 @@ public class TargetSelectMenuControl : MenuControl
         canvas.GetComponent<Canvas>().worldCamera = _camera;
     }
 
-    public void spawnTargetButton(Transform transform, string name, Unit unit)
+    public void spawnTargetButton(Vector3 unitPosition, Unit unit)
     {
         ////spawn a target button above the unit
-        //var buttonTransform = Instantiate(transform);
-        //buttonTransform.position = new Vector2(transform.position.x, transform.position.y);
-        Button button = Instantiate(targetButtonPrefab, transform.position, Quaternion.identity, canvas.transform);
+        Vector3 buttonPosition = unitPosition;
+        buttonPosition.y += 2f;//in the future, this may be unique to the unit
+        Button button = Instantiate(targetButtonPrefab, buttonPosition, Quaternion.identity, canvas.transform);
 
         //change button text
-        button.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = name;
+        button.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = unit.name;
 
         //change button's held members
         button.GetComponent<TargetButton>().setButton(unit, action);
