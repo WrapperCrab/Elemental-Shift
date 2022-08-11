@@ -27,13 +27,13 @@ public class BattleSystem : Controllable
 
     public List<GameObject> playerPrefabs;
     public List<GameObject> enemyPrefabs;
+    public List<int> spawnLocations;//battlestation to spawn each enemy on
 
     public List<Transform> playerBattleStations;
     public List<Transform> enemyBattleStations;
 
     public List<PlayerUnit> team;
     public List<EnemyUnit> enemies;
-    public List<int> spawnLocations;//battlestation to spawn each enemy on
 
     List<Action> actionsToUse = new List<Action>();//It would be nice if this works
     
@@ -67,7 +67,7 @@ public class BattleSystem : Controllable
         //spawn the enemies
         for (int i = 0; i < enemyPrefabs.Count; i++)
         {
-            GameObject enemyGO = Instantiate(enemyPrefabs[i], enemyBattleStations[spawnLocations[i]]);
+            GameObject enemyGO = enemyBattleStations[spawnLocations[i]].GetComponent<EnemyBattleStation>().fillStation(enemyPrefabs[i]);
             enemies.Add(enemyGO.GetComponent<EnemyUnit>());
         }
 
@@ -117,8 +117,6 @@ public class BattleSystem : Controllable
         //sort actionsToUse by unit speed
         actionsToUse.Sort(compareActions);
 
-
-
         //call actions one at a time
         foreach (Action action in actionsToUse)
         {
@@ -157,7 +155,7 @@ public class BattleSystem : Controllable
                     }                    
                 }
                 //No targets for this move are dead. Now we can perform the move
-                //!!!This does not currently check if targetting move has no target
+                //!!!This does not currently check if move has no target
                 action.performAction();
                 actionCompleted = true;
             }
@@ -176,18 +174,46 @@ public class BattleSystem : Controllable
         //clear the previous turn's actions
         clearSkills();
 
+        //get rid of dead enemies (This only happens at the end of each turn since I want enemy revival to be possible)
+        enemies.RemoveAll(enemy => enemy.currentH <= 0);
+        foreach (Transform station in enemyBattleStations)
+        {
+            station.GetComponent<EnemyBattleStation>().deleteIfDead();
+        }
+
+
+
         //we're done performing actions for this turn.
         //check if either side has won.
-        if (team[0].currentH==0)
+        bool teamIsDead = true;
+        foreach (PlayerUnit player in team)
+        {
+            if (player.currentH > 0)
+            {
+                teamIsDead = false;
+                break;
+            }
+        }
+        bool enemiesAreDead = true;
+        foreach (EnemyUnit enemy in enemies)
+        {
+            if (enemy.currentH > 0)
+            {
+                enemiesAreDead = false;
+                break;
+            }
+        }
+
+
+        if (teamIsDead)
         {
             //player lost
             state = BattleState.LOST;
             battleLost();
         }
-        else if (enemies[0].currentH==0)
+        else if (enemiesAreDead)
         {
             //player won!
-            //change state to WON
             state = BattleState.WON;
             battleWon();
         }

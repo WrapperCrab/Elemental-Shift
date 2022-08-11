@@ -11,13 +11,13 @@ public class TreemanEnemy : EnemyUnit
     {
         Action action;
         //select move
-        if (currentH <= 5)
-        {
+        if (currentH > 5)
+        {//use attack
             action = ScriptableObject.CreateInstance<ActionAttack>();
             action.setAction(skills[0]);
         }
         else
-        {
+        {//use absorb
             action = ScriptableObject.CreateInstance<ActionAbsorb>();
             action.setAction(skills[1]);
         }

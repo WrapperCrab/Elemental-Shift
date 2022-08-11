@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b757412753f8804a86b58a9493ded8d, type: 3}
+  m_Script: {fileID: 11500000, guid: 15ee40321d3183d4fa68909fc81742ee, type: 3}
   m_Name: Absorb
   m_EditorClassIdentifier: 
   name: Absorb
-  description: takes health from target and heals user
+  description: attack one target while healing user
   onEnemy: 1
   onTeam: 0
   hitsAll: 0

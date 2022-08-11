@@ -85,9 +85,7 @@ public class TargetSelectMenuControl : MenuControl
 
             foreach (Unit unit in viableTargets)
             {
-                //highlight unit
-                highlightUnit(unit);
-                //!!!create button above unit
+                //create button above unit
                 spawnTargetButton(unit.GetComponent<Transform>().position, unit);
             }
             //assign firstButton

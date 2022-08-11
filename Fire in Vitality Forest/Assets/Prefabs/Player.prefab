@@ -46,9 +46,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitName: Player
-  currentH: 5
+  currentH: 10
   maxH: 50
-  attack: 10
+  attack: 20
   defense: 10
   speed: 10
   element: {fileID: 11400000, guid: dc08e53a30bf2ff46b7459439c968591, type: 2}
