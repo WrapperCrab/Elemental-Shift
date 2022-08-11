@@ -14,7 +14,7 @@ public class Enemy1 : EnemyUnit
         action.setAction(skills[0]);
 
         //select user
-        action.setUser(BattleSystem.instance.enemies[0]);
+        action.setUser(gameObject.GetComponent<EnemyUnit>());
 
         //select targets
         List<Unit> targets = new List<Unit>();

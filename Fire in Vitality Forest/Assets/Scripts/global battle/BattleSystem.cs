@@ -31,14 +31,9 @@ public class BattleSystem : Controllable
     public List<Transform> playerBattleStations;
     public List<Transform> enemyBattleStations;
 
-    public int numTeam;
-    public int numEnemies;
-    public int numFighters;
-
     public List<PlayerUnit> team;
     public List<EnemyUnit> enemies;
-
-    
+    public List<int> spawnLocations;//battlestation to spawn each enemy on
 
     List<Action> actionsToUse = new List<Action>();//It would be nice if this works
     
@@ -56,23 +51,29 @@ public class BattleSystem : Controllable
         //The only thing the player can do when this has control is (sometimes) speedup/skip text or press a key to end the battle in WON and LOST
         hasControl = true;
 
-        numFighters = numTeam + numEnemies;
-
         state = BattleState.START;
         StartCoroutine(setupBattle());
     }
 
     IEnumerator setupBattle()
     {
-        GameObject playerGO = Instantiate(playerPrefabs[0], playerBattleStations[0]);
-        team.Add(playerGO.GetComponent<PlayerUnit>());
+        //spawn the players
+        for (int i=0; i<playerPrefabs.Count; i++)
+        {
+            GameObject playerGO = Instantiate(playerPrefabs[i], playerBattleStations[i]);
+            team.Add(playerGO.GetComponent<PlayerUnit>());
+        }
 
-        GameObject enemyGO = Instantiate(enemyPrefabs[0], enemyBattleStations[0]);
-        enemies.Add(enemyGO.GetComponent<EnemyUnit>());
+        //spawn the enemies
+        for (int i = 0; i < enemyPrefabs.Count; i++)
+        {
+            GameObject enemyGO = Instantiate(enemyPrefabs[i], enemyBattleStations[spawnLocations[i]]);
+            enemies.Add(enemyGO.GetComponent<EnemyUnit>());
+        }
 
         dialogueText.text = "A wild " + enemies[0].unitName + " approaches";
 
-        playerHUDs[0].setHUD(team[0]);
+        playerHUDs[0].setHUD(team[0]);//!!!
 
         yield return new WaitForSeconds(2f);
 
@@ -95,17 +96,16 @@ public class BattleSystem : Controllable
 
         Debug.Log("enemy is selecting moves");
 
-
-        Action enemyMove = ScriptableObject.CreateInstance<ActionAttack>();
-        enemyMove = enemies[0].selectAction();
-
-        //don't put moves with no targets into turn order
-        //!!!Later on there may be moves with no targets that do do something. For now though, they are all treated as passes
-        if (!enemyMove.hasNoTarget())
+        foreach (EnemyUnit enemy in enemies)
         {
-            addAction(enemyMove);
+            Action enemyMove = enemy.selectAction();
+            //don't put moves with no targets into turn order
+            //!!!Later on there may be moves with no targets that do do something. For now though, they are all treated as passes
+            if (!enemyMove.hasNoTarget())
+            {
+                addAction(enemyMove);
+            }
         }
-
         //change to BATTLE phase
         state = BattleState.BATTLE;
         StartCoroutine(battle());

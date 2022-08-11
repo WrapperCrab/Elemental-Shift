@@ -65,7 +65,7 @@ public class TargetSelectMenuControl : MenuControl
             targetButtons.AddRange(gameObject.GetComponentsInChildren<Button>());
             firstButton = targetButtons[0];
 
-            button.GetComponent<targetConfirmButton>().setButton(targettedUnits, action);
+            button.GetComponent<TargetConfirmButton>().setButton(targettedUnits, action);
         }
         else
         {//spawn buttons above viable targets' heads. Highlight selected target

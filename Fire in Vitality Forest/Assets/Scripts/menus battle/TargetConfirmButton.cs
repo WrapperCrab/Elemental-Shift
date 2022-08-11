@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class targetConfirmButton : MonoBehaviour
+public class TargetConfirmButton : MonoBehaviour
 {
     public List<Unit> targets;
     public Action action;

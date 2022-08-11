@@ -17,7 +17,7 @@ public class Unit : MonoBehaviour
 
     public ImbuedElement element;
 
-    public List<Action> skills;
+    public List<Action> skills;//These are added in the inspector
     public Action pass;
 
     public SpriteRenderer sprite;
