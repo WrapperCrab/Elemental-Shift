@@ -15,7 +15,7 @@ public class TargetSelectMenuControl : MenuControl
     public Action action;
 
     public Button targetButtonPrefab;
-    public GameObject ConfirmationScreenPrefab;
+    public Button confirmationButton;
     public bool buttonsCreated = false;
 
     public List<Button> targetButtons;
@@ -34,13 +34,38 @@ public class TargetSelectMenuControl : MenuControl
 
         if (useConfirmationScreen)
         {//spawn the confirmation screen and highlight targets
-            Instantiate(ConfirmationScreenPrefab);//!!!
-
-            //Highlight players in action.getTargets
-            foreach (Unit unit in action.getTargets())
+            //find which players are targetted
+            List<Unit> targettedUnits = new List<Unit>();
+            switch (actionType)
+            {
+                case 0:
+                default:
+                    break;
+                case 1:
+                    //targettedUnits.Add();//!!!Find current player
+                    break;
+                case 3:
+                    targettedUnits.AddRange(BattleSystem.instance.team);
+                    break;
+                case 5:
+                    targettedUnits.AddRange(BattleSystem.instance.enemies);
+                    break;
+                case 7:
+                    targettedUnits.AddRange(BattleSystem.instance.team);
+                    targettedUnits.AddRange(BattleSystem.instance.enemies);
+                    break;
+            }
+            //Highlight targettedplayers
+            foreach (Unit unit in targettedUnits)
             {
                 highlightUnit(unit);
             }
+            //spawn and set the confirmation button
+            Button button = Instantiate(confirmationButton, canvas.transform);
+            targetButtons.AddRange(gameObject.GetComponentsInChildren<Button>());
+            firstButton = targetButtons[0];
+
+            button.GetComponent<targetConfirmButton>().setButton(targettedUnits, action);
         }
         else
         {//spawn buttons above viable targets' heads. Highlight selected target

@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Attack
   description: attack one enemy with your weapon
-  index: 1
   onEnemy: 1
   onTeam: 0
   hitsAll: 0

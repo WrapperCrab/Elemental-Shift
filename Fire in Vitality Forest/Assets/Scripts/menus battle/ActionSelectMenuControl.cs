@@ -30,7 +30,7 @@ public class ActionSelectMenuControl : MenuControl
         _action.setUser(currentPlayer);
 
         //send it to TargetSelectMenu to set targets
-        TargetSelectMenuControl targetSelectMenu = Instantiate(targetSelectMenuPrefab);
+        TargetSelectMenuControl targetSelectMenu = Instantiate(targetSelectMenuPrefab, gameObject.GetComponent<Transform>());
         targetSelectMenu.setAction(_action);
         targetSelectMenu.canvas.SetActive(false);
         targetSelectMenu.setCanvasCamera(canvas.GetComponent<Canvas>().worldCamera);
