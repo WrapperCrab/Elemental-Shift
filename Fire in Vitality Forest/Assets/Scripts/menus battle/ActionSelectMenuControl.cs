@@ -6,19 +6,40 @@ public class ActionSelectMenuControl : MenuControl
 {
     public PlayerUnit currentPlayer;//player having move selected right now
     public TargetSelectMenuControl targetSelectMenuPrefab;
+    public GameObject Panel;
 
-    public override void changeActive()
+    public void setActionSelectMenu(Controllable _backMenu, PlayerUnit _currentPlayer)
     {
-        canvas.SetActive(!canvas.activeSelf);
-        if (canvas.activeSelf)
-        {
-            selectButton();
-            currentPlayer = BattleSystem.instance.team[0];
-        }
+        Debug.Log(_currentPlayer.GetComponent<Transform>().position);
+        backMenu = _backMenu;
+        currentPlayer = _currentPlayer;
+        Debug.Log(currentPlayer.name);
     }
+
+    public override void Start()
+    {
+        Debug.Log(currentPlayer.name);
+        //spawn panel near current player
+        Vector2 menuPosition = currentPlayer.GetComponent<Transform>().position;
+        menuPosition.x += 1f;
+        menuPosition.y += 1f;
+        setPosition(menuPosition);
+
+        selectedButton = firstButton;
+    }
+
     public override void changeAble()
     {
         changeActive();
+    }
+    public void setCanvasCamera(Camera _camera)
+    {
+        canvas.GetComponent<Canvas>().worldCamera = _camera;
+    }
+
+    public void setPosition(Vector2 position)
+    {
+        Panel.GetComponent<Transform>().position = position;
     }
 
     public void playerAction(Action action)//called when a skill button is pressed
@@ -38,33 +59,9 @@ public class ActionSelectMenuControl : MenuControl
         ControlManager.instance.switchControl(targetSelectMenu);   
     }
 
-
-    //public void playerAttack()
-    //{
-    //    //!!!This is not yet made for more than 1 player
-    //    var _attack = Instantiate(currentPlayer.normalAttack);
-    //    _attack.setUser(currentPlayer);
-
-    //    //initialize targets. Not sure if this is the best way to do this
-    //    List<Unit> targets = new List<Unit>();
-    //    targets.Add(BattleSystem.instance.enemies[0]);
-
-    //    _attack.setTargets(targets);
-    //    BattleSystem.instance.addAction(_attack);
-
-    //    //change to next player's attack menu... somehow
-
-    //    //if all player's actions have been selected, change state to ENEMYSELECT
-    //    ControlManager.instance.switchControl(BattleSystem.instance);
-    //    BattleSystem.instance.enemySelect();
-    //}
-
     public void playerPass()
     {
         //change to next player's attack menu
-
-        //if all player's actions have been selected, change state to ENEMYSELECT
-        ControlManager.instance.switchControl(BattleSystem.instance);
-        BattleSystem.instance.enemySelect();
+        ControlManager.instance.switchControl(TurnMenuControl.instance);
     }
 }

@@ -27,9 +27,11 @@ public class TargetButton : MonoBehaviour, ISelectHandler, IDeselectHandler
         //add the move to our list
         BattleSystem.instance.addAction(action);
 
-        //!!!if all player's actions have been selected, change state to ENEMYSELECT
-        ControlManager.instance.switchControl(BattleSystem.instance);
-        BattleSystem.instance.enemySelect();
+        //increase counter in TurnMenu
+        TurnMenuControl.instance.nextPlayer();
+
+        //go back to turnMenu to either go to the next actionSelect, or go to ENEMYSELECT
+        ControlManager.instance.switchControl(TurnMenuControl.instance);
     }
 
     public void OnSelect(BaseEventData eventData)

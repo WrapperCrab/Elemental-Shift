@@ -53,6 +53,12 @@ public class Unit : MonoBehaviour
         }
     }
 
+    public void gainHealth(int heal)
+    {
+        currentH += heal;
+        currentH = Math.Min(currentH, maxH);
+    }
+
     public void highlight()
     {
         sprite.color = new Color(0, 1, 0, 1);

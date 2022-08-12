@@ -144,7 +144,7 @@ public class TargetSelectMenuControl : MenuControl
             {
                 unHighlightUnit(unit);
             }
-            //delete this menu
+            //!!!delete this menu
             Destroy(gameObject);
         }
     }

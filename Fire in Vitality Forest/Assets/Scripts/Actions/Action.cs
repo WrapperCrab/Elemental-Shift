@@ -6,6 +6,7 @@ public class Action : ScriptableObject
 {//created when a unit's move has been decided and is to be added to the list
     new public string name = "new skill";
     public string description = "new skill description";
+    public int mCost = 0;
 
     public bool onEnemy = true;//true if useable on enemy
     public bool onTeam = false;//true if useable on teammate(s)
@@ -94,6 +95,7 @@ public class Action : ScriptableObject
     {
         name = action.name;
         description = action.description;
+        mCost = action.mCost;
 
         onEnemy = action.onEnemy;
         onTeam = action.onTeam;

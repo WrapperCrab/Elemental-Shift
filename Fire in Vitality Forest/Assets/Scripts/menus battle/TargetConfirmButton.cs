@@ -20,9 +20,13 @@ public class TargetConfirmButton : MonoBehaviour
         //add the move to our list
         BattleSystem.instance.addAction(action);
 
-        //!!!if all player's actions have been selected, change state to ENEMYSELECT
-        ControlManager.instance.switchControl(BattleSystem.instance);
-        BattleSystem.instance.enemySelect();
+        //update TurnMenu
+        TurnMenuControl.instance.nextPlayer();
+
+        //give control back to TurnMenu
+        ControlManager.instance.switchControl(TurnMenuControl.instance);
+
+
     }
 
 }

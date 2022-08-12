@@ -73,7 +73,14 @@ public class BattleSystem : Controllable
 
         dialogueText.text = "A wild " + enemies[0].unitName + " approaches";
 
-        playerHUDs[0].setHUD(team[0]);//!!!
+
+
+        //activate needed HUDs
+        for (int i=0; i< team.Count; i++)
+        {
+            playerHUDs[i].gameObject.SetActive(true);
+        }
+        setHUDs();//updates all HUDs
 
         yield return new WaitForSeconds(2f);
 
@@ -233,6 +240,14 @@ public class BattleSystem : Controllable
     public void battleLost()
     {
         dialogueText.text = "you were defeated.";
+    }
+
+    public void setHUDs()
+    {
+        for (int i=0; i<team.Count; i++)
+        {
+            playerHUDs[i].setHUD(team[i]);
+        }
     }
 
     public void addAction(Action action)
