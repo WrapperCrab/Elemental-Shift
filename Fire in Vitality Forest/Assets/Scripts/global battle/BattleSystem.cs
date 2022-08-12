@@ -152,34 +152,10 @@ public class BattleSystem : Controllable
                             action.removeTarget(target);
 
                             //find original target type, then find best replacement
-                            bool replacementFound = false;
-                            var enemyTarget = target as EnemyUnit;
-                            if (enemyTarget != null)
-                            {//target is an enemyUnit
-                                foreach (EnemyUnit enemy in enemies)
-                                {
-                                    if (enemy.currentH > 0)
-                                    {
-                                        action.addTarget(enemy);
-                                        replacementFound = true;
-                                        break;
-                                    }
-                                }
-                            }
-                            else
-                            {//target is a playerUnit
-                                foreach (PlayerUnit player in team)
-                                {
-                                    if (player.currentH > 0)
-                                    {
-                                        action.addTarget(player);
-                                        replacementFound = true;
-                                        break;
-                                    }
-                                }
-                            }
+                            Unit replacement = findBestTarget(target);
+
                             //if no replacement, skip this action
-                            if (!replacementFound)
+                            if (replacement != null)
                             {
                                 skipThisMove = true;
                             }
@@ -301,9 +277,29 @@ public class BattleSystem : Controllable
         return aUserSpeed.CompareTo(bUserSpeed);
     }
 
-    public Unit findBestTarget(Action action)
-    {//if the target is dead, it finds the best alternative if there is one. 
-        //!!!I haven't written this yet because it is pointless with only 1 enemy and 1 player.
-        return action.getTargets()[0];
+    public Unit findBestTarget(Unit target)
+    {//the target is dead. find the best alternative if there is one. 
+        var enemyTarget = target as EnemyUnit;
+        if (enemyTarget != null)
+        {//target is an enemyUnit
+            foreach (EnemyUnit enemy in enemies)
+            {
+                if (enemy.currentH > 0)
+                {
+                    return enemy;
+                }
+            }
+        }
+        else
+        {//target is a playerUnit
+            foreach (PlayerUnit player in team)
+            {
+                if (player.currentH > 0)
+                {
+                    return player;
+                }
+            }
+        }
+        return null;
     }
 }
