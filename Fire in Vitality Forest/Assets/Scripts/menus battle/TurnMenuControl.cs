@@ -23,6 +23,8 @@ public class TurnMenuControl : MenuControl
     public int playerNum = 0;//increases each time an action is added to the list
     bool goToNextPhase = false;
     bool goToNextPlayer = false;
+
+    public List<ActionSelectMenuControl> actionSelectMenus;//list of all instantiated menus of this type
     
 
 
@@ -32,6 +34,17 @@ public class TurnMenuControl : MenuControl
     {
         if (goToNextPhase)
         {
+            //destroy all actionSelect menus
+            foreach (ActionSelectMenuControl action in actionSelectMenus)
+            {
+                Destroy(action.gameObject);
+            }
+            actionSelectMenus.Clear();
+
+            //reset playerNum
+            playerNum = 0;
+
+            //switch to next phase
             ControlManager.instance.switchControl(BattleSystem.instance);
             BattleSystem.instance.enemySelect();
         }
@@ -82,6 +95,7 @@ public class TurnMenuControl : MenuControl
         //spawn actionSelectMenu for this player
         PlayerUnit currentPlayer = BattleSystem.instance.team[playerNum];
         ActionSelectMenuControl actionSelectMenu = Instantiate(actionSelectMenuPrefab, GetComponent<Transform>());
+        actionSelectMenus.Add(actionSelectMenu);
 
         //set the variables for this new menu
         actionSelectMenu.canvas.SetActive(false);

@@ -28,6 +28,29 @@ public class Action : ScriptableObject
     {
         targets = _targets;
     }
+
+    public void addTarget(Unit _target)
+    {
+        targets.Add(_target);
+    }
+
+    public void removeTarget(Unit _target)
+    {
+        targets.Remove(_target);
+    }
+
+    public bool removeAllDeadTargets()
+    {
+        targets.RemoveAll(target => target.currentH <= 0);
+        if (targets.Count == 0)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
     
     public int getUserSpeed()
     {

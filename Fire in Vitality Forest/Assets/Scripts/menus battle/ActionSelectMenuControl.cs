@@ -10,15 +10,12 @@ public class ActionSelectMenuControl : MenuControl
 
     public void setActionSelectMenu(Controllable _backMenu, PlayerUnit _currentPlayer)
     {
-        Debug.Log(_currentPlayer.GetComponent<Transform>().position);
         backMenu = _backMenu;
         currentPlayer = _currentPlayer;
-        Debug.Log(currentPlayer.name);
     }
 
     public override void Start()
     {
-        Debug.Log(currentPlayer.name);
         //spawn panel near current player
         Vector2 menuPosition = currentPlayer.GetComponent<Transform>().position;
         menuPosition.x += 1f;

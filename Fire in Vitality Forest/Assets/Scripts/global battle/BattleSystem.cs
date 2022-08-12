@@ -127,6 +127,7 @@ public class BattleSystem : Controllable
         //call actions one at a time
         foreach (Action action in actionsToUse)
         {
+            bool skipThisMove = false;
             bool actionCompleted = false;
             //make checks for things like unit death.
             if (action.getUser().currentH > 0)
@@ -136,35 +137,61 @@ public class BattleSystem : Controllable
                 {//this is a move with potentially dead targets
                     if (action.getHitsAll())
                     {//We only need remove dead targets
-                     //get rid of all targets which are deaad
-                        List<int> unitsToDelete = new List<int>();
-                        for (int i = 0; i < action.getTargets().Count; i++)
+                        bool targetsLeft = action.removeAllDeadTargets();
+                        if (!targetsLeft)
                         {
-                            if (action.getTargets()[i].currentH <= 0)
-                            {//this target is dead. No need to target them
-                                unitsToDelete.Add(i);
-                            }
-                        }
-                        //delete necessary units
-                        for (int j = 0; j < unitsToDelete.Count; j++)
-                        {//delete targets backwards to avoid problems of changing indeces
-                            action.removeTarget(unitsToDelete[unitsToDelete.Count - (j + 1)]);
+                            skipThisMove = true;
                         }
                     }
                     else
                     {//We need to look for a suitable replacement target if the target is dead
                         if (action.getTargets()[0].currentH <= 0)
-                        {
-                            //!!!Our target is dead. Find best replacement if there is one
-                            //if not, just delete this target and move on
-                            action.removeTarget(0);
+                        {//our target is dead. Find a replacement
+                            //remove the old target
+                            Unit target = action.getTargets()[0];
+                            action.removeTarget(target);
+
+                            //find original target type, then find best replacement
+                            bool replacementFound = false;
+                            var enemyTarget = target as EnemyUnit;
+                            if (enemyTarget != null)
+                            {//target is an enemyUnit
+                                foreach (EnemyUnit enemy in enemies)
+                                {
+                                    if (enemy.currentH > 0)
+                                    {
+                                        action.addTarget(enemy);
+                                        replacementFound = true;
+                                        break;
+                                    }
+                                }
+                            }
+                            else
+                            {//target is a playerUnit
+                                foreach (PlayerUnit player in team)
+                                {
+                                    if (player.currentH > 0)
+                                    {
+                                        action.addTarget(player);
+                                        replacementFound = true;
+                                        break;
+                                    }
+                                }
+                            }
+                            //if no replacement, skip this action
+                            if (!replacementFound)
+                            {
+                                skipThisMove = true;
+                            }
                         }
-                    }                    
+                    }
                 }
-                //No targets for this move are dead. Now we can perform the move
-                //!!!This does not currently check if move has no target
-                action.performAction();
-                actionCompleted = true;
+
+                if (!skipThisMove)
+                {//we are good to go with using this move
+                    action.performAction();
+                    actionCompleted = true;
+                }
             }
 
             //update HUD
