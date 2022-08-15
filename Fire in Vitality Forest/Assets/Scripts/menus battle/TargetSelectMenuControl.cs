@@ -136,14 +136,8 @@ public class TargetSelectMenuControl : MenuControl
         else
         {
             //unhighlight all units
-            foreach (Unit unit in BattleSystem.instance.team)
-            {
-                unHighlightUnit(unit);
-            }
-            foreach (Unit unit in BattleSystem.instance.enemies)
-            {
-                unHighlightUnit(unit);
-            }
+            BattleSystem.instance.setHighlights();    
+
             //delete this menu
             Destroy(gameObject);
         }
@@ -157,11 +151,11 @@ public class TargetSelectMenuControl : MenuControl
 
     public void highlightUnit(Unit unit)
     {
-        unit.highlight();
+        unit.setHighlight(Highlight.TARGETTED);
     }
 
     public void unHighlightUnit(Unit unit)
     {
-        unit.unHighlight();
+        unit.setHighlight(Highlight.NONE);
     }
 }

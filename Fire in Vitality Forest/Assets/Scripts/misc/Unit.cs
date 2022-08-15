@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+public enum Highlight {NONE, TARGETTED, DEAD, ACTING}
+
 public class Unit : MonoBehaviour
 {
     public string unitName;
@@ -21,7 +23,7 @@ public class Unit : MonoBehaviour
     public Action pass;
 
     public SpriteRenderer sprite;
-    public bool isHighlighted = false;
+    public Highlight highlight = Highlight.NONE;
 
     public bool getAttacked(int _attack)//this will have more inputs later
     {
@@ -59,15 +61,24 @@ public class Unit : MonoBehaviour
         currentH = Math.Min(currentH, maxH);
     }
 
-    public void highlight()
+    public void setHighlight(Highlight _highlight)
     {
-        sprite.color = new Color(0, 1, 0, 1);
-        isHighlighted = true;
-    }
-
-    public void unHighlight()
-    {
-        sprite.color = new Color(1, 1, 1, 1);
-        isHighlighted = false;
+        switch (_highlight)
+        {
+            case Highlight.TARGETTED://green
+                sprite.color = new Color(0,1,0,1);
+                break;
+            case Highlight.ACTING://blue
+                sprite.color = new Color(0, 0, 1, 1);
+                break;
+            case Highlight.DEAD://red
+                sprite.color = new Color(1, 0, 0, 1);
+                break;
+            case Highlight.NONE://white
+            default:
+                sprite.color = new Color(1, 1, 1, 1);
+                break;
+        }
+        highlight = _highlight;
     }
 }

@@ -55,7 +55,7 @@ MonoBehaviour:
   skills: []
   pass: {fileID: 11400000, guid: ffbe17b20a7ded54f943d4b97b09c66c, type: 2}
   sprite: {fileID: 2629222997060851434}
-  isHighlighted: 0
+  highlight: 0
   currentM: 10
   maxM: 20
   normalAttack: {fileID: 11400000, guid: c0a4810f2f90bf64e94440107df62fde, type: 2}

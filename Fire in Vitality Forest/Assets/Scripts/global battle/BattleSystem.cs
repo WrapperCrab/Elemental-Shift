@@ -168,6 +168,14 @@ public class BattleSystem : Controllable
 
                 if (!skipThisMove)
                 {//we are good to go with using this move
+                    //set highlights for this action
+                    action.user.setHighlight(Highlight.ACTING);
+                    foreach (Unit target in action.getTargets())
+                    {
+                        target.setHighlight(Highlight.TARGETTED);
+                    }
+
+                    //perform action
                     action.performAction();
                     actionCompleted = true;
                 }
@@ -182,6 +190,9 @@ public class BattleSystem : Controllable
                 dialogueText.text = action.moveCompletedText();
                 yield return new WaitForSeconds(2f);
             }
+
+            //update Highlights
+            setHighlights();
         }
 
         //clear the previous turn's actions
@@ -253,6 +264,32 @@ public class BattleSystem : Controllable
         for (int i=0; i<team.Count; i++)
         {
             playerHUDs[i].setHUD(team[i]);
+        }
+    }
+
+    public void setHighlights()
+    {//sets highlight to DEAD if dead, NONE if alive
+        foreach (Unit player in team)
+        {
+            if (player.currentH > 0)
+            {
+                player.setHighlight(Highlight.NONE);
+            }
+            else
+            {
+                player.setHighlight(Highlight.DEAD);
+            }
+        }
+        foreach (Unit enemy in enemies)
+        {
+            if (enemy.currentH > 0)
+            {
+                enemy.setHighlight(Highlight.NONE);
+            }
+            else
+            {
+                enemy.setHighlight(Highlight.DEAD);
+            }
         }
     }
 

@@ -36,13 +36,13 @@ public class TargetButton : MonoBehaviour, ISelectHandler, IDeselectHandler
 
     public void OnSelect(BaseEventData eventData)
     {
-        //highlight unit
-        unit.highlight();
+        //highlight unit targetted
+        unit.setHighlight(Highlight.TARGETTED);
     }
 
     public void OnDeselect(BaseEventData eventData)
     {
         //unhighlight unit
-        unit.unHighlight();
+        unit.setHighlight(Highlight.NONE);
     }
 }
