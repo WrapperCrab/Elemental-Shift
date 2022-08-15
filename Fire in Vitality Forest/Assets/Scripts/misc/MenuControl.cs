@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class MenuControl : Controllable
+public class MenuControl : Controllable, IDeselectHandler
 {
     //These things are alike to pretty much all menus, so this class is a no-brainer
     public GameObject canvas;
@@ -29,6 +29,21 @@ public class MenuControl : Controllable
                 pressedEscape();
             }
         }
+
+        //make sure a button is ALWAYS selected
+        staySelected();
+    }
+
+    public void staySelected()
+    {//makes sure something on this menu is always selected
+        if (EventSystem.current.currentSelectedGameObject != null)
+        {
+            selectedButton = EventSystem.current.currentSelectedGameObject.GetComponent<Button>();
+        }
+        else if (selectedButton != null)
+        {
+            selectedButton.Select();
+        }
     }
 
     public virtual void pressedEscape()//Called in Update when player presses escape
@@ -40,6 +55,11 @@ public class MenuControl : Controllable
         }
         //go to backMenu
         ControlManager.instance.switchControl(backMenu);
+    }
+
+    public virtual void OnDeselect(BaseEventData eventData)
+    {
+        Debug.Log("click outside menu");
     }
 
     public override void changeActive()

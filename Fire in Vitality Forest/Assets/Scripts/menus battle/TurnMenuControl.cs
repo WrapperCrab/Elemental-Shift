@@ -56,6 +56,8 @@ public class TurnMenuControl : MenuControl
             attackButtonPress();
         }
         //nothing needs to be done otherwise
+
+        staySelected();
     }
 
     public void LateUpdate()
