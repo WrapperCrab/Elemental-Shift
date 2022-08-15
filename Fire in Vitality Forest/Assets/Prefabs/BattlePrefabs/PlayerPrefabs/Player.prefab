@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitName: Player
-  currentH: 10
+  currentH: 2
   maxH: 50
   attack: 20
   defense: 10

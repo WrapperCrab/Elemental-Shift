@@ -155,7 +155,7 @@ public class BattleSystem : Controllable
                             Unit replacement = findBestTarget(target);
 
                             //if no replacement, skip this action
-                            if (replacement != null)
+                            if (replacement == null)
                             {
                                 skipThisMove = true;
                             }
@@ -256,6 +256,15 @@ public class BattleSystem : Controllable
     public void addAction(Action action)
     {
         actionsToUse.Add(action);
+    }
+
+    public void removeAction()
+    {
+        int count = actionsToUse.Count;
+        if (count != 0)
+        {
+            actionsToUse.RemoveAt(count - 1);
+        }
     }
 
     public void clearSkills()//!!!I don't think this works yet

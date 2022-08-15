@@ -59,6 +59,7 @@ public class ControlManager : MonoBehaviour
 
     public void switchControl(Controllable gainControl)
     {
+        //changeAble and changeActive are usually the same for battle menus
         int oldDepth = obWithControl.getMenuDepth();
         int newDepth = gainControl.getMenuDepth();
 
@@ -79,7 +80,10 @@ public class ControlManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("consecutive menu depths are the same (no good)");
+            //deactivate old menu
+            obWithControl.changeActive();
+            //activate new menu
+            gainControl.changeActive();
         }
         obWithControl.switchControl();
         gainControl.switchControl();

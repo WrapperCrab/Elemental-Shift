@@ -52,7 +52,7 @@ public class TurnMenuControl : MenuControl
         {
             attackButtonPress();
         }
-        //nothing needs to be done at this time
+        //nothing needs to be done otherwise
     }
 
     public void LateUpdate()
@@ -63,16 +63,20 @@ public class TurnMenuControl : MenuControl
 
     public override void changeActive()
     {
-        canvas.SetActive(!canvas.activeSelf);
-        if (canvas.activeSelf)
-        {
-            selectButton();
-            if (playerNum == BattleSystem.instance.team.Count)
-            {//all players' actions have been chosen. We can move on to the ENEMYSELECT phase
-                goToNextPhase = true;
-            }else if (playerNum != 0)
-            {//go to this player's action select menu
-                goToNextPlayer = true;
+        if (playerNum == BattleSystem.instance.team.Count)
+        {//all players' actions have been chosen. We can move on to the ENEMYSELECT phase
+            goToNextPhase = true;
+        }
+        else if (playerNum != 0)
+        {//go to this player's action select menu
+            goToNextPlayer = true;
+        }
+        else if (!goToNextPhase)
+        {//playerNum==0 and we are not switching to the next phase; activate or deactivate this menu for real
+            canvas.SetActive(!canvas.activeSelf);
+            if (canvas.activeSelf)
+            {
+                selectButton();
             }
         }
     }
@@ -89,18 +93,39 @@ public class TurnMenuControl : MenuControl
         playerNum++;
     }
 
+    public void unselectAction()
+    {//called when pressing escape on actionSelectMenu
+        if (playerNum != 0)
+        {
+            playerNum--;
+            actionSelectMenus.RemoveAt(actionSelectMenus.Count - 1);
+        }
+        else
+        {//playerNum==0
+            actionSelectMenus.Clear();
+        }
+    }
+
     //BUTTON METHODS
     public void attackButtonPress()
     {//give control to attack menu
         //spawn actionSelectMenu for this player
         PlayerUnit currentPlayer = BattleSystem.instance.team[playerNum];
         ActionSelectMenuControl actionSelectMenu = Instantiate(actionSelectMenuPrefab, GetComponent<Transform>());
+        int newIndex = actionSelectMenus.Count;
         actionSelectMenus.Add(actionSelectMenu);
 
         //set the variables for this new menu
         actionSelectMenu.canvas.SetActive(false);
         actionSelectMenu.setCanvasCamera(canvas.GetComponent<Canvas>().worldCamera);
-        actionSelectMenu.setActionSelectMenu(TurnMenuControl.instance, currentPlayer);
+        if (playerNum == 0)
+        {
+            actionSelectMenu.setActionSelectMenu(TurnMenuControl.instance, currentPlayer);
+        }
+        else
+        {
+            actionSelectMenu.setActionSelectMenu(actionSelectMenus[newIndex-1], currentPlayer);
+        }
 
         //switch control to this new menu
         ControlManager.instance.switchControl(actionSelectMenu);

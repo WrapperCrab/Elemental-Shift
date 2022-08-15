@@ -144,26 +144,15 @@ public class TargetSelectMenuControl : MenuControl
             {
                 unHighlightUnit(unit);
             }
-            //!!!delete this menu
+            //delete this menu
             Destroy(gameObject);
         }
     }
 
     public override void changeAble()
     {
-        //I may not want to do this if I want to have cursor memory for this menu. For now though, it will do
+        //there is no cursor memory on this menu. Like in persona Q, you cannot go back to this menu, you can only go forward into it
         changeActive();
-
-        //Button[] buttons = canvas.GetComponentsInChildren<Button>();
-        //bool canvasEnabled = !firstButton.interactable;
-        //foreach (Button b in buttons)
-        //{
-        //    b.interactable = canvasEnabled;
-        //}
-        //if (canvasEnabled)
-        //{
-        //    selectButton();
-        //}
     }
 
     public void highlightUnit(Unit unit)

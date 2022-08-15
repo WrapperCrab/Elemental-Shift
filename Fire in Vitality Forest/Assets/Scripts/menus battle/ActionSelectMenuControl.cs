@@ -25,6 +25,22 @@ public class ActionSelectMenuControl : MenuControl
         selectedButton = firstButton;
     }
 
+    public override void pressedEscape()//Called in Update when player presses escape
+    {
+        //go to backMenu
+        ControlManager.instance.switchControl(backMenu);
+
+        //if action list is non-empty, remove most recently decided action
+        BattleSystem.instance.removeAction();
+
+        //remove this menu in TurnMenuControl
+        TurnMenuControl.instance.unselectAction();
+
+        //destroy this menu
+        Destroy(gameObject);
+
+    }
+
     public override void changeAble()
     {
         changeActive();
