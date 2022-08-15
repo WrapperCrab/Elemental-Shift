@@ -21,12 +21,12 @@ public class TurnMenuControl : MenuControl
     #endregion
 
     int playerNum = 0;//increases each time an action is added to the list
-    List<PlayerUnit> actionablePlayers;//players which are able to perform actions this turn
+    List<PlayerUnit> actionablePlayers = new List<PlayerUnit>();//players which are able to perform actions this turn
     bool goToNextPhase = false;
     bool goToNextPlayer = false;
 
     public ActionSelectMenuControl actionSelectMenuPrefab;
-    List<ActionSelectMenuControl> actionSelectMenus;//list of all instantiated menus of this type
+    List<ActionSelectMenuControl> actionSelectMenus = new List<ActionSelectMenuControl>();//list of all instantiated menus of this type
 
     #region menu stuff
 

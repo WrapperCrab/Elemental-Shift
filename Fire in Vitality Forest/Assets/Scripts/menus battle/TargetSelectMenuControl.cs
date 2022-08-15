@@ -18,7 +18,7 @@ public class TargetSelectMenuControl : MenuControl
     public Button confirmationButton;
     public bool buttonsCreated = false;
 
-    public List<Button> targetButtons;
+    public List<Button> targetButtons = new List<Button>();
 
     public override void Start()//want to pass in current action to this for initialization
     {
@@ -98,7 +98,7 @@ public class TargetSelectMenuControl : MenuControl
 
     public void setAction(Action _action)
     {
-        action = Instantiate(_action);
+        action = _action;
     }
     public void setBackMenu(ActionSelectMenuControl _backMenu)
     {

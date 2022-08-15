@@ -35,7 +35,7 @@ public class BattleSystem : Controllable
     public List<PlayerUnit> team;
     public List<EnemyUnit> enemies;
 
-    List<Action> actionsToUse = new List<Action>();//It would be nice if this works
+    public List<Action> actionsToUse = new List<Action>();//It would be nice if this works
     
     public TextMeshProUGUI dialogueText;
 
