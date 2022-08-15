@@ -20,16 +20,15 @@ public class TurnMenuControl : MenuControl
 
     #endregion
 
-    public int playerNum = 0;//increases each time an action is added to the list
-    public List<PlayerUnit> actionablePlayers;//players which are able to perform actions this turn
+    int playerNum = 0;//increases each time an action is added to the list
+    List<PlayerUnit> actionablePlayers;//players which are able to perform actions this turn
     bool goToNextPhase = false;
     bool goToNextPlayer = false;
 
-    public List<ActionSelectMenuControl> actionSelectMenus;//list of all instantiated menus of this type
-    
-
-
     public ActionSelectMenuControl actionSelectMenuPrefab;
+    List<ActionSelectMenuControl> actionSelectMenus;//list of all instantiated menus of this type
+
+    #region menu stuff
 
     public override void Update()
     {
@@ -67,7 +66,6 @@ public class TurnMenuControl : MenuControl
 
     public override void changeActive()
     {
-
         if ((playerNum == actionablePlayers.Count) && (actionablePlayers.Count!=0))
         {//all players' actions have been chosen. We can move on to the ENEMYSELECT phase
             goToNextPhase = true;
@@ -89,38 +87,7 @@ public class TurnMenuControl : MenuControl
 
     public override void changeAble()
     {
-        //Kind of a bad solution, but this menu never needs to be disabled without being inactive.
-        //So, when changeAble is called in controlSwitch, we simply want to call changeActive instead
         changeActive();
-    }
-
-    public void nextPlayer()
-    {
-        playerNum++;
-    }
-
-    public void unselectAction()
-    {//called when pressing escape on actionSelectMenu
-        if (playerNum != 0)
-        {
-            playerNum--;
-            actionSelectMenus.RemoveAt(actionSelectMenus.Count - 1);
-        }
-        else
-        {//playerNum==0
-            actionSelectMenus.Clear();
-        }
-    }
-
-    public void updateActionablePlayers()
-    {//get actionable players
-        foreach (PlayerUnit player in BattleSystem.instance.team)
-        {//check if unit is actionable
-            if (player.currentH > 0)
-            {
-                actionablePlayers.Add(player);
-            }
-        }
     }
 
     //BUTTON METHODS
@@ -141,7 +108,7 @@ public class TurnMenuControl : MenuControl
         }
         else
         {
-            actionSelectMenu.setActionSelectMenu(actionSelectMenus[newIndex-1], currentPlayer);
+            actionSelectMenu.setActionSelectMenu(actionSelectMenus[newIndex - 1], currentPlayer);
         }
 
         //switch control to this new menu
@@ -152,4 +119,37 @@ public class TurnMenuControl : MenuControl
     {
 
     }
+
+    #endregion
+
+    public void nextPlayer()
+    {
+        playerNum++;
+    }
+
+    public void unselectAction()
+    {//called when pressing escape on an actionSelectMenu
+        if (playerNum != 0)
+        {
+            playerNum--;
+            actionSelectMenus.RemoveAt(actionSelectMenus.Count - 1);
+        }
+        else
+        {//playerNum==0
+            actionSelectMenus.Clear();
+        }
+    }
+
+    void updateActionablePlayers()
+    {//get actionable players
+        foreach (PlayerUnit player in BattleSystem.instance.team)
+        {//check if unit is actionable
+            if (player.currentH > 0)
+            {
+                actionablePlayers.Add(player);
+            }
+        }
+    }
+
+
 }

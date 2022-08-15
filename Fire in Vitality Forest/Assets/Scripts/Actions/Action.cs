@@ -16,60 +16,63 @@ public class Action : ScriptableObject
     public bool usableOutsideBattle = false;
 
     //These attributes are only nondefault during battle
-    public Unit user;
-    public List<Unit> targets;
+    protected Unit user;
+    protected List<Unit> targets;
+
+    public virtual void performAction()//this was previously stored in SkillList
+    {//effects on units in battle due to this move
+
+    }
+
+    public virtual string moveCompletedText()
+    {//text displayed after this move was used
+        return null;
+    }
+
+    public void setAction(Action action)//only used before targets and users are set
+    {
+        name = action.name;
+        description = action.description;
+        mCost = action.mCost;
+
+        onEnemy = action.onEnemy;
+        onTeam = action.onTeam;
+        hitsAll = action.hitsAll;
+        selfMove = action.selfMove;
+
+        usableOutsideBattle = action.usableOutsideBattle;
+    }
 
     public void setUser(Unit _user)
     {
         user = _user;
+    }
+    public Unit getUser()
+    {
+        return user;
     }
 
     public void setTargets(List<Unit> _targets)
     {
         targets = _targets;
     }
-
-    public void addTarget(Unit _target)
-    {
-        targets.Add(_target);
-    }
-
-    public void removeTarget(Unit _target)
-    {
-        targets.Remove(_target);
-    }
-
-    public bool removeAllDeadTargets()
-    {
-        targets.RemoveAll(target => target.currentH <= 0);
-        if (targets.Count == 0)
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
-    }
-    
-    public int getUserSpeed()
-    {
-        return user.speed;
-    }
-
-    public Unit getUser()
-    {
-        return user;
-    }
-
     public List<Unit> getTargets()
     {
         return targets;
     }
 
-    public void removeTarget(int index)
+    public void addTarget(Unit _target)
     {
-        targets.RemoveAt(index);
+        targets.Add(_target);
+    }
+    public void removeTarget(Unit _target)
+    {
+        targets.Remove(_target);
+    }
+    
+    public int getUserSpeed()
+    {
+        return user.speed;
     }
 
     public int getTargetType()
@@ -98,44 +101,29 @@ public class Action : ScriptableObject
     {
         return hitsAll;
     }
-
     public bool getOnEnemy()
     {
         return onEnemy;
     }
-
     public bool getOnTeam()
     {
         return onTeam;
     }
-
     public bool hasNoTarget()
     {
         return (!onEnemy && !onTeam);
     }
 
-    public void setAction(Action action)//only used before targets and users are set
+    public bool removeAllDeadTargets()
     {
-        name = action.name;
-        description = action.description;
-        mCost = action.mCost;
-
-        onEnemy = action.onEnemy;
-        onTeam = action.onTeam;
-        hitsAll = action.hitsAll;
-        selfMove = action.selfMove;
-
-        usableOutsideBattle = action.usableOutsideBattle;
-    }
- 
-
-    public virtual void performAction()//this was previously stored in SkillList
-    {//effects on units in battle due to this move
-
-    }
-
-    public virtual string moveCompletedText()
-    {//text displayed after this move was used
-        return null;
+        targets.RemoveAll(target => target.currentH <= 0);
+        if (targets.Count == 0)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
 }

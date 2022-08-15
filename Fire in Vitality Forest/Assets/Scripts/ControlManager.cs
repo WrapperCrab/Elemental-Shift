@@ -24,7 +24,7 @@ public class ControlManager : MonoBehaviour
     //If a player switches to a different area of control in a frame, we have a bool here
     //which keeps the player's input from being counted again in the new area
 
-    public bool switchedThisFrame = false;
+    bool switchedThisFrame = false;
     public Controllable obWithControl;
 
     void Start()

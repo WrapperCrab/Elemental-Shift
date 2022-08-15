@@ -41,8 +41,6 @@ public class BattleSystem : Controllable
 
     public List<BattleHUD> playerHUDs;
 
-    public MenuControl turnMenu;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -92,7 +90,7 @@ public class BattleSystem : Controllable
     {
         dialogueText.text = "Choose an action";
         //give control to TurnMenu
-        ControlManager.instance.switchControl(turnMenu);
+        ControlManager.instance.switchControl(TurnMenuControl.instance);
     }
 
     public void enemySelect()
@@ -169,7 +167,7 @@ public class BattleSystem : Controllable
                 if (!skipThisMove)
                 {//we are good to go with using this move
                     //set highlights for this action
-                    action.user.setHighlight(Highlight.ACTING);
+                    action.getUser().setHighlight(Highlight.ACTING);
                     foreach (Unit target in action.getTargets())
                     {
                         target.setHighlight(Highlight.TARGETTED);

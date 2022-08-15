@@ -23,7 +23,7 @@ public class Unit : MonoBehaviour
     public Action pass;
 
     public SpriteRenderer sprite;
-    public Highlight highlight = Highlight.NONE;
+    protected Highlight highlight = Highlight.NONE;
 
     public bool getAttacked(int _attack)//this will have more inputs later
     {

@@ -9,8 +9,8 @@ public class MenuControl : Controllable
     //These things are alike to pretty much all menus, so this class is a no-brainer
     public GameObject canvas;
     public Button firstButton;
-    public Button selectedButton;
-    public Controllable backMenu;//not menuControl since some menus go back to nonmenus
+    protected Button selectedButton;
+    protected Controllable backMenu;//not menuControl since some menus go back to nonmenus
 
     // Start is called before the first frame update
     public virtual void Start()

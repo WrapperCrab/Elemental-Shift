@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Controllable : MonoBehaviour
 {
-    public bool hasControl;
+    protected bool hasControl;
     public int menuDepth;
 
     public virtual void switchControl()
