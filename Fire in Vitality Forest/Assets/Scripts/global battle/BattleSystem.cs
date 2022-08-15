@@ -154,10 +154,13 @@ public class BattleSystem : Controllable
                             //find original target type, then find best replacement
                             Unit replacement = findBestTarget(target);
 
-                            //if no replacement, skip this action
                             if (replacement == null)
-                            {
+                            {//if no replacement, skip this action
                                 skipThisMove = true;
+                            }
+                            else
+                            {//add this as the new target
+                                action.addTarget(replacement);
                             }
                         }
                     }
@@ -171,9 +174,9 @@ public class BattleSystem : Controllable
             }
 
             //update HUD
-            playerHUDs[0].setHUD(team[0]);
+            setHUDs();
 
-            //dialogueText may be chaned when action is performed. I'm not sure yet
+            //dialogueText may be changed when action is performed. I'm not sure yet
             if (actionCompleted)//is not called if would-be-user was dead
             {
                 dialogueText.text = action.moveCompletedText();

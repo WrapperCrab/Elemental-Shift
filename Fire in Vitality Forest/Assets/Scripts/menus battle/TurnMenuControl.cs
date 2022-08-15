@@ -21,6 +21,7 @@ public class TurnMenuControl : MenuControl
     #endregion
 
     public int playerNum = 0;//increases each time an action is added to the list
+    public List<PlayerUnit> actionablePlayers;//players which are able to perform actions this turn
     bool goToNextPhase = false;
     bool goToNextPlayer = false;
 
@@ -44,6 +45,9 @@ public class TurnMenuControl : MenuControl
             //reset playerNum
             playerNum = 0;
 
+            //reset actionablePlayers
+            actionablePlayers.Clear();
+
             //switch to next phase
             ControlManager.instance.switchControl(BattleSystem.instance);
             BattleSystem.instance.enemySelect();
@@ -63,7 +67,8 @@ public class TurnMenuControl : MenuControl
 
     public override void changeActive()
     {
-        if (playerNum == BattleSystem.instance.team.Count)
+
+        if ((playerNum == actionablePlayers.Count) && (actionablePlayers.Count!=0))
         {//all players' actions have been chosen. We can move on to the ENEMYSELECT phase
             goToNextPhase = true;
         }
@@ -77,6 +82,7 @@ public class TurnMenuControl : MenuControl
             if (canvas.activeSelf)
             {
                 selectButton();
+                updateActionablePlayers();
             }
         }
     }
@@ -106,11 +112,22 @@ public class TurnMenuControl : MenuControl
         }
     }
 
+    public void updateActionablePlayers()
+    {//get actionable players
+        foreach (PlayerUnit player in BattleSystem.instance.team)
+        {//check if unit is actionable
+            if (player.currentH > 0)
+            {
+                actionablePlayers.Add(player);
+            }
+        }
+    }
+
     //BUTTON METHODS
     public void attackButtonPress()
     {//give control to attack menu
         //spawn actionSelectMenu for this player
-        PlayerUnit currentPlayer = BattleSystem.instance.team[playerNum];
+        PlayerUnit currentPlayer = actionablePlayers[playerNum];
         ActionSelectMenuControl actionSelectMenu = Instantiate(actionSelectMenuPrefab, GetComponent<Transform>());
         int newIndex = actionSelectMenus.Count;
         actionSelectMenus.Add(actionSelectMenu);
