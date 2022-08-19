@@ -53,7 +53,7 @@ public class SkillsMenuControl : MenuControl
 
         firstButton = slots[0].GetComponent<Button>();//!!!
         selectedButton = firstButton;
-        staySelected();
+        selectButton();
     }
 
     public override void Update()

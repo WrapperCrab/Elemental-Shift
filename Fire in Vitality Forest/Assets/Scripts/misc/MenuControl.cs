@@ -9,7 +9,7 @@ public class MenuControl : Controllable, IDeselectHandler
     //These things are alike to pretty much all menus, so this class is a no-brainer
     public GameObject canvas;
     public Button firstButton;
-    protected Button selectedButton;
+    public Button selectedButton;
     protected Controllable backMenu;//not menuControl since some menus go back to nonmenus
 
     // Start is called before the first frame update
@@ -32,18 +32,6 @@ public class MenuControl : Controllable, IDeselectHandler
 
         //make sure a button is ALWAYS selected
         staySelected();
-    }
-
-    public void staySelected()
-    {//makes sure something on this menu is always selected
-        if (EventSystem.current.currentSelectedGameObject != null)
-        {
-            selectedButton = EventSystem.current.currentSelectedGameObject.GetComponent<Button>();
-        }
-        else if (selectedButton != null)
-        {
-            selectedButton.Select();
-        }
     }
 
     public virtual void pressedEscape()//Called in Update when player presses escape
@@ -94,8 +82,23 @@ public class MenuControl : Controllable, IDeselectHandler
         }
         else
         {
-            firstButton.Select();
             selectedButton = firstButton;
+            selectedButton.Select();
+        }
+    }
+
+    public void staySelected()
+    {//makes sure something on this menu is always selected
+
+        //!!!It looks like this is working. As long as EventSystem.current.curr... is within the same menu (as it should be), then we should be golden
+
+        if (hasControl)
+        {
+            if (EventSystem.current.currentSelectedGameObject != null)
+            {
+                selectedButton = EventSystem.current.currentSelectedGameObject.GetComponent<Button>();//!!!
+            }
+            selectButton();
         }
     }
 }
