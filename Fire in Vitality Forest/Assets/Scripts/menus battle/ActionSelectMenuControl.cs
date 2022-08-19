@@ -7,6 +7,7 @@ public class ActionSelectMenuControl : MenuControl
     public PlayerUnit currentPlayer;//player having move selected right now
     public TargetSelectMenuControl targetSelectMenuPrefab;
     public GameObject Panel;
+    
 
     public void setActionSelectMenu(Controllable _backMenu, PlayerUnit _currentPlayer)
     {
@@ -76,5 +77,11 @@ public class ActionSelectMenuControl : MenuControl
     {
         //change to next player's attack menu
         ControlManager.instance.switchControl(TurnMenuControl.instance);
+    }
+
+    public void createSkillsMenu()
+    {
+        //instantiate the skillsMenu prefab
+        //switch control to the skillsMenu
     }
 }
