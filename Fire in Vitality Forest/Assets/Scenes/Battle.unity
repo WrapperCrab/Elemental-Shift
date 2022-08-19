@@ -700,7 +700,7 @@ GameObject:
   - component: {fileID: 388617670}
   - component: {fileID: 388617669}
   m_Layer: 0
-  m_Name: forest path example
+  m_Name: background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1657,7 +1657,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -306, y: 1}
+  m_AnchoredPosition: {x: -320, y: 0}
   m_SizeDelta: {x: -640, y: -339.37}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1052273996
@@ -2776,6 +2776,14 @@ PrefabInstance:
     - target: {fileID: 1412176589728468222, guid: 6049d3688804a8e4db2dd495904c2bff, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1412176589969704306, guid: 6049d3688804a8e4db2dd495904c2bff, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1412176589969704306, guid: 6049d3688804a8e4db2dd495904c2bff, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -136.1
       objectReference: {fileID: 0}
     - target: {fileID: 1412176590227136983, guid: 6049d3688804a8e4db2dd495904c2bff, type: 3}
       propertyPath: m_AnchorMax.y

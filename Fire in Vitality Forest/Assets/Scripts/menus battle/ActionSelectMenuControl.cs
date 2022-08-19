@@ -6,6 +6,7 @@ public class ActionSelectMenuControl : MenuControl
 {
     public PlayerUnit currentPlayer;//player having move selected right now
     public TargetSelectMenuControl targetSelectMenuPrefab;
+    public SkillsMenuControl skillsMenuPrefab;
     public GameObject Panel;
     
 
@@ -13,6 +14,10 @@ public class ActionSelectMenuControl : MenuControl
     {
         backMenu = _backMenu;
         currentPlayer = _currentPlayer;
+    }
+    public void setCanvasCamera(Camera _camera)
+    {
+        canvas.GetComponent<Canvas>().worldCamera = _camera;
     }
 
     public override void Start()
@@ -46,10 +51,6 @@ public class ActionSelectMenuControl : MenuControl
     {
         changeActive();
     }
-    public void setCanvasCamera(Camera _camera)
-    {
-        canvas.GetComponent<Canvas>().worldCamera = _camera;
-    }
 
     public void setPosition(Vector2 position)
     {
@@ -82,6 +83,13 @@ public class ActionSelectMenuControl : MenuControl
     public void createSkillsMenu()
     {
         //instantiate the skillsMenu prefab
+        SkillsMenuControl skillsMenu = Instantiate(skillsMenuPrefab, gameObject.GetComponent<Transform>());//!!!This is now where I will want this to spawn
+
+        skillsMenu.setSkillsMenu(currentPlayer, gameObject.GetComponent<ActionSelectMenuControl>());
+        skillsMenu.canvas.SetActive(false);
+        skillsMenu.setCanvasCamera(canvas.GetComponent<Canvas>().worldCamera);
+
         //switch control to the skillsMenu
+        ControlManager.instance.switchControl(skillsMenu);
     }
 }

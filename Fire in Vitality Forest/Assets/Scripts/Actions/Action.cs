@@ -69,6 +69,11 @@ public class Action : ScriptableObject
     {
         targets.Remove(_target);
     }
+
+    public int getMCost()
+    {
+        return mCost;
+    }
     
     public int getUserSpeed()
     {
