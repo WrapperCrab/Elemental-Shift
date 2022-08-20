@@ -1731,8 +1731,8 @@ MonoBehaviour:
   menuDepth: 0
   state: 0
   playerPrefabs:
-  - {fileID: 122260789378598670, guid: 5de9b6f041eb7914fb1c60171e9d3c24, type: 3}
   - {fileID: 122260789378598670, guid: 2aed1dd6f9b13e7449c61a8b9877d870, type: 3}
+  - {fileID: 122260789378598670, guid: 5de9b6f041eb7914fb1c60171e9d3c24, type: 3}
   enemyPrefabs:
   - {fileID: 1657397430194816326, guid: 21589dca13b336a4ba21078995090c27, type: 3}
   - {fileID: 1657397430194816326, guid: b0e4bad334da35f4b849116c31ef34bf, type: 3}
