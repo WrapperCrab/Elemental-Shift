@@ -15,6 +15,8 @@ public class SkillsMenuControl : MenuControl
     public TextMeshProUGUI skillName;
     public TextMeshProUGUI skillDescription;
 
+    bool firstButtonFound = false;
+
     public void setSkillsMenu(PlayerUnit _currentPlayer, MenuControl _backMenu)
     {
         currentPlayer = _currentPlayer;
@@ -32,6 +34,8 @@ public class SkillsMenuControl : MenuControl
 
     public override void Start()
     {
+        title.text = currentPlayer.name + "'s Skills";
+
         slots = gameObject.GetComponentsInChildren<SkillSlot>();
         foreach (SkillSlot button in slots)
         {
@@ -44,6 +48,11 @@ public class SkillsMenuControl : MenuControl
             if (i < currentPlayer.skills.Count)
             {
                 slots[i].setAction(currentPlayer.skills[i]);
+                if (!firstButtonFound)
+                {
+                    firstButton = slots[i].GetComponent<Button>();
+                    firstButtonFound = true;
+                }
             }
             else
             {
@@ -51,10 +60,12 @@ public class SkillsMenuControl : MenuControl
             }
         }
 
-        firstButton = slots[0].GetComponent<Button>();//!!!
-        selectedButton = firstButton;
-        selectButton();
+        if (firstButtonFound)
+        {
+            selectButton();
+        }//otherwise, there is no button to select.
     }
+
 
     public override void Update()
     {
@@ -68,7 +79,10 @@ public class SkillsMenuControl : MenuControl
 
         //!!!we may not want to do this for this menu since there may be no buttons
         //make sure a button is ALWAYS selected
-        staySelected();
+        if (firstButtonFound)
+        {
+            staySelected();
+        }
     }
 
     public override void pressedEscape()//Called in Update when player presses escape
@@ -84,5 +98,22 @@ public class SkillsMenuControl : MenuControl
     {
         skillName.text = action.name;
         skillDescription.text = action.description;
+    }
+
+    public void playerAction(Action action)//called when a skill button is pressed
+    {
+        //create copy of action
+        var _action = Instantiate(action);//!!!Creates an independent clone of action... I think
+
+        //set user
+        _action.setUser(currentPlayer);
+
+        //send it to TargetSelectMenu to set targets
+        TargetSelectMenuControl targetSelectMenu = Instantiate(targetSelectMenuPrefab, gameObject.GetComponent<Transform>());
+        targetSelectMenu.setAction(_action);
+        targetSelectMenu.canvas.SetActive(false);
+        targetSelectMenu.setCanvasCamera(canvas.GetComponent<Canvas>().worldCamera);
+        targetSelectMenu.setBackMenu(gameObject.GetComponent<SkillsMenuControl>());
+        ControlManager.instance.switchControl(targetSelectMenu);
     }
 }

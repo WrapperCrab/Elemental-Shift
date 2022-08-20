@@ -100,7 +100,7 @@ public class TargetSelectMenuControl : MenuControl
     {
         action = _action;
     }
-    public void setBackMenu(ActionSelectMenuControl _backMenu)
+    public void setBackMenu(MenuControl _backMenu)
     {
         backMenu = _backMenu;
     }

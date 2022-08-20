@@ -409,8 +409,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -251.90811, y: -16.4973}
-  m_SizeDelta: {x: -503.8162, y: -32.9946}
+  m_AnchoredPosition: {x: -215.13321, y: 0}
+  m_SizeDelta: {x: -430.2664, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &267963717429793939
 CanvasRenderer:
@@ -674,6 +674,7 @@ MonoBehaviour:
   menuDepth: 3
   canvas: {fileID: 873127948851557254}
   firstButton: {fileID: 3574248764334731019}
+  selectedButton: {fileID: 0}
   currentPlayer: {fileID: 0}
   targetSelectMenuPrefab: {fileID: 162289767707069749, guid: 89cc5a3861d50f1498dca66c6c227bcb, type: 3}
   title: {fileID: 8070235724982915733}

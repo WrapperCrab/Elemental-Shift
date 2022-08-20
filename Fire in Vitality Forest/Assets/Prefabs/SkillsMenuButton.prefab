@@ -258,7 +258,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7720639211072662400}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2534732042842226091}
+        m_TargetAssemblyTypeName: SkillSlot, Assembly-CSharp
+        m_MethodName: OnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2534732042842226091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -273,6 +285,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionName: {fileID: 2964548747150810275}
   mCost: {fileID: 1406524770690627327}
+  action: {fileID: 0}
 --- !u!1 &6397704348339047631
 GameObject:
   m_ObjectHideFlags: 0

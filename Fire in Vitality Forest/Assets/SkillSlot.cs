@@ -48,4 +48,11 @@ public class SkillSlot : MonoBehaviour, ISelectHandler
         //change description and skill name in Skills Menu
         GetComponentInParent<SkillsMenuControl>().updateSelectedSkill(action);
     }
+
+    public void OnClick()//Note! this was assigned to the button by me.
+    {
+        Debug.Log("here");
+        //call function in SkillsMenuControl
+        GetComponentInParent<SkillsMenuControl>().playerAction(action);
+    }
 }
