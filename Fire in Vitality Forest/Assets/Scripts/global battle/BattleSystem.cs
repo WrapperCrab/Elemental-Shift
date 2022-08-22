@@ -116,7 +116,7 @@ public class BattleSystem : Controllable
         StartCoroutine(battle());
     }
 
-    IEnumerator battle()//!!!This will be completely different
+    IEnumerator battle()
     {
         Debug.Log("The battle is happening!");       
         //sort actionsToUse by unit speed
@@ -127,55 +127,58 @@ public class BattleSystem : Controllable
         {
             bool skipThisMove = false;
             bool actionCompleted = false;
-            //make checks for things like unit death.
+            //check for user death.
             if (action.getUser().currentH > 0)
             {//the user is alive
-
-                if (!new List<int> { 0, 1 }.Contains(action.getTargetType()))
-                {//this is a move with potentially dead targets
-                    if (action.getHitsAll())
-                    {//We only need remove dead targets
-                        bool targetsLeft = action.removeAllDeadTargets();
-                        if (!targetsLeft)
-                        {
-                            skipThisMove = true;
-                        }
-                    }
-                    else
-                    {//We need to look for a suitable replacement target if the target is dead
-                        if (action.getTargets()[0].currentH <= 0)
-                        {//our target is dead. Find a replacement
-                            //remove the old target
-                            Unit target = action.getTargets()[0];
-                            action.removeTarget(target);
-
-                            //find original target type, then find best replacement
-                            Unit replacement = findBestTarget(target);
-
-                            if (replacement == null)
-                            {//if no replacement, skip this action
+                //check for too low magic
+                if (action.getUser().currentM >= action.getMCost())//!!!must only make check if user is PlayerUnit
+                {//the user has enough M
+                    if (!new List<int> { 0, 1 }.Contains(action.getTargetType()))
+                    {//this is a move with potentially dead targets
+                        if (action.getHitsAll())
+                        {//We only need remove dead targets
+                            bool targetsLeft = action.removeAllDeadTargets();
+                            if (!targetsLeft)
+                            {
                                 skipThisMove = true;
                             }
-                            else
-                            {//add this as the new target
-                                action.addTarget(replacement);
+                        }
+                        else
+                        {//We need to look for a suitable replacement target if the target is dead
+                            if (action.getTargets()[0].currentH <= 0)
+                            {//our target is dead. Find a replacement
+                             //remove the old target
+                                Unit target = action.getTargets()[0];
+                                action.removeTarget(target);
+
+                                //find original target type, then find best replacement
+                                Unit replacement = findBestTarget(target);
+
+                                if (replacement == null)
+                                {//if no replacement, skip this action
+                                    skipThisMove = true;
+                                }
+                                else
+                                {//add this as the new target
+                                    action.addTarget(replacement);
+                                }
                             }
                         }
                     }
-                }
 
-                if (!skipThisMove)
-                {//we are good to go with using this move
-                    //set highlights for this action
-                    action.getUser().setHighlight(Highlight.ACTING);
-                    foreach (Unit target in action.getTargets())
-                    {
-                        target.setHighlight(Highlight.TARGETTED);
+                    if (!skipThisMove)
+                    {//we are good to go with using this move
+                     //set highlights for this action
+                        action.getUser().setHighlight(Highlight.ACTING);
+                        foreach (Unit target in action.getTargets())
+                        {
+                            target.setHighlight(Highlight.TARGETTED);
+                        }
+
+                        //perform action
+                        action.performAction();
+                        actionCompleted = true;
                     }
-
-                    //perform action
-                    action.performAction();
-                    actionCompleted = true;
                 }
             }
 
@@ -188,6 +191,7 @@ public class BattleSystem : Controllable
                 dialogueText.text = action.moveCompletedText();
                 yield return new WaitForSeconds(2f);
             }
+            //!!! I want different messages depending on why the move failed
 
             //update Highlights
             setHighlights();

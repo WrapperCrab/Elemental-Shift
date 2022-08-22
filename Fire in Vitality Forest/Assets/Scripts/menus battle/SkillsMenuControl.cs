@@ -14,6 +14,7 @@ public class SkillsMenuControl : MenuControl
     SkillSlot[] slots;
     public TextMeshProUGUI skillName;
     public TextMeshProUGUI skillDescription;
+    public TextMeshProUGUI warning;
     public TextMeshProUGUI MText;
 
     bool firstButtonFound = false;
@@ -110,6 +111,14 @@ public class SkillsMenuControl : MenuControl
     {
         skillName.text = action.name;
         skillDescription.text = action.description;
+        if (currentPlayer.currentM < action.getMCost())
+        {//they don't have enough M. provide a warning
+            warning.text = "You don't currently have enough M to use that action";
+        }
+        else
+        {
+            warning.text = "";
+        }
     }
 
     public void playerAction(Action action)//called when a skill button is pressed
