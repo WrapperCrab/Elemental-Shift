@@ -51,7 +51,6 @@ public class SkillSlot : MonoBehaviour, ISelectHandler
 
     public void OnClick()//Note! this was assigned to the button by me.
     {
-        Debug.Log("here");
         //call function in SkillsMenuControl
         GetComponentInParent<SkillsMenuControl>().playerAction(action);
     }

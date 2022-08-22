@@ -24,6 +24,7 @@ public class TurnMenuControl : MenuControl
     List<PlayerUnit> actionablePlayers = new List<PlayerUnit>();//players which are able to perform actions this turn
     bool goToNextPhase = false;
     bool goToNextPlayer = false;
+    public MenuControl nextBackMenu;//set to the next actionSelectMenu
 
     public ActionSelectMenuControl actionSelectMenuPrefab;
     List<ActionSelectMenuControl> actionSelectMenus = new List<ActionSelectMenuControl>();//list of all instantiated menus of this type
@@ -53,7 +54,13 @@ public class TurnMenuControl : MenuControl
         }
         else if (goToNextPlayer)
         {
-            attackButtonPress();
+            //No matter what, we want the backMenu for the previous targetSelect
+            //we loaded this menu in just after target was selected/confirmed
+            if (nextBackMenu.canvas.activeSelf)
+            {
+                nextBackMenu.changeActive();
+            }
+            attackButtonPress(nextBackMenu);
         }
         //nothing needs to be done otherwise
 
@@ -93,25 +100,17 @@ public class TurnMenuControl : MenuControl
     }
 
     //BUTTON METHODS
-    public void attackButtonPress()
+    public void attackButtonPress(MenuControl _backMenu)
     {//give control to attack menu
         //spawn actionSelectMenu for this player
         PlayerUnit currentPlayer = actionablePlayers[playerNum];
         ActionSelectMenuControl actionSelectMenu = Instantiate(actionSelectMenuPrefab, GetComponent<Transform>());
-        int newIndex = actionSelectMenus.Count;
         actionSelectMenus.Add(actionSelectMenu);
 
         //set the variables for this new menu
         actionSelectMenu.canvas.SetActive(false);
         actionSelectMenu.setCanvasCamera(canvas.GetComponent<Canvas>().worldCamera);
-        if (playerNum == 0)
-        {
-            actionSelectMenu.setActionSelectMenu(TurnMenuControl.instance, currentPlayer);
-        }
-        else
-        {
-            actionSelectMenu.setActionSelectMenu(actionSelectMenus[newIndex - 1], currentPlayer);
-        }
+        actionSelectMenu.setActionSelectMenu(_backMenu, currentPlayer);
 
         //switch control to this new menu
         ControlManager.instance.switchControl(actionSelectMenu);
@@ -144,6 +143,7 @@ public class TurnMenuControl : MenuControl
 
     void updateActionablePlayers()
     {//get actionable players
+        actionablePlayers.Clear();//so that it is reset when we go back to TurnMenu
         foreach (PlayerUnit player in BattleSystem.instance.team)
         {//check if unit is actionable
             if (player.currentH > 0)
@@ -151,6 +151,11 @@ public class TurnMenuControl : MenuControl
                 actionablePlayers.Add(player);
             }
         }
+    }
+
+    public void setNextBackMenu(MenuControl _nextBackMenu)
+    {
+        nextBackMenu = _nextBackMenu;
     }
 
 

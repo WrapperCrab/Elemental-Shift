@@ -19,9 +19,6 @@ public class TargetButton : MonoBehaviour, ISelectHandler, IDeselectHandler
         //set action with the unit of the clicked button
         List<Unit> targets = new List<Unit>();
         targets.Add(unit);
-
-
-        //var _action = Instantiate(action);
         action.setTargets(targets);
 
         //add the move to our list
@@ -29,6 +26,9 @@ public class TargetButton : MonoBehaviour, ISelectHandler, IDeselectHandler
 
         //increase counter in TurnMenu
         TurnMenuControl.instance.nextPlayer();
+
+        //set nextBackMenu in TurnMenu to targetSelect's backMenu
+        TurnMenuControl.instance.setNextBackMenu(gameObject.GetComponentInParent<TargetSelectMenuControl>().getBackMenu());
 
         //go back to turnMenu to either go to the next actionSelect, or go to ENEMYSELECT
         ControlManager.instance.switchControl(TurnMenuControl.instance);

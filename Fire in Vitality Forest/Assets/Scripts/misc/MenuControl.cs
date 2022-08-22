@@ -10,7 +10,7 @@ public class MenuControl : Controllable, IDeselectHandler
     public GameObject canvas;
     public Button firstButton;
     public Button selectedButton;
-    protected Controllable backMenu;//not menuControl since some menus go back to nonmenus
+    public Controllable backMenu;//not menuControl since some menus go back to nonmenus
 
     // Start is called before the first frame update
     public virtual void Start()

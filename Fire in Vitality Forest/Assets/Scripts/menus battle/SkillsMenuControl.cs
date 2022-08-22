@@ -30,6 +30,10 @@ public class SkillsMenuControl : MenuControl
     public override void changeActive()
     {
         canvas.SetActive(!canvas.activeSelf);
+        if (canvas.activeSelf)
+        {
+            Start();
+        }
     }
 
     public override void Start()

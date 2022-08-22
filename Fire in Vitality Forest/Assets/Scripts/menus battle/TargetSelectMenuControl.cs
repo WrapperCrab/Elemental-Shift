@@ -104,6 +104,10 @@ public class TargetSelectMenuControl : MenuControl
     {
         backMenu = _backMenu;
     }
+    public MenuControl getBackMenu()
+    {
+        return (MenuControl)backMenu;
+    }
     public void setCanvasCamera(Camera _camera)
     {
         canvas.GetComponent<Canvas>().worldCamera = _camera;
