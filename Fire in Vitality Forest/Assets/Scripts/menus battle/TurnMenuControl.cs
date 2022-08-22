@@ -24,7 +24,7 @@ public class TurnMenuControl : MenuControl
     List<PlayerUnit> actionablePlayers = new List<PlayerUnit>();//players which are able to perform actions this turn
     bool goToNextPhase = false;
     bool goToNextPlayer = false;
-    public MenuControl nextBackMenu;//set to the next actionSelectMenu
+    MenuControl nextBackMenu;//set to the next actionSelectMenu
 
     public ActionSelectMenuControl actionSelectMenuPrefab;
     List<ActionSelectMenuControl> actionSelectMenus = new List<ActionSelectMenuControl>();//list of all instantiated menus of this type

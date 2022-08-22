@@ -15,6 +15,6 @@ public class ActionAttack : Action
 
     public override string moveCompletedText()
     {//text displayed after this move was used
-        return (targets[0].name + " took damage!");
+        return (targets[0].unitName + " took damage!");
     }
 }

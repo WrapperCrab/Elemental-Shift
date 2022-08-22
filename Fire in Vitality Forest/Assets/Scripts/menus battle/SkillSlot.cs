@@ -7,19 +7,25 @@ using TMPro;
 
 public class SkillSlot : MonoBehaviour, ISelectHandler
 {
-    public TextMeshProUGUI actionName;
-    public TextMeshProUGUI mCost;
+    public TextMeshProUGUI actionNameText;
+    public TextMeshProUGUI mCostText;
 
-    //public TextMeshProUGUI selectedActionName;
-    //public TextMeshProUGUI selectedActionDescription;
-
-    Action action;//houses name, M cost, and description data
+    Action action;//action name, M cost, and description data
+    PlayerUnit user;
 
     public void setAction (Action _action)
     {
         action = _action;
-        actionName.text = action.name;
-        mCost.text = action.getMCost().ToString();
+        actionNameText.text = action.name;
+
+        int mCost = action.getMCost();
+        mCostText.text = mCost.ToString();
+
+        if (user.currentM < mCost)
+        {//This is too expensive right now. Must let player know that
+            //make the button red
+            GetComponent<Image>().color = Color.red;
+        }
 
         gameObject.GetComponent<Button>().interactable = true;
     }
@@ -32,8 +38,8 @@ public class SkillSlot : MonoBehaviour, ISelectHandler
     public void clearAction()
     {
         action = null;
-        actionName.text = "";
-        mCost.text = "";
+        actionNameText.text = "";
+        mCostText.text = "";
 
         gameObject.GetComponent<Button>().interactable = false;
     }
@@ -41,6 +47,11 @@ public class SkillSlot : MonoBehaviour, ISelectHandler
     public void enableButton()
     {
         gameObject.GetComponent<Button>().interactable = true;
+    }
+
+    public void setUser(PlayerUnit _user) 
+    {
+        user = _user;
     }
 
     public void OnSelect(BaseEventData eventData)

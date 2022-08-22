@@ -13,6 +13,6 @@ public class ActionHeal : Action
 
     public override string moveCompletedText()
     {//text displayed after this move was used
-        return (targets[0].name + " gained health!");
+        return (targets[0].unitName + " gained health!");
     }
 }

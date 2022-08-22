@@ -17,6 +17,6 @@ public class ActionAbsorb : Action
 
     public override string moveCompletedText()
     {//text displayed after this move was used
-        return (targets[0].name + " took damage and " + user.name + " healed!");
+        return (targets[0].unitName + " took damage and " + user.unitName + " healed!");
     }
 }

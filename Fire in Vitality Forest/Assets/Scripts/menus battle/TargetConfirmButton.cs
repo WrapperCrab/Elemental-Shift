@@ -23,6 +23,9 @@ public class TargetConfirmButton : MonoBehaviour
         //update TurnMenu
         TurnMenuControl.instance.nextPlayer();
 
+        //set nextBackMenu in TurnMenu to targetSelect's backMenu
+        TurnMenuControl.instance.setNextBackMenu(gameObject.GetComponentInParent<TargetSelectMenuControl>().getBackMenu());
+
         //give control back to TurnMenu
         ControlManager.instance.switchControl(TurnMenuControl.instance);
 

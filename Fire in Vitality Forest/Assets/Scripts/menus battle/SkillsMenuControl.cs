@@ -14,6 +14,7 @@ public class SkillsMenuControl : MenuControl
     SkillSlot[] slots;
     public TextMeshProUGUI skillName;
     public TextMeshProUGUI skillDescription;
+    public TextMeshProUGUI MText;
 
     bool firstButtonFound = false;
 
@@ -32,18 +33,25 @@ public class SkillsMenuControl : MenuControl
         canvas.SetActive(!canvas.activeSelf);
         if (canvas.activeSelf)
         {
-            Start();
+            Start2();
         }
     }
 
     public override void Start()
     {
-        title.text = currentPlayer.name + "'s Skills";
+
+    }
+
+    public void Start2()
+    {
+        title.text = currentPlayer.unitName + "'s Skills";
+        MText.text = currentPlayer.currentM.ToString();
 
         slots = gameObject.GetComponentsInChildren<SkillSlot>();
         foreach (SkillSlot button in slots)
         {
             button.GetComponent<Button>().interactable = false;
+            button.setUser(currentPlayer);
         }
 
         //set a skill for each button
@@ -67,7 +75,7 @@ public class SkillsMenuControl : MenuControl
         if (firstButtonFound)
         {
             selectButton();
-        }//otherwise, there is no button to select.
+        }//otherwise, there is no button to select which is okay
     }
 
 

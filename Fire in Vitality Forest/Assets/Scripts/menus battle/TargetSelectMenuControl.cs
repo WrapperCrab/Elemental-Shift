@@ -121,7 +121,7 @@ public class TargetSelectMenuControl : MenuControl
         Button button = Instantiate(targetButtonPrefab, buttonPosition, Quaternion.identity, canvas.transform);
 
         //change button text
-        button.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = unit.name;
+        button.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = unit.unitName;
 
         //change button's held members
         button.GetComponent<TargetButton>().setButton(unit, action);
