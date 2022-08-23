@@ -145,6 +145,7 @@ public class Action : ScriptableObject
             if (target.currentH > 0)
             {
                 allDead = false;
+                break;
             }
         }
         return allDead;
@@ -159,6 +160,16 @@ public class Action : ScriptableObject
         else
         {
             return false;
+        }
+    }
+
+    public void spendM()//This is only called if the user has enough magic to use the move
+    {
+        //find if user is player
+        PlayerUnit convertedUser = user as PlayerUnit;
+        if (convertedUser != null)
+        {//this is a player
+            convertedUser.currentM -= mCost;
         }
     }
 }

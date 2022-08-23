@@ -6,6 +6,6 @@ public class EnemyUnit : Unit
 {
     public virtual Action selectAction()
     {//used by enemies to select their move
-        return pass;
+        return null;//null is treated as pass
     }
 }

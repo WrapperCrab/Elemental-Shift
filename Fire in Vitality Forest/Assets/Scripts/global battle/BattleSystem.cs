@@ -104,9 +104,7 @@ public class BattleSystem : Controllable
         foreach (EnemyUnit enemy in enemies)
         {
             Action enemyMove = enemy.selectAction();
-            //don't put moves with no targets into turn order
-            //!!!Later on there may be moves with no targets that do do something. For now though, they are all treated as passes
-            if (!enemyMove.hasNoTarget())
+            if (enemyMove != null)//this move is not a pass
             {
                 addAction(enemyMove);
             }
@@ -118,7 +116,7 @@ public class BattleSystem : Controllable
 
     IEnumerator battle()
     {
-        Debug.Log("The battle is happening!");       
+        Debug.Log("The battle is happening!");
         //sort actionsToUse by unit speed
         actionsToUse.Sort(compareActions);
 
@@ -181,42 +179,45 @@ public class BattleSystem : Controllable
                             allTargetsDead = action.removeAllDeadTargets();
                             break;
                     }
-
-                    //Check all bools and perform move if valid
-                    if (!userDead && !insufficientM && !allTargetsDead)
-                    {//perform the action and highlight
-                        action.getUser().setHighlight(Highlight.ACTING);
-                        foreach (Unit target in action.getTargets())
-                        {
-                            target.setHighlight(Highlight.TARGETTED);
-                        }
-
-                        //perform action
-                        action.performAction();
-                        //!!!Here, we will do animations and text during the move
-                        actionCompleted = true;
-                    }
-                    else if (userDead)
-                    {
-                        dialogueText.text = action.getUser().unitName + " is dead and cannot use a move";
-                        yield return new WaitForSeconds(2f);
-                    }
-                    else if (insufficientM)
-                    {
-                        dialogueText.text = action.getUser().unitName + " does not have enough magic to use " + action.name;
-                        yield return new WaitForSeconds(2f);
-                    }
-                    else if (allTargetsDead)
-                    {
-                        dialogueText.text = action.getUser().unitName + " tried " + action.name + " but there were no targets for the action";
-                        yield return new WaitForSeconds(2f);
-                    }
-                    else
-                    {
-                        Debug.Log("How did this happen?");
-                        yield return new WaitForSeconds(2f);
-                    }
                 }
+            }
+
+            //Check all bools and perform move if valid
+            if (!userDead && !insufficientM && !allTargetsDead)
+            {//perform the action and highlight
+                action.getUser().setHighlight(Highlight.ACTING);
+                foreach (Unit target in action.getTargets())
+                {
+                    target.setHighlight(Highlight.TARGETTED);
+                }
+
+                //perform action
+                action.performAction();
+                //lower currentM of user
+                action.spendM();
+
+                //!!!Here, we will do animations and text during the move
+                actionCompleted = true;
+            }
+            else if (userDead)
+            {
+                dialogueText.text = action.getUser().unitName + " is dead and cannot use a move";
+                yield return new WaitForSeconds(2f);
+            }
+            else if (insufficientM)
+            {
+                dialogueText.text = action.getUser().unitName + " does not have enough magic to use " + action.name;
+                yield return new WaitForSeconds(2f);
+            }
+            else if (allTargetsDead)
+            {
+                dialogueText.text = action.getUser().unitName + " tried " + action.name + " but there were no targets for the action";
+                yield return new WaitForSeconds(2f);
+            }
+            else
+            {
+                Debug.Log("How did this happen?");
+                yield return new WaitForSeconds(2f);
             }
 
             //update HUD
@@ -243,9 +244,6 @@ public class BattleSystem : Controllable
             station.GetComponent<EnemyBattleStation>().deleteIfDead();
         }
 
-
-
-        //we're done performing actions for this turn.
         //check if either side has won.
         bool teamIsDead = true;
         foreach (PlayerUnit player in team)
@@ -265,7 +263,6 @@ public class BattleSystem : Controllable
                 break;
             }
         }
-
 
         if (teamIsDead)
         {
@@ -345,7 +342,7 @@ public class BattleSystem : Controllable
         }
     }
 
-    public void clearSkills()//!!!I don't think this works yet
+    public void clearSkills()
     {
         actionsToUse.Clear();
     }

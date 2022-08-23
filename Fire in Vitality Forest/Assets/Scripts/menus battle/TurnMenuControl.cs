@@ -61,6 +61,7 @@ public class TurnMenuControl : MenuControl
                 nextBackMenu.changeActive();
             }
             attackButtonPress(nextBackMenu);
+            nextBackMenu = null;
         }
         //nothing needs to be done otherwise
 

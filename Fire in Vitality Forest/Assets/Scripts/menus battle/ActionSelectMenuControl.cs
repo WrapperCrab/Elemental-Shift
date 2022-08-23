@@ -76,7 +76,14 @@ public class ActionSelectMenuControl : MenuControl
 
     public void playerPass()
     {
-        //change to next player's attack menu
+        //change to next player
+        TurnMenuControl.instance.nextPlayer();
+
+        //update the nextBackMenu
+        //!!!This is not working
+        TurnMenuControl.instance.setNextBackMenu(gameObject.GetComponent<ActionSelectMenuControl>());
+
+        //give control to next menu
         ControlManager.instance.switchControl(TurnMenuControl.instance);
     }
 

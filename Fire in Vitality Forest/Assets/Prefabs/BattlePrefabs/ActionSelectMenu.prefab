@@ -338,11 +338,11 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6771053757065277777}
         m_TargetAssemblyTypeName: ActionSelectMenuControl, Assembly-CSharp
-        m_MethodName: playerAction
-        m_Mode: 2
+        m_MethodName: playerPass
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: ffbe17b20a7ded54f943d4b97b09c66c, type: 2}
-          m_ObjectArgumentAssemblyTypeName: Action, Assembly-CSharp
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -901,6 +901,7 @@ MonoBehaviour:
   menuDepth: 2
   canvas: {fileID: 6771053756217754777}
   firstButton: {fileID: 6771053756386147401}
+  selectedButton: {fileID: 0}
   currentPlayer: {fileID: 0}
   targetSelectMenuPrefab: {fileID: 162289767707069749, guid: 89cc5a3861d50f1498dca66c6c227bcb, type: 3}
   skillsMenuPrefab: {fileID: 3054928213315581038, guid: 2d2ab771bfb3948408e1f4a928c34c78, type: 3}
