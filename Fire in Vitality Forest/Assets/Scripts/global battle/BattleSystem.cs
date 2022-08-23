@@ -132,7 +132,7 @@ public class BattleSystem : Controllable
             bool insufficientM = false;//can only be true if user is player
             bool allTargetsDead = false;
 
-            bool skipThisMove = false;
+            //bool skipThisMove = false;
 
             bool actionCompleted = false;
 
@@ -182,57 +182,8 @@ public class BattleSystem : Controllable
                     }
 
                     //Check all bools and perform move if valid
-
-                }
-            }
-
-
-
-            if (action.getUser().currentH > 0)
-            {//the user is alive
-
-
-                //check for too low magic if player
-                PlayerUnit convertedUser = action.getUser() as PlayerUnit;
-                bool userIsPlayer = (convertedUser != null);
-                if (!userIsPlayer || (convertedUser.currentM >= action.getMCost()))//!!!must only make check if user is PlayerUnit
-                {//the user has enough M or is an enemy
-                    if (!new List<int> { 0, 1 }.Contains(action.getTargetType()))
-                    {//this is a move with potentially dead targets
-                        if (action.getHitsAll())
-                        {//We only need remove dead targets
-                            bool targetsLeft = action.removeAllDeadTargets();
-                            if (!targetsLeft)
-                            {
-                                skipThisMove = true;
-                            }
-                        }
-                        else
-                        {//We need to look for a suitable replacement target if the target is dead
-                            if (action.getTargets()[0].currentH <= 0)
-                            {//our target is dead. Find a replacement
-                             //remove the old target
-                                Unit target = action.getTargets()[0];
-                                action.removeTarget(target);
-
-                                //find original target type, then find best replacement
-                                Unit replacement = findBestTarget(target);
-
-                                if (replacement == null)
-                                {//if no replacement, skip this action
-                                    skipThisMove = true;
-                                }
-                                else
-                                {//add this as the new target
-                                    action.addTarget(replacement);
-                                }
-                            }
-                        }
-                    }
-
-                    if (!skipThisMove)
-                    {//we are good to go with using this move
-                     //set highlights for this action
+                    if (!userDead && !insufficientM && !allTargetsDead)
+                    {//perform the action and highlight
                         action.getUser().setHighlight(Highlight.ACTING);
                         foreach (Unit target in action.getTargets())
                         {
@@ -243,8 +194,82 @@ public class BattleSystem : Controllable
                         action.performAction();
                         actionCompleted = true;
                     }
-                }//else//the user is a player with not enough M
+                    else if (userDead)
+                    {
+
+                    }else if (insufficientM)
+                    {
+
+                    }else if (allTargetsDead)
+                    {
+
+                    }
+                    else
+                    {
+
+                    }
+                }
             }
+
+
+
+            //if (action.getUser().currentH > 0)
+            //{//the user is alive
+
+
+            //    //check for too low magic if player
+            //    PlayerUnit convertedUser = action.getUser() as PlayerUnit;
+            //    bool userIsPlayer = (convertedUser != null);
+            //    if (!userIsPlayer || (convertedUser.currentM >= action.getMCost()))//!!!must only make check if user is PlayerUnit
+            //    {//the user has enough M or is an enemy
+            //        if (!new List<int> { 0, 1 }.Contains(action.getTargetType()))
+            //        {//this is a move with potentially dead targets
+            //            if (action.getHitsAll())
+            //            {//We only need remove dead targets
+            //                bool targetsLeft = action.removeAllDeadTargets();
+            //                if (!targetsLeft)
+            //                {
+            //                    skipThisMove = true;
+            //                }
+            //            }
+            //            else
+            //            {//We need to look for a suitable replacement target if the target is dead
+            //                if (action.getTargets()[0].currentH <= 0)
+            //                {//our target is dead. Find a replacement
+            //                 //remove the old target
+            //                    Unit target = action.getTargets()[0];
+            //                    action.removeTarget(target);
+
+            //                    //find original target type, then find best replacement
+            //                    Unit replacement = findBestTarget(target);
+
+            //                    if (replacement == null)
+            //                    {//if no replacement, skip this action
+            //                        skipThisMove = true;
+            //                    }
+            //                    else
+            //                    {//add this as the new target
+            //                        action.addTarget(replacement);
+            //                    }
+            //                }
+            //            }
+            //        }
+
+            //        if (!skipThisMove)
+            //        {//we are good to go with using this move
+            //         //set highlights for this action
+            //            action.getUser().setHighlight(Highlight.ACTING);
+            //            foreach (Unit target in action.getTargets())
+            //            {
+            //                target.setHighlight(Highlight.TARGETTED);
+            //            }
+
+            //            //perform action
+            //            action.performAction();
+            //            actionCompleted = true;
+            //        }
+            //    }//else//the user is a player with not enough M
+            //}
 
             //update HUD
             setHUDs();
