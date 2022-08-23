@@ -151,7 +151,7 @@ public class BattleSystem : Controllable
                     {
                         case 0://no targets
                         case 1://self target
-                        default;
+                        default:
                             //we are ready to do the move
                             break;
                         
@@ -162,11 +162,12 @@ public class BattleSystem : Controllable
                             allTargetsDead = action.getAllTargetsDead();
                             if (allTargetsDead)
                             {//find a replacement
-                                Unit oldTarget = action.getTargets[0];
+                                Unit oldTarget = action.getTargets()[0];
+                                action.removeTarget(oldTarget);
                                 Unit replacement = findBestTarget(oldTarget);
                                 if (replacement != null)
                                 {//we found one! replace it in action
-                                    action.removeTarget(oldTarget);
+
                                     action.addTarget(replacement);
                                     allTargetsDead = false;
                                 }
@@ -192,95 +193,41 @@ public class BattleSystem : Controllable
 
                         //perform action
                         action.performAction();
+                        //!!!Here, we will do animations and text during the move
                         actionCompleted = true;
                     }
                     else if (userDead)
                     {
-
-                    }else if (insufficientM)
+                        dialogueText.text = action.getUser().unitName + " is dead and cannot use a move";
+                        yield return new WaitForSeconds(2f);
+                    }
+                    else if (insufficientM)
                     {
-
-                    }else if (allTargetsDead)
+                        dialogueText.text = action.getUser().unitName + " does not have enough magic to use " + action.name;
+                        yield return new WaitForSeconds(2f);
+                    }
+                    else if (allTargetsDead)
                     {
-
+                        dialogueText.text = action.getUser().unitName + " tried " + action.name + " but there were no targets for the action";
+                        yield return new WaitForSeconds(2f);
                     }
                     else
                     {
-
+                        Debug.Log("How did this happen?");
+                        yield return new WaitForSeconds(2f);
                     }
                 }
             }
 
-
-
-            //if (action.getUser().currentH > 0)
-            //{//the user is alive
-
-
-            //    //check for too low magic if player
-            //    PlayerUnit convertedUser = action.getUser() as PlayerUnit;
-            //    bool userIsPlayer = (convertedUser != null);
-            //    if (!userIsPlayer || (convertedUser.currentM >= action.getMCost()))//!!!must only make check if user is PlayerUnit
-            //    {//the user has enough M or is an enemy
-            //        if (!new List<int> { 0, 1 }.Contains(action.getTargetType()))
-            //        {//this is a move with potentially dead targets
-            //            if (action.getHitsAll())
-            //            {//We only need remove dead targets
-            //                bool targetsLeft = action.removeAllDeadTargets();
-            //                if (!targetsLeft)
-            //                {
-            //                    skipThisMove = true;
-            //                }
-            //            }
-            //            else
-            //            {//We need to look for a suitable replacement target if the target is dead
-            //                if (action.getTargets()[0].currentH <= 0)
-            //                {//our target is dead. Find a replacement
-            //                 //remove the old target
-            //                    Unit target = action.getTargets()[0];
-            //                    action.removeTarget(target);
-
-            //                    //find original target type, then find best replacement
-            //                    Unit replacement = findBestTarget(target);
-
-            //                    if (replacement == null)
-            //                    {//if no replacement, skip this action
-            //                        skipThisMove = true;
-            //                    }
-            //                    else
-            //                    {//add this as the new target
-            //                        action.addTarget(replacement);
-            //                    }
-            //                }
-            //            }
-            //        }
-
-            //        if (!skipThisMove)
-            //        {//we are good to go with using this move
-            //         //set highlights for this action
-            //            action.getUser().setHighlight(Highlight.ACTING);
-            //            foreach (Unit target in action.getTargets())
-            //            {
-            //                target.setHighlight(Highlight.TARGETTED);
-            //            }
-
-            //            //perform action
-            //            action.performAction();
-            //            actionCompleted = true;
-            //        }
-            //    }//else//the user is a player with not enough M
-            //}
-
             //update HUD
             setHUDs();
 
-            //dialogueText may be changed when action is performed. I'm not sure yet
-            if (actionCompleted)//is not called if would-be-user was dead
+            if (actionCompleted)
             {
+                //!!!later I want to have this reference numbers like damage dealt and stuff
                 dialogueText.text = action.moveCompletedText();
                 yield return new WaitForSeconds(2f);
             }
-            //!!! I want different messages depending on why the move failed
 
             //update Highlights
             setHighlights();

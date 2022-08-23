@@ -133,7 +133,7 @@ public class Action : ScriptableObject
         }
         else
         {
-            return (convertedUser.currentM < mCost());
+            return (convertedUser.currentM < mCost);
         }        
     }
 
@@ -147,7 +147,7 @@ public class Action : ScriptableObject
                 allDead = false;
             }
         }
-        return allDead
+        return allDead;
     }
     public bool removeAllDeadTargets()
     {
