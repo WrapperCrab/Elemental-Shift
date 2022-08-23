@@ -125,14 +125,78 @@ public class BattleSystem : Controllable
         //call actions one at a time
         foreach (Action action in actionsToUse)
         {
+            int targetType = action.getTargetType();
+
+            //used to indicate why a move failed
+            bool userDead = false;
+            bool insufficientM = false;//can only be true if user is player
+            bool allTargetsDead = false;
+
             bool skipThisMove = false;
+
             bool actionCompleted = false;
+
+
+
+
             //check for user death.
+            userDead = action.getUserDead();
+            if (!userDead)
+            {
+                //check for user insufficient M
+                insufficientM = action.getInsufficientM();
+                if (!insufficientM)
+                {
+                    switch (targetType)
+                    {
+                        case 0://no targets
+                        case 1://self target
+                        default;
+                            //we are ready to do the move
+                            break;
+                        
+                        case 2://1 teammate
+                        case 4://1 enemy
+                        case 6://1 unit
+                            //check if target is dead
+                            allTargetsDead = action.getAllTargetsDead();
+                            if (allTargetsDead)
+                            {//find a replacement
+                                Unit oldTarget = action.getTargets[0];
+                                Unit replacement = findBestTarget(oldTarget);
+                                if (replacement != null)
+                                {//we found one! replace it in action
+                                    action.removeTarget(oldTarget);
+                                    action.addTarget(replacement);
+                                    allTargetsDead = false;
+                                }
+                            }
+                            break;
+
+                        case 5://all enemies
+                        case 3://all teammates
+                        case 7://all units
+                            //remove dead targets
+                            allTargetsDead = action.removeAllDeadTargets();
+                            break;
+                    }
+
+                    //Check all bools and perform move if valid
+
+                }
+            }
+
+
+
             if (action.getUser().currentH > 0)
             {//the user is alive
-                //check for too low magic
-                if (action.getUser().currentM >= action.getMCost())//!!!must only make check if user is PlayerUnit
-                {//the user has enough M
+
+
+                //check for too low magic if player
+                PlayerUnit convertedUser = action.getUser() as PlayerUnit;
+                bool userIsPlayer = (convertedUser != null);
+                if (!userIsPlayer || (convertedUser.currentM >= action.getMCost()))//!!!must only make check if user is PlayerUnit
+                {//the user has enough M or is an enemy
                     if (!new List<int> { 0, 1 }.Contains(action.getTargetType()))
                     {//this is a move with potentially dead targets
                         if (action.getHitsAll())
@@ -179,7 +243,7 @@ public class BattleSystem : Controllable
                         action.performAction();
                         actionCompleted = true;
                     }
-                }
+                }//else//the user is a player with not enough M
             }
 
             //update HUD

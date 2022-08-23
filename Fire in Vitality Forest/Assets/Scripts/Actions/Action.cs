@@ -51,6 +51,10 @@ public class Action : ScriptableObject
     {
         return user;
     }
+    public bool getUserDead()
+    {
+        return (user.currentH <= 0);
+    }
 
     public void setTargets(List<Unit> _targets)
     {
@@ -119,16 +123,42 @@ public class Action : ScriptableObject
         return (!onEnemy && !onTeam);
     }
 
+    public bool getInsufficientM()
+    {
+        //find if user is player
+        PlayerUnit convertedUser = user as PlayerUnit;
+        if (convertedUser == null)
+        {//this is not a player
+            return false;
+        }
+        else
+        {
+            return (convertedUser.currentM < mCost());
+        }        
+    }
+
+    public bool getAllTargetsDead()
+    {
+        bool allDead = true;
+        foreach (Unit target in targets)
+        {
+            if (target.currentH > 0)
+            {
+                allDead = false;
+            }
+        }
+        return allDead
+    }
     public bool removeAllDeadTargets()
     {
         targets.RemoveAll(target => target.currentH <= 0);
         if (targets.Count == 0)
         {
-            return false;
+            return true;
         }
         else
         {
-            return true;
+            return false;
         }
     }
 }
