@@ -235,6 +235,7 @@ MonoBehaviour:
   firstButton: {fileID: 378263052}
   selectedButton: {fileID: 0}
   actionSelectMenuPrefab: {fileID: 6771053757065277777, guid: becacf36e8860b149aee79c748609139, type: 3}
+  analyzeMenuPrefab: {fileID: 332547092974093196, guid: 632b8bb7a58b0014bb6f515854a9b8aa, type: 3}
 --- !u!1001 &101772132
 PrefabInstance:
   m_ObjectHideFlags: 0

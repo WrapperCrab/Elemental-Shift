@@ -74,6 +74,11 @@ public class MenuControl : Controllable, IDeselectHandler
         }
     }
 
+    public void setCanvasCamera(Camera _camera)
+    {
+        canvas.GetComponent<Canvas>().worldCamera = _camera;
+    }
+
     public void selectButton()
     {
         if (selectedButton != null)

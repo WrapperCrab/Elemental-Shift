@@ -15,10 +15,6 @@ public class ActionSelectMenuControl : MenuControl
         backMenu = _backMenu;
         currentPlayer = _currentPlayer;
     }
-    public void setCanvasCamera(Camera _camera)
-    {
-        canvas.GetComponent<Canvas>().worldCamera = _camera;
-    }
 
     public override void Start()
     {

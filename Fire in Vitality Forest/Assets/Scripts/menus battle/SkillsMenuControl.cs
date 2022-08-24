@@ -24,10 +24,6 @@ public class SkillsMenuControl : MenuControl
         currentPlayer = _currentPlayer;
         backMenu = _backMenu;
     }
-    public void setCanvasCamera(Camera _camera)
-    {
-        canvas.GetComponent<Canvas>().worldCamera = _camera;
-    }
 
     public override void changeActive()
     {

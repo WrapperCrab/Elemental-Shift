@@ -5,13 +5,6 @@ using UnityEngine.UI;
 
 public class TargetSelectMenuControl : MenuControl
 {
-    //here we need to display the correct buttons based on the action selected in ActionSelectmenu
-    //Then we need to allow player to press one of these buttons
-    //Then we set the targets
-    //then we add the full action to actionsToUse
-    //Then we switch to the actionSelectMenu for the next team member if there is one
-    //and we must do this in a way that allows the player to go back and reselect moves
-
     public Action action;
 
     public Button targetButtonPrefab;
@@ -108,12 +101,8 @@ public class TargetSelectMenuControl : MenuControl
     {
         return (MenuControl)backMenu;
     }
-    public void setCanvasCamera(Camera _camera)
-    {
-        canvas.GetComponent<Canvas>().worldCamera = _camera;
-    }
 
-    public void spawnTargetButton(Vector3 unitPosition, Unit unit)
+    void spawnTargetButton(Vector3 unitPosition, Unit unit)
     {
         ////spawn a target button above the unit
         Vector3 buttonPosition = unitPosition;

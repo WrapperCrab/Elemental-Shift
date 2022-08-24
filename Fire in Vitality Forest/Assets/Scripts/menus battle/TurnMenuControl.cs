@@ -28,6 +28,7 @@ public class TurnMenuControl : MenuControl
 
     public ActionSelectMenuControl actionSelectMenuPrefab;
     List<ActionSelectMenuControl> actionSelectMenus = new List<ActionSelectMenuControl>();//list of all instantiated menus of this type
+    public AnalyzeMenuControl analyzeMenuPrefab;
 
     #region menu stuff
 
@@ -119,7 +120,15 @@ public class TurnMenuControl : MenuControl
 
     public void analyzeButtonPress()
     {
+        //spawn menu
+        AnalyzeMenuControl analyzeMenu = Instantiate(analyzeMenuPrefab, GetComponent<Transform>());
 
+        //set the variables for this new menu
+        analyzeMenu.canvas.SetActive(false);
+        analyzeMenu.setCanvasCamera(canvas.GetComponent<Canvas>().worldCamera);
+
+        //switch control to this new menu
+        ControlManager.instance.switchControl(analyzeMenu);
     }
 
     #endregion
