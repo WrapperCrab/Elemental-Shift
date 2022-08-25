@@ -93,6 +93,7 @@ public class AnalyzeMenuControl : MenuControl
         infoPanelPrefab.gameObject.SetActive(false);//so I can set unit before start is called
         infoPanelInstance = Instantiate(infoPanelPrefab, canvas.transform);
         infoPanelInstance.setUnit(unit);
+        infoPanelPrefab.gameObject.SetActive(true);
         infoPanelInstance.gameObject.SetActive(true);
     }
 }

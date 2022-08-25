@@ -6,7 +6,7 @@ using System;
 public enum Highlight {NONE, TARGETTED, DEAD, ACTING}
 public enum Affinity {WEAK, NORMAL, STRONG}
 
-public class Unit : MonoBehaviour
+public abstract class Unit : MonoBehaviour
 {
     public string unitName;
     //public int unitLevel;
@@ -23,6 +23,8 @@ public class Unit : MonoBehaviour
     public Affinity[] weaknesses = new Affinity[5];//none, water, earth, fire, air
 
     public List<Action> skills;//These are added in the inspector
+
+    public string description;
 
     public SpriteRenderer sprite;
     protected Highlight highlight = Highlight.NONE;

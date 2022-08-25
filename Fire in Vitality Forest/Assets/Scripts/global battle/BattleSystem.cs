@@ -39,6 +39,9 @@ public class BattleSystem : Controllable
     
     public TextMeshProUGUI dialogueText;
 
+    public TextMeshProUGUI turnNumberText;
+    public int turnNumber = 0;
+
     public List<BattleHUD> playerHUDs;
 
     // Start is called before the first frame update
@@ -88,6 +91,10 @@ public class BattleSystem : Controllable
 
     void playerSelect()
     {
+        //update turnNumber
+        turnNumber++;
+        turnNumberText.text = turnNumber.ToString();
+
         dialogueText.text = "Choose an action";
         //give control to TurnMenu
         ControlManager.instance.switchControl(TurnMenuControl.instance);
