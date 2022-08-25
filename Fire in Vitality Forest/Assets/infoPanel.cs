@@ -32,8 +32,6 @@ public class infoPanel : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        disableButtons();//make the buttons in this panel nonInteractable
-
         //set every field based on Unit and unitIsPlayer
         //destroy relevant fields when applicable
         nameText.text = unit.unitName;
@@ -58,7 +56,7 @@ public class infoPanel : MonoBehaviour
         for (skillNum += 0; skillNum<3; skillNum++)
         {
             //these buttons have no skills destroy them
-            Destroy(skillTexts[skillNum].gameObject);
+            Destroy(skillTexts[skillNum].GetComponentInParent<Button>().gameObject);
         }
 
 
@@ -70,6 +68,8 @@ public class infoPanel : MonoBehaviour
 
     public void setUnit(Unit _unit)
     {
+        disableButtons();//!!!make the buttons in this panel nonInteractable
+
         unit = _unit;
         EnemyUnit enemyUnit = _unit as EnemyUnit;
         if (enemyUnit != null)

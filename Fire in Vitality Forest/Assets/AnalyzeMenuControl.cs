@@ -9,7 +9,7 @@ public class AnalyzeMenuControl : MenuControl
     public infoPanel infoPanelPrefab;//displays unit info
     infoPanel infoPanelInstance;
 
-    public List<Button> orderButtons = new List<Button>();//for setting firstButton after all buttons are spawned
+    List<Button> orderButtons = new List<Button>();//for setting firstButton after all buttons are spawned
     List<Unit> units = new List<Unit>();
 
     bool buttonsCreated = false;
@@ -67,9 +67,8 @@ public class AnalyzeMenuControl : MenuControl
         //change button's held members
         button.GetComponent<orderButton>().setButton(unit, playerNum, GetComponent<AnalyzeMenuControl>());
     }
-
     //used to sort units in units list
-    public int compareUnits(Unit a, Unit b)
+    int compareUnits(Unit a, Unit b)
     {
         if (a == null || b == null)
         {
@@ -84,11 +83,10 @@ public class AnalyzeMenuControl : MenuControl
 
     public void spawnInfoPanel(Unit unit)
     {
-        Debug.Log("about to destroy old panel");
         //destroy the old panel if it exists
         if (infoPanelInstance != null)
         {
-            Destroy(infoPanelInstance);
+            Destroy(infoPanelInstance.gameObject);
         }
 
         //create the new one

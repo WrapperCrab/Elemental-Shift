@@ -74,6 +74,11 @@ public class MenuControl : Controllable, IDeselectHandler
         }
     }
 
+    public void setBackMenu(Controllable _backMenu)
+    {
+        backMenu = _backMenu;
+    }
+
     public void setCanvasCamera(Camera _camera)
     {
         canvas.GetComponent<Canvas>().worldCamera = _camera;

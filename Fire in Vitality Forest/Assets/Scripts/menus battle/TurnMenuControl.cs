@@ -126,6 +126,7 @@ public class TurnMenuControl : MenuControl
         //set the variables for this new menu
         analyzeMenu.canvas.SetActive(false);
         analyzeMenu.setCanvasCamera(canvas.GetComponent<Canvas>().worldCamera);
+        analyzeMenu.setBackMenu(GetComponent<TurnMenuControl>());
 
         //switch control to this new menu
         ControlManager.instance.switchControl(analyzeMenu);
