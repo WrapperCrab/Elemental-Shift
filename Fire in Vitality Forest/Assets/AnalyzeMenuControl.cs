@@ -65,7 +65,6 @@ public class AnalyzeMenuControl : MenuControl
         Button button = Instantiate(orderButtonPrefab, buttonPosition, Quaternion.identity, canvas.transform);
 
         //change button's held members
-        Debug.Log(playerNum);
         button.GetComponent<orderButton>().setButton(unit, playerNum, GetComponent<AnalyzeMenuControl>());
     }
 
@@ -85,6 +84,7 @@ public class AnalyzeMenuControl : MenuControl
 
     public void spawnInfoPanel(Unit unit)
     {
+        Debug.Log("about to destroy old panel");
         //destroy the old panel if it exists
         if (infoPanelInstance != null)
         {

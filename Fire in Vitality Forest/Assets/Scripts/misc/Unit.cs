@@ -4,20 +4,23 @@ using UnityEngine;
 using System;
 
 public enum Highlight {NONE, TARGETTED, DEAD, ACTING}
+public enum Affinity {WEAK, NORMAL, STRONG}
 
 public class Unit : MonoBehaviour
 {
     public string unitName;
     //public int unitLevel;
 
+    //stats
     public int currentH;
     public int maxH;
-
     public int attack;
     public int defense;
     public int speed;
-
     public ImbuedElement element;
+
+    //affinities
+    public Affinity[] weaknesses = new Affinity[5];//none, water, earth, fire, air
 
     public List<Action> skills;//These are added in the inspector
 
@@ -79,5 +82,19 @@ public class Unit : MonoBehaviour
                 break;
         }
         highlight = _highlight;
+    }
+
+    public string getAffinityAbrev(Affinity affinity)
+    {
+        switch (affinity)
+        {
+            case Affinity.WEAK:
+                return "we";
+            case Affinity.NORMAL:
+            default:
+                return "-";
+            case Affinity.STRONG:
+                return "str";
+        }
     }
 }
