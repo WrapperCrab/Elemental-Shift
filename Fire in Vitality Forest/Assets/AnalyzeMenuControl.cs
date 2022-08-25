@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class AnalyzeMenuControl : MenuControl
 {
     public Button orderButtonPrefab;//these buttons do nothing when clicked, but spawn panel when selected
-    public GameObject infoPanelPrefab;//displays unit info
+    public infoPanel infoPanelPrefab;//displays unit info
+    infoPanel infoPanelInstance;
 
     public List<Button> orderButtons = new List<Button>();//for setting firstButton after all buttons are spawned
     List<Unit> units = new List<Unit>();
@@ -17,11 +18,16 @@ public class AnalyzeMenuControl : MenuControl
     {
         units.AddRange(BattleSystem.instance.enemies);
         units.AddRange(BattleSystem.instance.team);
+        //sort the units by speed
+        units.Sort(compareUnits);
 
+        int playerNum = 1;
         foreach (Unit unit in units)
         {
             //create button above unit
-            spawnOrderButton(unit.GetComponent<Transform>().position, unit);
+            spawnOrderButton(unit.GetComponent<Transform>().position, unit, playerNum);
+            //increase playerNum
+            playerNum++;
         }
         //assign firstButton
         orderButtons.AddRange(gameObject.GetComponentsInChildren<Button>());
@@ -51,7 +57,7 @@ public class AnalyzeMenuControl : MenuControl
         }
     }
 
-    void spawnOrderButton(Vector3 position, Unit unit)
+    void spawnOrderButton(Vector3 position, Unit unit, int playerNum)
     {
         //spawn a target button above the unit
         Vector3 buttonPosition = position;
@@ -59,11 +65,36 @@ public class AnalyzeMenuControl : MenuControl
         Button button = Instantiate(orderButtonPrefab, buttonPosition, Quaternion.identity, canvas.transform);
 
         //change button's held members
-        button.GetComponent<orderButton>().setButton(unit);
+        Debug.Log(playerNum);
+        button.GetComponent<orderButton>().setButton(unit, playerNum, GetComponent<AnalyzeMenuControl>());
     }
 
-    void orderButtonText()
-    {//called when all buttons are spawned. changes text of button to numbered order in turn
+    //used to sort units in units list
+    public int compareUnits(Unit a, Unit b)
+    {
+        if (a == null || b == null)
+        {
+            return 0;
+        }
 
+        int aSpeed = a.speed;
+        int bSpeed = b.speed;
+
+        return aSpeed.CompareTo(bSpeed);
+    }
+
+    public void spawnInfoPanel(Unit unit)
+    {
+        //destroy the old panel if it exists
+        if (infoPanelInstance != null)
+        {
+            Destroy(infoPanelInstance);
+        }
+
+        //create the new one
+        infoPanelPrefab.gameObject.SetActive(false);//so I can set unit before start is called
+        infoPanelInstance = Instantiate(infoPanelPrefab, canvas.transform);
+        infoPanelInstance.setUnit(unit);
+        infoPanelInstance.gameObject.SetActive(true);
     }
 }

@@ -150,5 +150,5 @@ MonoBehaviour:
   firstButton: {fileID: 0}
   selectedButton: {fileID: 0}
   orderButtonPrefab: {fileID: 6955225305214640390, guid: b98bdcd81d911744bbe609638f8824ff, type: 3}
-  infoPanelPrefab: {fileID: 0}
-  buttons: []
+  infoPanelPrefab: {fileID: 7422096090697387441, guid: b9b7188d5b7d4154e87e62e381d0e793, type: 3}
+  orderButtons: []
