@@ -14,6 +14,7 @@ public class infoPanel : MonoBehaviour
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI hText;
     public TextMeshProUGUI mText;
+    public GameObject mFields;//destroyed if not player
     public TextMeshProUGUI aText;
     public TextMeshProUGUI dText;
     public TextMeshProUGUI sText;
@@ -39,6 +40,16 @@ public class infoPanel : MonoBehaviour
         aText.text = unit.attack.ToString();
         dText.text = unit.defense.ToString();
         sText.text = unit.speed.ToString();
+        if (unitIsPlayer)
+        {
+            PlayerUnit convertedUnit = unit as PlayerUnit;
+            mText.text = convertedUnit.currentM + "/" + convertedUnit.maxM;
+        }
+        else
+        {
+            //destroy the M fields
+            Destroy(mFields.gameObject);
+        }
 
         affNText.text = unit.getAffinityAbrev(unit.weaknesses[0]);
         affWText.text = unit.getAffinityAbrev(unit.weaknesses[1]);
@@ -58,11 +69,7 @@ public class infoPanel : MonoBehaviour
             //these buttons have no skills destroy them
             Destroy(skillTexts[skillNum].GetComponentInParent<Button>().gameObject);
         }
-
-
-        //mText, elementImage, descriptionText
-
-
+        //!!!elementImage, descriptionText
 
     }
 
