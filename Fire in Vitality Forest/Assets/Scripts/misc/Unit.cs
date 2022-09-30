@@ -26,6 +26,7 @@ public abstract class Unit : MonoBehaviour
 
     public string description;
 
+    public int height;//used for scaling sprite
     public SpriteRenderer sprite;
     protected Highlight highlight = Highlight.NONE;
 
