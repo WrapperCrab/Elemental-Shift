@@ -5,6 +5,7 @@ using System;
 
 public enum Highlight {NONE, TARGETTED, DEAD, ACTING}
 public enum Affinity {WEAK, NORMAL, STRONG}
+public enum Element {k, R, G, B, c, y, m}
 
 public abstract class Unit : MonoBehaviour
 {
@@ -17,7 +18,8 @@ public abstract class Unit : MonoBehaviour
     public int attack;
     public int defense;
     public int speed;
-    public ImbuedElement element;
+    public Element color;
+
 
     //affinities
     public Affinity[] weaknesses = new Affinity[5];//none, water, earth, fire, air
@@ -66,6 +68,17 @@ public abstract class Unit : MonoBehaviour
         currentH = Math.Min(currentH, maxH);
     }
 
+    public void setColor(Element newColor)
+    {//changes the imbued color of the unit
+        color = newColor;
+        sprite.color = getColorHue();
+    }
+
+    public void updateColor()
+    {
+        sprite.color = getColorHue();
+    }
+
     public void setHighlight(Highlight _highlight)
     {
         switch (_highlight)
@@ -98,6 +111,55 @@ public abstract class Unit : MonoBehaviour
                 return "-";
             case Affinity.STRONG:
                 return "str";
+        }
+    }
+
+    public string getColorAbrev()
+    {//returns abbreviation of current color
+        return color.ToString();
+    }
+
+    public string getColorName()
+    {//returns string name of current color
+        switch (color)
+        {
+            case (Element.k):
+            default:
+                return "Black";
+            case (Element.R):
+                return "Red";
+            case (Element.G):
+                return "Green";
+            case (Element.B):
+                return "Blue";
+            case (Element.c):
+                return "Cyan";
+            case (Element.y):
+                return "Yellow";
+            case (Element.m):
+                return "Magenta";
+        }
+    }
+
+    public Color getColorHue()
+    {//returns current imbued color of player
+        switch (color)
+        {
+            case (Element.k):
+            default:
+                return Color.black;
+            case (Element.R):
+                return Color.red;
+            case (Element.G):
+                return Color.green;
+            case (Element.B):
+                return Color.blue;
+            case (Element.c):
+                return Color.cyan;
+            case (Element.y):
+                return Color.yellow;
+            case (Element.m):
+                return Color.magenta;
         }
     }
 }

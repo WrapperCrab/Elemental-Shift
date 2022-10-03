@@ -35,7 +35,7 @@ public class BattleSystem : Controllable
     public List<PlayerUnit> team;
     public List<EnemyUnit> enemies;
 
-    public List<Action> actionsToUse = new List<Action>();//It would be nice if this works
+    public List<Action> actionsToUse = new List<Action>();
     
     public TextMeshProUGUI dialogueText;
 
@@ -59,9 +59,10 @@ public class BattleSystem : Controllable
     IEnumerator setupBattle()
     {
         //spawn the players
-        for (int i=0; i<playerPrefabs.Count; i++)
+        for (int i=0; i<playerPrefabs.Count; i++)//!!!may need to call "update color" function
         {
             GameObject playerGO = Instantiate(playerPrefabs[i], playerBattleStations[i]);
+            playerGO.GetComponent<PlayerUnit>().updateColor();
             team.Add(playerGO.GetComponent<PlayerUnit>());
         }
 
@@ -69,6 +70,7 @@ public class BattleSystem : Controllable
         for (int i = 0; i < enemyPrefabs.Count; i++)
         {
             GameObject enemyGO = enemyBattleStations[spawnLocations[i]].GetComponent<EnemyBattleStation>().fillStation(enemyPrefabs[i]);
+            enemyGO.GetComponent<EnemyUnit>().updateColor();
             enemies.Add(enemyGO.GetComponent<EnemyUnit>());
         }
 

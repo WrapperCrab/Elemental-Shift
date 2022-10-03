@@ -14,7 +14,7 @@ public class BattleHUD : MonoBehaviour
     public Slider mSlider;
     public TextMeshProUGUI currentMagic;
 
-    public TextMeshProUGUI element;
+    public TextMeshProUGUI color;
 
 
     public void setHUD(PlayerUnit unit)
@@ -29,7 +29,7 @@ public class BattleHUD : MonoBehaviour
         mSlider.value = unit.currentM;
         currentMagic.text = unit.currentM + "/" + unit.maxM;
 
-        element.text = unit.element.getName();
+        color.text = unit.getColorName();
     }
 
     public void setH(int h)
@@ -42,9 +42,9 @@ public class BattleHUD : MonoBehaviour
         mSlider.value = m;
     }
 
-    public void setElement(ImbuedElement thisElement)
+    public void setColor(string colorName)
     {
-        element.text = thisElement.getName();
+        color.text = colorName;
     }
 
 
