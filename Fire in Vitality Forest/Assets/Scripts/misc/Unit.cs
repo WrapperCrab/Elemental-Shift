@@ -30,6 +30,9 @@ public abstract class Unit : MonoBehaviour
 
     public int height;//used for scaling sprite
     public SpriteRenderer sprite;
+    public SpriteRenderer outline;
+
+
     protected Highlight highlight = Highlight.NONE;
 
     public bool getAttacked(int _attack)//this will have more inputs later
@@ -161,5 +164,12 @@ public abstract class Unit : MonoBehaviour
             case (Element.m):
                 return Color.magenta;
         }
+    }
+
+    public void scaleSprite()
+    {//scales the sprite and outline based on height
+        float scaleFactor = height / sprite.bounds.size.x;
+        sprite.size = new Vector2(scaleFactor*sprite.bounds.size.x, scaleFactor*sprite.bounds.size.y);
+        outline.size = new Vector2(scaleFactor * outline.bounds.size.x, scaleFactor * outline.bounds.size.y);
     }
 }

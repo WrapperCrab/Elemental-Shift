@@ -63,6 +63,7 @@ public class BattleSystem : Controllable
         {
             GameObject playerGO = Instantiate(playerPrefabs[i], playerBattleStations[i]);
             playerGO.GetComponent<PlayerUnit>().updateColor();
+            playerGO.GetComponent<PlayerUnit>().scaleSprite();
             team.Add(playerGO.GetComponent<PlayerUnit>());
         }
 
@@ -71,6 +72,7 @@ public class BattleSystem : Controllable
         {
             GameObject enemyGO = enemyBattleStations[spawnLocations[i]].GetComponent<EnemyBattleStation>().fillStation(enemyPrefabs[i]);
             enemyGO.GetComponent<EnemyUnit>().updateColor();
+            enemyGO.GetComponent<EnemyUnit>().scaleSprite();
             enemies.Add(enemyGO.GetComponent<EnemyUnit>());
         }
 
