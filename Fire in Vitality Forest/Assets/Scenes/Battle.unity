@@ -1199,7 +1199,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1412176589017457045, guid: 6049d3688804a8e4db2dd495904c2bff, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -170
+      value: -169.99998
       objectReference: {fileID: 0}
     - target: {fileID: 1412176589017457045, guid: 6049d3688804a8e4db2dd495904c2bff, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1760,7 +1760,7 @@ MonoBehaviour:
   - {fileID: 122260789378598670, guid: d5010e54a298eb94eb0e7192f5e3bc08, type: 3}
   - {fileID: 122260789378598670, guid: 5de9b6f041eb7914fb1c60171e9d3c24, type: 3}
   enemyPrefabs:
-  - {fileID: 1657397430194816326, guid: 21589dca13b336a4ba21078995090c27, type: 3}
+  - {fileID: 1657397430194816326, guid: 73113f3ad6f53024a853414436cc4797, type: 3}
   - {fileID: 1657397430194816326, guid: b0e4bad334da35f4b849116c31ef34bf, type: 3}
   spawnLocations: 0000000001000000
   playerBattleStations:
@@ -2217,7 +2217,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1412176589017457045, guid: 6049d3688804a8e4db2dd495904c2bff, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -180.9
+      value: -180.90001
       objectReference: {fileID: 0}
     - target: {fileID: 1412176589017457045, guid: 6049d3688804a8e4db2dd495904c2bff, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2923,7 +2923,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1412176589017457045, guid: 6049d3688804a8e4db2dd495904c2bff, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -180.9
+      value: -180.90001
       objectReference: {fileID: 0}
     - target: {fileID: 1412176589017457045, guid: 6049d3688804a8e4db2dd495904c2bff, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

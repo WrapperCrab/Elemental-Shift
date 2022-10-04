@@ -141,6 +141,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c0a4810f2f90bf64e94440107df62fde, type: 2}
   - {fileID: 11400000, guid: 905bfc12b308e1940bb6d02c74a13b19, type: 2}
   description: 
-  height: 5
+  height: 2
   sprite: {fileID: 1657397428787722490}
   outline: {fileID: 1657397428787722490}
