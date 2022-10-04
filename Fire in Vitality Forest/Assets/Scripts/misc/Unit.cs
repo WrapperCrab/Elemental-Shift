@@ -87,17 +87,17 @@ public abstract class Unit : MonoBehaviour
         switch (_highlight)
         {
             case Highlight.TARGETTED://green
-                sprite.color = new Color(0,1,0,1);
+                outline.color = new Color(0,1,0,1);
                 break;
             case Highlight.ACTING://blue
-                sprite.color = new Color(0, 0, 1, 1);
+                outline.color = new Color(0, 0, 1, 1);
                 break;
             case Highlight.DEAD://red
-                sprite.color = new Color(1, 0, 0, 1);
+                outline.color = new Color(1, 0, 0, 1);
                 break;
             case Highlight.NONE://white
             default:
-                sprite.color = new Color(1, 1, 1, 1);
+                outline.color = new Color(1, 1, 1, 1);
                 break;
         }
         highlight = _highlight;
