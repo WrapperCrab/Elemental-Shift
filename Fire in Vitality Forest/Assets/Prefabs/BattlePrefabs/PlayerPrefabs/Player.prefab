@@ -56,7 +56,7 @@ MonoBehaviour:
   skills:
   - {fileID: 11400000, guid: e633acc4e87c990439537a784945f5f8, type: 2}
   description: 
-  height: 5
+  height: 2
   sprite: {fileID: 2629222997060851434}
   outline: {fileID: 2629222997060851434}
   currentM: 10
