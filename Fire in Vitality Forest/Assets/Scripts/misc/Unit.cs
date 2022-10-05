@@ -5,7 +5,6 @@ using System;
 
 public enum Highlight {NONE, TARGETTED, DEAD, ACTING}
 public enum Affinity {WEAK, NORMAL, STRONG}
-public enum Element {k, R, G, B, c, y, m}
 
 public abstract class Unit : MonoBehaviour
 {
@@ -119,51 +118,17 @@ public abstract class Unit : MonoBehaviour
 
     public string getColorAbrev()
     {//returns abbreviation of current color
-        return color.ToString();
+        
     }
 
     public string getColorName()
     {//returns string name of current color
-        switch (color)
-        {
-            case (Element.k):
-            default:
-                return "Black";
-            case (Element.R):
-                return "Red";
-            case (Element.G):
-                return "Green";
-            case (Element.B):
-                return "Blue";
-            case (Element.c):
-                return "Cyan";
-            case (Element.y):
-                return "Yellow";
-            case (Element.m):
-                return "Magenta";
-        }
+
     }
 
     public Color getColorHue()
     {//returns current imbued color of player
-        switch (color)
-        {
-            case (Element.k):
-            default:
-                return Color.black;
-            case (Element.R):
-                return Color.red;
-            case (Element.G):
-                return Color.green;
-            case (Element.B):
-                return Color.blue;
-            case (Element.c):
-                return Color.cyan;
-            case (Element.y):
-                return Color.yellow;
-            case (Element.m):
-                return Color.magenta;
-        }
+
     }
 
     public void scaleSprite()
