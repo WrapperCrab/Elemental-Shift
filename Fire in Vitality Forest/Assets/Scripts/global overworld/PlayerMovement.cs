@@ -19,10 +19,8 @@ public class PlayerMovement : Controllable
 
     #endregion
 
-
     public Rigidbody2D rigidBodyPlayer;
     public DialogueManager dialogueManager;
-
 
     public float walkSpeed;
     public float runSpeed;
@@ -81,7 +79,7 @@ public class PlayerMovement : Controllable
             {
                 rigidBodyPlayer.MovePosition(rigidBodyPlayer.position + (newVel.normalized * walkSpeed * Time.fixedDeltaTime));
             }
-            //!!!Movement actas a little weird when 3 inputs at once.
+            //!!!Movement acts a little weird when 3 inputs at once.
             //Can't run in up-right direction. This is a problem
         }
 
