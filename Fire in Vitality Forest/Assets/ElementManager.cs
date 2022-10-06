@@ -23,16 +23,16 @@ public class ElementManager : MonoBehaviour
     #endregion
 
     //This class controls element addition, element names and abbreviations and hues.
-    Dictionary<Element, Tuple<string, string, Color, int, bool>> elementDict = new Dictionary<Element, Tuple<string, string, Color, int, bool>>()
+    public Dictionary<Element, Tuple<string, string, Color, int, bool>> elementDict = new Dictionary<Element, Tuple<string, string, Color, int, bool>>()
     {
         //{Element, (abrev, name, hue, rgb base 4 number, isPrimary)}
-        {Element.k, ("k", "Black", Color.black, 0, false) },
-        {Element.R, ("R", "Red", Color.red, 4, true) },
-        {Element.G, ("G", "Green", Color.green, 2, true) },
-        {Element.B, ("B", "Blue", Color.blue, 1, true) },
-        {Element.c, ("c", "Cyan", Color.cyan, 3, false) },
-        {Element.y, ("y", "Yellow", Color.yellow, 6, false) },
-        {Element.m, ("m", "Magenta", Color.magenta, 5, false) }
+        {Element.k, Tuple.Create("k", "Black", Color.black, 0, false) },
+        {Element.R, Tuple.Create("R", "Red", Color.red, 4, true) },
+        {Element.G, Tuple.Create("G", "Green", Color.green, 2, true) },
+        {Element.B, Tuple.Create("B", "Blue", Color.blue, 1, true) },
+        {Element.c, Tuple.Create("c", "Cyan", Color.cyan, 3, false) },
+        {Element.y, Tuple.Create("y", "Yellow", Color.yellow, 6, false) },
+        {Element.m, Tuple.Create("m", "Magenta", Color.magenta, 5, false) }
     };
     Dictionary<int, Element> numToElement = new Dictionary<int, Element>()
     {
@@ -55,12 +55,12 @@ public class ElementManager : MonoBehaviour
         }
 
         //find if each color is primary
-        bool isPrim1 = elementDict[color1][4];
-        bool isPrim2 = elementDict[color2][4];
+        bool isPrim1 = elementDict[color1].Item5;
+        bool isPrim2 = elementDict[color2].Item5;
 
         //add the color's mod 7
-        int num1 = elementDict[color1][3];
-        int num2 = elementDict[color2][3];
+        int num1 = elementDict[color1].Item4;
+        int num2 = elementDict[color2].Item4;
 
         int sum = (num1 + num2) % 7;
 

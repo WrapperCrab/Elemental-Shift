@@ -118,17 +118,17 @@ public abstract class Unit : MonoBehaviour
 
     public string getColorAbrev()
     {//returns abbreviation of current color
-        
+        return ElementManager.instance.elementDict[color].Item1;
     }
 
     public string getColorName()
     {//returns string name of current color
-
+        return ElementManager.instance.elementDict[color].Item2;
     }
 
     public Color getColorHue()
-    {//returns current imbued color of player
-
+    {//returns current hue of player
+        return ElementManager.instance.elementDict[color].Item3;
     }
 
     public void scaleSprite()
