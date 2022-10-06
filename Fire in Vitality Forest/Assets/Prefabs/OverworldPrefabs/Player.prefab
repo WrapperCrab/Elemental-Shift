@@ -71,7 +71,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1778722147
-  m_SortingLayer: 1
+  m_SortingLayer: -2
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: f9651e4a72c353742877d88913813938, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -155,7 +155,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1778722147
-  m_SortingLayer: 1
+  m_SortingLayer: -2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 4e51aa8cc6cbd64439757c0229e254e5, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
@@ -221,6 +221,14 @@ MonoBehaviour:
   dialogueManager: {fileID: 0}
   walkSpeed: 5
   runSpeed: 10
+  fill: {fileID: 5571379824325893842}
+  outline: {fileID: 2052542676786281953}
+  fillSprites:
+  - {fileID: 21300000, guid: 4e51aa8cc6cbd64439757c0229e254e5, type: 3}
+  - {fileID: 21300000, guid: 4e51aa8cc6cbd64439757c0229e254e5, type: 3}
+  outlineSprites:
+  - {fileID: 21300000, guid: f9651e4a72c353742877d88913813938, type: 3}
+  - {fileID: 21300000, guid: b5742300b6b8d2140bae220ec38d71b2, type: 3}
 --- !u!50 &2371488129251529922
 Rigidbody2D:
   serializedVersion: 4
@@ -231,7 +239,7 @@ Rigidbody2D:
   m_GameObject: {fileID: 2371488129251529981}
   m_BodyType: 1
   m_Simulated: 1
-  m_UseFullKinematicContacts: 0
+  m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
   m_Mass: 0.0001
   m_LinearDrag: 0
@@ -255,7 +263,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0036828816, y: -0.48958334}
+  m_Offset: {x: -0.1932509, y: -1.2288976}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -266,5 +274,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.7698868, y: 0.78512305}
+  m_Size: {x: 3.7271438, y: 1.8087888}
   m_EdgeRadius: 0

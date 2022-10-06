@@ -25,6 +25,11 @@ public class PlayerMovement : Controllable
     public float walkSpeed;
     public float runSpeed;
 
+    public SpriteRenderer fill;
+    public SpriteRenderer outline;
+    public Sprite[] fillSprites;
+    public Sprite[] outlineSprites;
+
     Vector2 newVel;
     bool isRunning;
     
@@ -54,6 +59,7 @@ public class PlayerMovement : Controllable
             {
                 isRunning = false;
             }
+            updateSprite();
 
             if (Input.GetKeyDown(KeyCode.X) && isInTrigger())//used for interacting with triggers
             {
@@ -83,6 +89,29 @@ public class PlayerMovement : Controllable
             //Can't run in up-right direction. This is a problem
         }
 
+    }
+
+    void updateSprite()
+    {//based on current player input, changes the sprite. 
+/*        if (newVel.x > 0)
+        {//right facing
+            fill.sprite = fillSprites[0];
+            outline.sprite = outlineSprites[0];
+        }else if (newVel.x < 0)
+        {//left facing
+            fill.sprite = fillSprites[1];
+            outline.sprite = outlineSprites[1];
+        }*/
+        if (newVel.y > 0)
+        {//up facing
+            fill.sprite = fillSprites[1];
+            outline.sprite = outlineSprites[1];
+        }
+        else if (newVel.y < 0)
+        {//down facing
+            fill.sprite = fillSprites[0];
+            outline.sprite = outlineSprites[0];
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)

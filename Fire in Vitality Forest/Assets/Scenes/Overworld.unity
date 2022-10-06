@@ -7255,6 +7255,10 @@ PrefabInstance:
       propertyPath: dialogueManager
       value: 
       objectReference: {fileID: 660162194}
+    - target: {fileID: 2371488129251529922, guid: 788e968e0541a0b4d9a342bae74de0d9, type: 3}
+      propertyPath: m_BodyType
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2371488129251529980, guid: 788e968e0541a0b4d9a342bae74de0d9, type: 3}
       propertyPath: m_RootOrder
       value: 4
