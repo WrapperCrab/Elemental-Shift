@@ -93,24 +93,29 @@ public class PlayerMovement : Controllable
 
     void updateSprite()
     {//based on current player input, changes the sprite. 
-/*        if (newVel.x > 0)
+        if (newVel.x > 0)
         {//right facing
             fill.sprite = fillSprites[0];
+            fill.flipX = false;
             outline.sprite = outlineSprites[0];
+            outline.flipX = false;
         }else if (newVel.x < 0)
         {//left facing
+            //reflect sprites
             fill.sprite = fillSprites[1];
+            fill.flipX = true;
             outline.sprite = outlineSprites[1];
-        }*/
+            outline.flipX = true;
+        }
         if (newVel.y > 0)
         {//up facing
-            fill.sprite = fillSprites[1];
-            outline.sprite = outlineSprites[1];
+            fill.sprite = fillSprites[2];
+            outline.sprite = outlineSprites[2];
         }
         else if (newVel.y < 0)
         {//down facing
-            fill.sprite = fillSprites[0];
-            outline.sprite = outlineSprites[0];
+            fill.sprite = fillSprites[3];
+            outline.sprite = outlineSprites[3];
         }
     }
 
