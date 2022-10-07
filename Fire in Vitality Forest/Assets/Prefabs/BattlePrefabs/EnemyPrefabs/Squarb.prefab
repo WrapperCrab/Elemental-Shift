@@ -55,8 +55,8 @@ MonoBehaviour:
   color: 0
   weaknesses: 02000000000000000100000001000000010000000000000001000000
   skills:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: c0eb93a55bb7a1c43aaf6e5dae23a112, type: 2}
+  - {fileID: 11400000, guid: 95e8b1f3c7d020b4b81b876b0db23d1d, type: 2}
   description: It's just a squarb
   height: 5
   sprite: {fileID: 7540666280639459553}

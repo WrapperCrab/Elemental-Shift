@@ -9,14 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b757412753f8804a86b58a9493ded8d, type: 3}
-  m_Name: combineColor
+  m_Script: {fileID: 11500000, guid: 208189bbf76eb89469bcf1db6d7a532d, type: 3}
+  m_Name: Combine Red
   m_EditorClassIdentifier: 
-  name: Combine Color
-  description: combines a color inside one unit
+  name: Combine Color Red
+  description: combines red inside a unit
   mCost: 0
   onEnemy: 1
   onTeam: 0
   hitsAll: 0
   selfMove: 0
   usableOutsideBattle: 0
+  color: 1
