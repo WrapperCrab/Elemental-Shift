@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1657397430194816325}
-  - component: {fileID: 8469874834084141574}
+  - component: {fileID: 814503283851962059}
   m_Layer: 0
   m_Name: Squarb
   m_TagString: Untagged
@@ -34,7 +34,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8469874834084141574
+--- !u!114 &814503283851962059
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,21 +43,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1657397430194816326}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e37c07ef1a6aba34e804de31fbc8318d, type: 3}
+  m_Script: {fileID: 11500000, guid: 4855ba60537cdbf4db076ccfb1661a10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   unitName: Squarb
-  currentH: 5
-  maxH: 10
+  currentH: 50
+  maxH: 50
   attack: 5
   defense: 5
-  speed: 5
-  color: 2
-  weaknesses: 0000000000000000000000000000000000000000
+  speed: 10
+  color: 0
+  weaknesses: 02000000000000000100000001000000010000000000000001000000
   skills:
-  - {fileID: 11400000, guid: c0a4810f2f90bf64e94440107df62fde, type: 2}
-  description: 
-  height: 4
+  - {fileID: 0}
+  - {fileID: 0}
+  description: It's just a squarb
+  height: 5
   sprite: {fileID: 7540666280639459553}
   outline: {fileID: 8302370668146763818}
 --- !u!1 &3485235245420238456
@@ -131,7 +132,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1778722147
-  m_SortingLayer: 1
+  m_SortingLayer: -2
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: d3e500ed3c8247e48990570151bdd1fb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -215,7 +216,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1778722147
-  m_SortingLayer: 1
+  m_SortingLayer: -2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 21d4b0c33799bc546bdeff16cd4ba77e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
