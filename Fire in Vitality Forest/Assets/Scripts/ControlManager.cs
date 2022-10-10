@@ -7,15 +7,17 @@ public class ControlManager : MonoBehaviour
 {
     #region Singleton
 
-    public static ControlManager instance;//find inventory with Inventory.instance
+    public static ControlManager instance;
     void Awake()
     {
         if (instance != null)
         {
-            Debug.LogWarning("More than one instance of ControlManager found!");
+            //Debug.LogWarning("More than one instance of ControlManager found!");
+            Destroy(gameObject);//destroys the extra (this)
             return;
         }
         instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
     #endregion

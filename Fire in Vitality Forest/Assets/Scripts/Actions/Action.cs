@@ -69,8 +69,6 @@ public class Action : ScriptableObject
     public void addTarget(Unit _target)
     {
         targets.Add(_target);
-
-
     }
     public void removeTarget(Unit _target)
     {

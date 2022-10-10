@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class battleTrigger : MonoBehaviour
 {
     public bool playerInTrigger = false;//true if player walks into trigger
     public bool battleCompleted = false;//true after associated battle is completed
-    public PresetBattle battle;//different for each trigger. Defines the battle top be initiated
+    public PresetBattle battle;//different for each trigger. Defines the battle to be initiated
 
     // Update is called once per frame
     void Update()
@@ -19,7 +20,6 @@ public class battleTrigger : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("here");
         if (other.tag == "Player")
         {
             playerInTrigger = true;
@@ -30,5 +30,6 @@ public class battleTrigger : MonoBehaviour
     {
         Debug.Log("activating battle");
         playerInTrigger = false;
+        SceneManager.LoadScene("Battle");
     }
 }

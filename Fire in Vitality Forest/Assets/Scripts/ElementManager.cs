@@ -9,12 +9,12 @@ public class ElementManager : MonoBehaviour
 {
     #region Singleton
 
-    public static ElementManager instance;//find inventory with Inventory.instance
+    public static ElementManager instance;
     void Awake()
     {
         if (instance != null)
         {
-            Debug.LogWarning("More than one instance of ElementManager found!");
+            //Debug.LogWarning("More than one instance of ElementManager found!");
             return;
         }
         instance = this;
