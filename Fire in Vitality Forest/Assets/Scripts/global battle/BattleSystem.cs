@@ -25,7 +25,7 @@ public class BattleSystem : Controllable
 
     public BattleState state;
 
-    public List<GameObject> playerPrefabs;
+    //public List<GameObject> playerPrefabs;
     //public List<GameObject> enemyPrefabs;
     public List<int> spawnLocations;//battlestation to spawn each enemy on
 
@@ -60,6 +60,7 @@ public class BattleSystem : Controllable
     {
         //get info from BattleInitializer
         List<GameObject> enemyPrefabs = BattleInitializer.instance.getBattle().getEnemyPrefabs();
+        List<GameObject> playerPrefabs = BattleInitializer.instance.getBattle().getPlayerPrefabs();
 
 
         //spawn the players
