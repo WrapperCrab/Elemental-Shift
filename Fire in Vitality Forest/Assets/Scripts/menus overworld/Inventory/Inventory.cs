@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    //something called a singleton to make searching for this way faster
-
     #region Singleton
 
     public static Inventory instance;

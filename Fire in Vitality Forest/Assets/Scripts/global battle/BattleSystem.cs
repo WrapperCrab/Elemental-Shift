@@ -26,7 +26,7 @@ public class BattleSystem : Controllable
     public BattleState state;
 
     public List<GameObject> playerPrefabs;
-    public List<GameObject> enemyPrefabs;
+    //public List<GameObject> enemyPrefabs;
     public List<int> spawnLocations;//battlestation to spawn each enemy on
 
     public List<Transform> playerBattleStations;
@@ -58,6 +58,10 @@ public class BattleSystem : Controllable
 
     IEnumerator setupBattle()
     {
+        //get info from BattleInitializer
+        List<GameObject> enemyPrefabs = BattleInitializer.instance.getBattle().getEnemyPrefabs();
+
+
         //spawn the players
         for (int i=0; i<playerPrefabs.Count; i++)//!!!may need to call "update color" function
         {

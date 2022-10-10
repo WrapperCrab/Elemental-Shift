@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class battleTrigger : MonoBehaviour
 {
@@ -30,6 +29,7 @@ public class battleTrigger : MonoBehaviour
     {
         Debug.Log("activating battle");
         playerInTrigger = false;
-        SceneManager.LoadScene("Battle");
+
+        BattleInitializer.instance.initBattle(battle);
     }
 }

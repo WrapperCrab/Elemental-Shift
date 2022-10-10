@@ -71,7 +71,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1778722147
-  m_SortingLayer: 1
+  m_SortingLayer: -2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 53c4a1c08591d9941a1c956646cc7d56, type: 3}
   m_Color: {r: 0.6415094, g: 0.4535396, b: 0.17853329, a: 1}
@@ -93,7 +93,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1657397430194816325}
-  - component: {fileID: 8469874834084141574}
   - component: {fileID: 4012712755467880713}
   m_Layer: 0
   m_Name: Chirpy Rabbel
@@ -118,32 +117,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8469874834084141574
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1657397430194816326}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e37c07ef1a6aba34e804de31fbc8318d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unitName: Chirpy Rabbel
-  currentH: 5
-  maxH: 10
-  attack: 5
-  defense: 5
-  speed: 5
-  color: 1
-  weaknesses: 0000000000000000000000000000000000000000
-  skills:
-  - {fileID: 11400000, guid: c0a4810f2f90bf64e94440107df62fde, type: 2}
-  description: 
-  height: 3
-  sprite: {fileID: 1657397428787722490}
-  outline: {fileID: 1657397428787722490}
 --- !u!114 &4012712755467880713
 MonoBehaviour:
   m_ObjectHideFlags: 0
