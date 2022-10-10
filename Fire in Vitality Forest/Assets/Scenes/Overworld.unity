@@ -698,6 +698,7 @@ MonoBehaviour:
   - {fileID: 1657397430194816326, guid: 73113f3ad6f53024a853414436cc4797, type: 3}
   playerPrefabs:
   - {fileID: 122260789378598670, guid: d5010e54a298eb94eb0e7192f5e3bc08, type: 3}
+  team: []
 --- !u!1001 &182078826
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5993,6 +5994,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 903574826598739546, guid: 16ba41223408004488ef78dcfdb7d288, type: 3}
+      propertyPath: team.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 903574826598739546, guid: 16ba41223408004488ef78dcfdb7d288, type: 3}
+      propertyPath: playerPrefabs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 903574826598739546, guid: 16ba41223408004488ef78dcfdb7d288, type: 3}
+      propertyPath: playerPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 122260789378598670, guid: d5010e54a298eb94eb0e7192f5e3bc08, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16ba41223408004488ef78dcfdb7d288, type: 3}
 --- !u!1001 &1601063036

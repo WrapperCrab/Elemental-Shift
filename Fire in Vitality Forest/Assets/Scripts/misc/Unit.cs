@@ -21,7 +21,7 @@ public abstract class Unit : MonoBehaviour
 
 
     //affinities
-    public Affinity[] weaknesses = new Affinity[5];//none, water, earth, fire, air
+    public Affinity[] weaknesses = new Affinity[7];
 
     public List<Action> skills;//These are added in the inspector
 

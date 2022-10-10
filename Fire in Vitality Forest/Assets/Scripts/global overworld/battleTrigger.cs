@@ -30,6 +30,7 @@ public class battleTrigger : MonoBehaviour
         Debug.Log("activating battle");
         playerInTrigger = false;
 
+        battle.setPlayerPrefabs(TeamManager.instance.getPlayerGOs());//set current player game objects
         BattleInitializer.instance.initBattle(battle);
     }
 }
