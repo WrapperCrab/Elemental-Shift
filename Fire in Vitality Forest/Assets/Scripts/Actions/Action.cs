@@ -17,7 +17,7 @@ public class Action : ScriptableObject
 
     //These attributes are only nondefault during battle
     protected Unit user;
-    protected List<Unit> targets;
+    protected List<Unit> targets = new List<Unit>();
 
     public virtual void performAction()//this was previously stored in SkillList
     {//effects on units in battle due to this move
@@ -41,6 +41,7 @@ public class Action : ScriptableObject
         selfMove = action.selfMove;
 
         usableOutsideBattle = action.usableOutsideBattle;
+
     }
 
     public void setUser(Unit _user)
@@ -68,6 +69,8 @@ public class Action : ScriptableObject
     public void addTarget(Unit _target)
     {
         targets.Add(_target);
+
+
     }
     public void removeTarget(Unit _target)
     {

@@ -16,4 +16,9 @@ public class ActionCombineColor : Action
     {//text displayed after this move was used
         return (targets[0].unitName + " changed color!");
     }
+
+    public void setColor(Element newColor)
+    {
+        color = newColor;
+    }
 }

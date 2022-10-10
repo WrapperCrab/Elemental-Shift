@@ -76,6 +76,11 @@ public abstract class Unit : MonoBehaviour
         sprite.color = getColorHue();
     }
 
+    public Element getColor()
+    {
+        return color;
+    }
+
     public void combineColor(Element newColor)
     {//combines the new color with the current color
         Element combinedColor = ElementManager.instance.combineColors(color, newColor);
