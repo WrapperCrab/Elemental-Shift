@@ -21,28 +21,33 @@ public class TeamManager : MonoBehaviour
 
     //This script keeps track of the current party and their stats
     public List<GameObject> playerPrefabs;//holds sprites and default unit data
-    public List<PlayerUnit> team;//holds stats, moves, etc. Will be added to copy of prefab
+    public List<GameObject> playerGOs;//holds current sprites and unit data
+    public List<PlayerUnit> team;//unit data from playerGOs. should update in playerGOs when changed
 
-    void Start()//!!!This function is stupid
+    void Start()
     {
         for (int index = 0; index<playerPrefabs.Count; index++)
-        {//create player unit object
-            team.Add(playerPrefabs[index].GetComponent<PlayerUnit>());
+        {
+            //create instances of each prefab as child to GameController, and add reference to playerGOs
+            GameObject thisPlayer = (GameObject)Instantiate(playerPrefabs[index], this.transform);
+            playerGOs.Add(thisPlayer);
+            thisPlayer.SetActive(false); //Deactivate this game object since it does nothing
+            PlayerUnit thisUnit = thisPlayer.GetComponent<PlayerUnit>();
+            team.Add(thisUnit);
         }
     }
 
     public List<GameObject> getPlayerGOs()
     {
-        List<GameObject> playerGOs = new List<GameObject>();
-        for (int index = 0; index<playerPrefabs.Count; index++)
-        {//combine prefabs and units
-            GameObject player = playerPrefabs[index];//load prefab
-
-            player.GetComponent<PlayerUnit>().setValues(team[index]);//set to new unit's values
-
-            playerGOs.Add(player);//add to final list
-        }
-
         return playerGOs;
+    }
+
+    public Element getFirstPlayerColor()
+    {
+        if (team.Count == 0)
+        {
+            Debug.Log("Warning: no team in team manager");
+        }
+        return team[0].getColor();
     }
 }

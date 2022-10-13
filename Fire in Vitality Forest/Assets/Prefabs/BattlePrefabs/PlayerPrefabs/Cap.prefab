@@ -52,7 +52,7 @@ MonoBehaviour:
   attack: 15
   defense: 10
   speed: 5
-  color: 6
+  color: 2
   weaknesses: 0000000000000000000000000000000000000000
   skills:
   - {fileID: 11400000, guid: e633acc4e87c990439537a784945f5f8, type: 2}
@@ -133,11 +133,11 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 282520795
-  m_SortingLayer: 2
+  m_SortingLayerID: 1778722147
+  m_SortingLayer: -2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 4e51aa8cc6cbd64439757c0229e254e5, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
@@ -171,7 +171,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6464318050467953023}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -217,8 +217,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 282520795
-  m_SortingLayer: 2
+  m_SortingLayerID: 1778722147
+  m_SortingLayer: -2
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: f9651e4a72c353742877d88913813938, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

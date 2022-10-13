@@ -29,6 +29,7 @@ public class PlayerMovement : Controllable
     public SpriteRenderer outline;
     public Sprite[] fillSprites;
     public Sprite[] outlineSprites;
+    public Element color;
 
     Vector2 newVel;
     bool isRunning;
@@ -46,6 +47,9 @@ public class PlayerMovement : Controllable
     // Update is called once per frame
     void Update()
     {
+        setColor(TeamManager.instance.getFirstPlayerColor());//updates the player's color
+
+
         newVel.x = Input.GetAxisRaw("Horizontal");
         newVel.y = Input.GetAxisRaw("Vertical");
 
@@ -117,6 +121,17 @@ public class PlayerMovement : Controllable
             fill.sprite = fillSprites[3];
             outline.sprite = outlineSprites[3];
         }
+    }
+
+    void setColor(Element newColor)
+    {
+        color = newColor;
+        fill.color = getColorHue();
+    }
+
+    Color getColorHue()
+    {
+        return ElementManager.instance.elementDict[color].Item3;
     }
 
     void OnTriggerEnter2D(Collider2D other)
