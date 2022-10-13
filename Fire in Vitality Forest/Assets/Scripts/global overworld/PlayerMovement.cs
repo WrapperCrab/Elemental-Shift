@@ -126,12 +126,12 @@ public class PlayerMovement : Controllable
     void setColor(Element newColor)
     {
         color = newColor;
-        fill.color = getColorHue();
+        updateColor();
     }
 
-    Color getColorHue()
+    void updateColor()
     {
-        return ElementManager.instance.elementDict[color].Item3;
+        fill.color = ElementManager.instance.getColorHue(color);
     }
 
     void OnTriggerEnter2D(Collider2D other)

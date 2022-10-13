@@ -89,6 +89,9 @@ public class ElementManager : MonoBehaviour
         }
     }
 
-
+    public Color getColorHue(Element color)
+    {//returns current hue of player
+        return ElementManager.instance.elementDict[color].Item3;
+    }
 
 }

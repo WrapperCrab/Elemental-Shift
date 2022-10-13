@@ -73,7 +73,7 @@ public abstract class Unit : MonoBehaviour
     public void setColor(Element newColor)
     {//changes the imbued color of the unit
         color = newColor;
-        sprite.color = getColorHue();
+        updateColor();
     }
 
     public Element getColor()
@@ -89,7 +89,7 @@ public abstract class Unit : MonoBehaviour
 
     public void updateColor()
     {
-        sprite.color = getColorHue();
+        sprite.color = ElementManager.instance.getColorHue(color);
     }
 
     public void setHighlight(Highlight _highlight)
@@ -135,11 +135,6 @@ public abstract class Unit : MonoBehaviour
     public string getColorName()
     {//returns string name of current color
         return ElementManager.instance.elementDict[color].Item2;
-    }
-
-    public Color getColorHue()
-    {//returns current hue of player
-        return ElementManager.instance.elementDict[color].Item3;
     }
 
     public void scaleSprite()
