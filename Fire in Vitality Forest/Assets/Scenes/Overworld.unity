@@ -5744,7 +5744,7 @@ SpriteRenderer:
   m_SortingLayer: -3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 41724940a3b1c064e9ef697ff4bdbe0c, type: 3}
-  m_Color: {r: 0, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -6218,6 +6218,14 @@ PrefabInstance:
       propertyPath: playerPrefabs.Array.data[0]
       value: 
       objectReference: {fileID: 122260789378598670, guid: d5010e54a298eb94eb0e7192f5e3bc08, type: 3}
+    - target: {fileID: 8006044000823167677, guid: 16ba41223408004488ef78dcfdb7d288, type: 3}
+      propertyPath: battleTriggers.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8006044000823167677, guid: 16ba41223408004488ef78dcfdb7d288, type: 3}
+      propertyPath: battleTriggers.Array.data[0]
+      value: 
+      objectReference: {fileID: 141306438}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16ba41223408004488ef78dcfdb7d288, type: 3}
 --- !u!1001 &1601063036

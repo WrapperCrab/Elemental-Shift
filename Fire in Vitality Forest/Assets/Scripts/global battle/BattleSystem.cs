@@ -25,12 +25,12 @@ public class BattleSystem : Controllable
 
     public BattleState state;
 
-    //public List<GameObject> playerPrefabs;
-    //public List<GameObject> enemyPrefabs;
     public List<int> spawnLocations;//battlestation to spawn each enemy on
 
     public List<Transform> playerBattleStations;
     public List<Transform> enemyBattleStations;
+
+    public PresetBattle defaultBattle;//used for testing when starting in battle scene
 
     public List<PlayerUnit> team;
     public List<EnemyUnit> enemies;
@@ -58,10 +58,20 @@ public class BattleSystem : Controllable
 
     IEnumerator setupBattle()
     {
-        //get info from BattleInitializer
-        List<GameObject> enemyPrefabs = BattleInitializer.instance.getBattle().getEnemyPrefabs();
-        List<GameObject> playerPrefabs = BattleInitializer.instance.getBattle().getPlayerPrefabs();
-
+        List<GameObject> enemyPrefabs = new List<GameObject>();
+        List<GameObject> playerPrefabs = new List<GameObject>();
+        if (BattleInitializer.instance.getIsBattleSet())
+        {
+            //get info from BattleInitializer
+            enemyPrefabs = BattleInitializer.instance.getBattle().getEnemyPrefabs();
+            playerPrefabs = BattleInitializer.instance.getBattle().getPlayerPrefabs();
+        }
+        else
+        {//no battle is set, use default battle (testing only)
+         //get info from defaultBattle
+            enemyPrefabs = defaultBattle.getEnemyPrefabs();
+            playerPrefabs = defaultBattle.getPlayerPrefabs();
+        }
 
         //spawn the players
         for (int i=0; i<playerPrefabs.Count; i++)//!!!may need to call "update color" function
@@ -303,6 +313,8 @@ public class BattleSystem : Controllable
     public void battleWon()
     {
         dialogueText.text = "you won the battle!";
+        //!!!I need to make this go back to the overworld. And to deactivate the battle trigger
+        //This means I need the player's position and a reference to the battle trigger
     }
 
     public void battleLost()

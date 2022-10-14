@@ -49,7 +49,7 @@ MonoBehaviour:
   unitName: Cap
   currentH: 50
   maxH: 50
-  attack: 15
+  attack: 150
   defense: 10
   speed: 5
   color: 2

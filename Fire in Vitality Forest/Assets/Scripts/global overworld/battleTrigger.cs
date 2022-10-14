@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class battleTrigger : MonoBehaviour
+public class BattleTrigger : MonoBehaviour
 {
     public bool playerInTrigger = false;//true if player walks into trigger
     public bool battleCompleted = false;//true after associated battle is completed
