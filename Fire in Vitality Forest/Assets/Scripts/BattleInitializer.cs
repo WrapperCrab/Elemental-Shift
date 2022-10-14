@@ -27,6 +27,7 @@ public class BattleInitializer : MonoBehaviour
     List<int> activatedTriggers = new List<int>();//list of indeces of activated triggers
 
 
+
     public void initBattle(PresetBattle _battle)
     {
         battle = _battle;

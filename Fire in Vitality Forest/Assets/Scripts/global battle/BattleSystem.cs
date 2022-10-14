@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public enum BattleState { START, PLAYERSELECT, ENEMYSELECT, BATTLE, WON, LOST }
@@ -75,8 +76,9 @@ public class BattleSystem : Controllable
 
         //spawn the players
         for (int i=0; i<playerPrefabs.Count; i++)//!!!may need to call "update color" function
-        {
+        {//!!! this is the part I need to fix
             GameObject playerGO = Instantiate(playerPrefabs[i], playerBattleStations[i]);
+            playerGO.SetActive(true);
             playerGO.GetComponent<PlayerUnit>().updateColor();
             playerGO.GetComponent<PlayerUnit>().scaleSprite();
             team.Add(playerGO.GetComponent<PlayerUnit>());
@@ -86,6 +88,7 @@ public class BattleSystem : Controllable
         for (int i = 0; i < enemyPrefabs.Count; i++)
         {
             GameObject enemyGO = enemyBattleStations[spawnLocations[i]].GetComponent<EnemyBattleStation>().fillStation(enemyPrefabs[i]);
+            enemyGO.SetActive(true);
             enemyGO.GetComponent<EnemyUnit>().updateColor();
             enemyGO.GetComponent<EnemyUnit>().scaleSprite();
             enemies.Add(enemyGO.GetComponent<EnemyUnit>());
@@ -300,7 +303,7 @@ public class BattleSystem : Controllable
         {
             //player won!
             state = BattleState.WON;
-            battleWon();
+            StartCoroutine(battleWon());
         }
         else
         {
@@ -310,11 +313,13 @@ public class BattleSystem : Controllable
         }
     }
 
-    public void battleWon()
+    IEnumerator battleWon()
     {
         dialogueText.text = "you won the battle!";
         //!!!I need to make this go back to the overworld. And to deactivate the battle trigger
         //This means I need the player's position and a reference to the battle trigger
+        yield return new WaitForSeconds(2f);
+        SceneManager.LoadScene("Overworld");
     }
 
     public void battleLost()
