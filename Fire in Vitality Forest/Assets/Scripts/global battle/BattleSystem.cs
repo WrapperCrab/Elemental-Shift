@@ -33,7 +33,9 @@ public class BattleSystem : Controllable
 
     public PresetBattle defaultBattle;//used for testing when starting in battle scene
 
+    public List<GameObject> playerGOs;
     public List<PlayerUnit> team;
+    public List<GameObject> enemyGOs;
     public List<EnemyUnit> enemies;
 
     public List<Action> actionsToUse = new List<Action>();
@@ -76,11 +78,12 @@ public class BattleSystem : Controllable
 
         //spawn the players
         for (int i=0; i<playerPrefabs.Count; i++)//!!!may need to call "update color" function
-        {//!!! this is the part I need to fix
+        {
             GameObject playerGO = Instantiate(playerPrefabs[i], playerBattleStations[i]);
             playerGO.SetActive(true);
             playerGO.GetComponent<PlayerUnit>().updateColor();
             playerGO.GetComponent<PlayerUnit>().scaleSprite();
+            playerGOs.Add(playerGO);
             team.Add(playerGO.GetComponent<PlayerUnit>());
         }
 
@@ -91,6 +94,7 @@ public class BattleSystem : Controllable
             enemyGO.SetActive(true);
             enemyGO.GetComponent<EnemyUnit>().updateColor();
             enemyGO.GetComponent<EnemyUnit>().scaleSprite();
+            enemyGOs.Add(enemyGO);
             enemies.Add(enemyGO.GetComponent<EnemyUnit>());
         }
 
@@ -318,6 +322,10 @@ public class BattleSystem : Controllable
         dialogueText.text = "you won the battle!";
         //!!!I need to make this go back to the overworld. And to deactivate the battle trigger
         //This means I need the player's position and a reference to the battle trigger
+
+        //Add current player objects to TeamManager
+        TeamManager.instance.setTeam(playerGOs);
+
         yield return new WaitForSeconds(2f);
         SceneManager.LoadScene("Overworld");
     }

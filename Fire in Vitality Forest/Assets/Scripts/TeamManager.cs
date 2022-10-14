@@ -37,6 +37,27 @@ public class TeamManager : MonoBehaviour
         }
     }
 
+    public void setTeam(List<GameObject> newPlayerGOs)
+    {
+        deleteTeam();
+        playerGOs = newPlayerGOs;
+        for (int index = 0; index<playerGOs.Count; index++)
+        {
+            PlayerUnit thisUnit = playerGOs[index].GetComponent<PlayerUnit>();
+            team.Add(thisUnit);
+        }
+
+    }
+
+    void deleteTeam()
+    {//removes the team in this. Only done just before creating a new one
+        team.Clear();
+        foreach (GameObject player in playerGOs)
+        {
+            Destroy(player);
+        }
+    }
+
     public List<GameObject> getPlayerGOs()
     {
         return playerGOs;
