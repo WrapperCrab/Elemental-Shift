@@ -61,40 +61,57 @@ public class BattleSystem : Controllable
 
     IEnumerator setupBattle()
     {
-        List<GameObject> enemyPrefabs = new List<GameObject>();
-        List<GameObject> playerPrefabs = new List<GameObject>();
+        //spawn the players
         if (BattleInitializer.instance.getIsBattleSet())
         {
             //get info from BattleInitializer
-            enemyPrefabs = BattleInitializer.instance.getBattle().getEnemyPrefabs();
-            playerPrefabs = BattleInitializer.instance.getBattle().getPlayerPrefabs();
+            List<GameObject> enemyPrefabs = BattleInitializer.instance.getBattle().getEnemyPrefabs();
+
+            //spawn the enemies (they are prefabs)
+            for (int i = 0; i < enemyPrefabs.Count; i++)
+            {
+                GameObject enemy = Instantiate(enemyPrefabs[i], enemyBattleStations[i]);
+                enemyGOs.Add(enemy);
+            }
+            playerGOs = BattleInitializer.instance.getBattle().getPlayerPrefabs();
         }
         else
         {//no battle is set, use default battle (testing only)
-         //get info from defaultBattle
-            enemyPrefabs = defaultBattle.getEnemyPrefabs();
-            playerPrefabs = defaultBattle.getPlayerPrefabs();
+            //get info from defaultBattle
+            List<GameObject> enemyPrefabs = defaultBattle.getEnemyPrefabs();
+            List<GameObject> playerPrefabs = defaultBattle.getPlayerPrefabs();
+            for (int i = 0; i < enemyPrefabs.Count; i++)
+            {
+                GameObject enemy = Instantiate(enemyPrefabs[i], enemyBattleStations[i]);
+                enemyGOs.Add(enemy);
+            }
+
+            for (int i = 0; i < playerPrefabs.Count; i++)
+            {
+                GameObject player = Instantiate(playerPrefabs[i], playerBattleStations[i]);
+                playerGOs.Add(player);
+            }
         }
 
-        //spawn the players
-        for (int i=0; i<playerPrefabs.Count; i++)//!!!may need to call "update color" function
+        //ready the players
+        for (int i=0; i<playerGOs.Count; i++)
         {
-            GameObject playerGO = Instantiate(playerPrefabs[i], playerBattleStations[i]);
+            GameObject playerGO = playerGOs[i];
             playerGO.SetActive(true);
             playerGO.GetComponent<PlayerUnit>().updateColor();
             playerGO.GetComponent<PlayerUnit>().scaleSprite();
-            playerGOs.Add(playerGO);
+            playerGO.transform.SetParent(playerBattleStations[i]);
             team.Add(playerGO.GetComponent<PlayerUnit>());
         }
 
-        //spawn the enemies
-        for (int i = 0; i < enemyPrefabs.Count; i++)
+        //ready the enemies
+        for (int i = 0; i < enemyGOs.Count; i++)
         {
-            GameObject enemyGO = enemyBattleStations[spawnLocations[i]].GetComponent<EnemyBattleStation>().fillStation(enemyPrefabs[i]);
+            GameObject enemyGO = enemyGOs[i];
             enemyGO.SetActive(true);
             enemyGO.GetComponent<EnemyUnit>().updateColor();
             enemyGO.GetComponent<EnemyUnit>().scaleSprite();
-            enemyGOs.Add(enemyGO);
+            enemyGO.transform.SetParent(enemyBattleStations[i]);
             enemies.Add(enemyGO.GetComponent<EnemyUnit>());
         }
 
@@ -324,7 +341,7 @@ public class BattleSystem : Controllable
         //This means I need the player's position and a reference to the battle trigger
 
         //Add current player objects to TeamManager
-        TeamManager.instance.setTeam(playerGOs);
+        TeamManager.instance.setTeam(playerGOs);//parent changed to GameController in this function
 
         yield return new WaitForSeconds(2f);
         SceneManager.LoadScene("Overworld");

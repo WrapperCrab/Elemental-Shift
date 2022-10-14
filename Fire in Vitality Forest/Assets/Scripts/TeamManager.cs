@@ -38,14 +38,18 @@ public class TeamManager : MonoBehaviour
     }
 
     public void setTeam(List<GameObject> newPlayerGOs)
-    {
+    {//!!!This function is not working
         deleteTeam();
         playerGOs = newPlayerGOs;
-        for (int index = 0; index<playerGOs.Count; index++)
+        //Debug.Log(newPlayerGOs.Count);
+        for (int index = 0; index<newPlayerGOs.Count; index++)
         {
-            GameObject player = playerGOs[index];
+            GameObject player = newPlayerGOs[index];
             player.SetActive(false);
+
+            Debug.Log("About to set parent");
             player.transform.SetParent(gameObject.transform);
+            playerGOs.Add(player);
             PlayerUnit thisUnit = player.GetComponent<PlayerUnit>();
             team.Add(thisUnit);
         }
