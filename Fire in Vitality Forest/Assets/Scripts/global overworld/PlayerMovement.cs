@@ -151,7 +151,7 @@ public class PlayerMovement : Controllable
         {
             justPressedX = false;
             //Activate other.gameObject's interaction method
-            other.gameObject.GetComponent<Interaction>().interact();//I can't believe this actually works. It's like magic.
+            other.gameObject.GetComponent<Interaction>().interact();
         }
     }
 

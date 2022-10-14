@@ -42,6 +42,11 @@ public class TeamManager : MonoBehaviour
         return playerGOs;
     }
 
+    public List<PlayerUnit> getTeam()
+    {
+        return team;
+    }
+
     public Element getFirstPlayerColor()
     {
         if (team.Count == 0)
