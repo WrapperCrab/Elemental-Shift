@@ -18,7 +18,6 @@ public class SquarbEnemy : EnemyUnit
 
         //select targets
         Unit target = BattleSystem.instance.team[0];//!!!Doesn't check if dead
-        Debug.Log(target.unitName);
 
         //select and set move
         Element tColor = target.getColor();

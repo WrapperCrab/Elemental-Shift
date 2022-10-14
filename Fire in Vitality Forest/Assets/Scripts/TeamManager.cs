@@ -43,7 +43,10 @@ public class TeamManager : MonoBehaviour
         playerGOs = newPlayerGOs;
         for (int index = 0; index<playerGOs.Count; index++)
         {
-            PlayerUnit thisUnit = playerGOs[index].GetComponent<PlayerUnit>();
+            GameObject player = playerGOs[index];
+            player.SetActive(false);
+            player.transform.SetParent(gameObject.transform);
+            PlayerUnit thisUnit = player.GetComponent<PlayerUnit>();
             team.Add(thisUnit);
         }
 
