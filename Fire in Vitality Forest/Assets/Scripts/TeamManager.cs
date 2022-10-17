@@ -37,6 +37,14 @@ public class TeamManager : MonoBehaviour
         }
     }
 
+    public void deactivatePlayers()
+    {
+        foreach (GameObject player in playerGOs)
+        {
+            player.SetActive(false);
+        }
+    }
+
     public void setTeam(List<GameObject> newPlayerGOs)
     {//!!!This function is not working
         deleteTeam();

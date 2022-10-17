@@ -356,6 +356,7 @@ public class BattleSystem : Controllable
     {
         dialogueText.text = "you won the battle!";
         yield return new WaitForSeconds(2f);
+        TeamManager.instance.deactivatePlayers();//hides all player GOs
         SceneManager.LoadScene("Overworld");
     }
 

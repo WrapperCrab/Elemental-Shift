@@ -1632,7 +1632,9 @@ MonoBehaviour:
   - {fileID: 841260662}
   - {fileID: 643083463}
   defaultBattle: {fileID: 1293975836}
+  playerGOs: []
   team: []
+  enemyGOs: []
   enemies: []
   actionsToUse: []
   dialogueText: {fileID: 1933761867}
@@ -1672,7 +1674,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefabs:
   - {fileID: 1657397430194816326, guid: 73113f3ad6f53024a853414436cc4797, type: 3}
-  playerPrefabs:
+  playerGOs:
   - {fileID: 122260789378598670, guid: d5010e54a298eb94eb0e7192f5e3bc08, type: 3}
   team:
   - {fileID: 5430968342290966231, guid: d5010e54a298eb94eb0e7192f5e3bc08, type: 3}
