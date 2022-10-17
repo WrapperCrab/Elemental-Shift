@@ -25,7 +25,7 @@ public class BattleInitializer : MonoBehaviour
 
 
     int triggeredBattleIndex;//index of most recent battle in battleTriggers
-    List<int> activatedTriggers;//list of indeces of activated triggers
+    List<int> activatedTriggers = new List<int>();//list of indeces of activated triggers in OverworldSystem
 
 
 
