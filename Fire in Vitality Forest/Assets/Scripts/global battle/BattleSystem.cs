@@ -457,8 +457,12 @@ public class BattleSystem : Controllable
         int defense = defender.defense;
         Element attColor = attacker.color;
         Element defColor = defender.color;
-        int index = ElementManager.instance.elementDict[attColor].Item4;
+
+
+        int index = ElementManager.instance.elementDict[attColor].Item6;
         Affinity defAff = defender.weaknesses[index];
+
+
         return getBaseDamage(attack, defense, attColor, defColor, defAff);
     }
 
@@ -469,6 +473,11 @@ public class BattleSystem : Controllable
         int other = 1;//no use right now
 
         int damage = (int)Math.Ceiling(Math.Pow(attack, 2) * aff * other *Math.Pow(defense, -1) * Math.Pow(same, -1));
+
+        Debug.Log(damage);
+        Debug.Log("attColor is " + attColor);
+        Debug.Log("defColor is " + defColor);
+        Debug.Log("defAff is " + defAff);
         return damage;
     }
 

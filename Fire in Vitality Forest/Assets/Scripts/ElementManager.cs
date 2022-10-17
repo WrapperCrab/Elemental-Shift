@@ -23,20 +23,20 @@ public class ElementManager : MonoBehaviour
     #endregion
 
     //This class controls element addition, element names and abbreviations and hues.
-    public Dictionary<Element, Tuple<string, string, Color, int, bool>> elementDict = new Dictionary<Element, Tuple<string, string, Color, int, bool>>()
+    public Dictionary<Element, Tuple<string, string, Color, int, bool, int>> elementDict = new Dictionary<Element, Tuple<string, string, Color, int, bool, int>>()
     {
-        //{Element, (abrev, name, hue, rgb base 4 number + general index, isPrimary)}
-        {Element.k, Tuple.Create("k", "Black", Color.black, 0, false) },
-        {Element.R, Tuple.Create("R", "Red", Color.red, 4, true) },
-        {Element.G, Tuple.Create("G", "Green", Color.green, 2, true) },
-        {Element.B, Tuple.Create("B", "Blue", Color.blue, 1, true) },
-        {Element.c, Tuple.Create("c", "Cyan", Color.cyan, 3, false) },
-        {Element.y, Tuple.Create("y", "Yellow", Color.yellow, 6, false) },
-        {Element.m, Tuple.Create("m", "Magenta", Color.magenta, 5, false) }
+        //{Element, (abrev, name, hue, rgb base 4 number, isPrimary, general index)} 6 output fields
+        {Element.k, Tuple.Create("k", "Black", Color.black, 0, false, 0) },
+        {Element.R, Tuple.Create("R", "Red", Color.red, 4, true, 1) },
+        {Element.G, Tuple.Create("G", "Green", Color.green, 2, true, 2) },
+        {Element.B, Tuple.Create("B", "Blue", Color.blue, 1, true, 3) },
+        {Element.c, Tuple.Create("c", "Cyan", Color.cyan, 3, false, 4) },
+        {Element.y, Tuple.Create("y", "Yellow", Color.yellow, 6, false, 5) },
+        {Element.m, Tuple.Create("m", "Magenta", Color.magenta, 5, false, 6) }
     };
     Dictionary<int, Element> numToElement = new Dictionary<int, Element>()
     {
-        //{rgb base 4 number + general index, Element}
+        //{rgb base 4 number, Element}
         {0, Element.k},
         {1, Element.B },
         {2, Element.G },

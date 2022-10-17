@@ -20,7 +20,6 @@ public abstract class Unit : MonoBehaviour
     public Element color;
 
 
-    //affinities
     public Affinity[] weaknesses = new Affinity[7];
 
     public List<Action> skills;//These are added in the inspector
