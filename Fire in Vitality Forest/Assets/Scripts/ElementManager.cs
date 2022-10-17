@@ -25,7 +25,7 @@ public class ElementManager : MonoBehaviour
     //This class controls element addition, element names and abbreviations and hues.
     public Dictionary<Element, Tuple<string, string, Color, int, bool>> elementDict = new Dictionary<Element, Tuple<string, string, Color, int, bool>>()
     {
-        //{Element, (abrev, name, hue, rgb base 4 number, isPrimary)}
+        //{Element, (abrev, name, hue, rgb base 4 number + general index, isPrimary)}
         {Element.k, Tuple.Create("k", "Black", Color.black, 0, false) },
         {Element.R, Tuple.Create("R", "Red", Color.red, 4, true) },
         {Element.G, Tuple.Create("G", "Green", Color.green, 2, true) },
@@ -36,7 +36,7 @@ public class ElementManager : MonoBehaviour
     };
     Dictionary<int, Element> numToElement = new Dictionary<int, Element>()
     {
-        //{rgb base 4 number, Element}
+        //{rgb base 4 number + general index, Element}
         {0, Element.k},
         {1, Element.B },
         {2, Element.G },

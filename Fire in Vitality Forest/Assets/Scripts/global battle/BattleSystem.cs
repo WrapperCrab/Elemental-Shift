@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -39,7 +40,7 @@ public class BattleSystem : Controllable
     public List<EnemyUnit> enemies;
 
     public List<Action> actionsToUse = new List<Action>();
-    
+
     public TextMeshProUGUI dialogueText;
 
     public TextMeshProUGUI turnNumberText;
@@ -129,7 +130,7 @@ public class BattleSystem : Controllable
 
 
         //activate needed HUDs
-        for (int i=0; i< team.Count; i++)
+        for (int i = 0; i < team.Count; i++)
         {
             playerHUDs[i].gameObject.SetActive(true);
         }
@@ -193,7 +194,7 @@ public class BattleSystem : Controllable
 
 
 
-
+            //check if moves fails and "alter" it if needed
             //check for user death.
             userDead = action.getUserDead();
             if (!userDead)
@@ -209,7 +210,7 @@ public class BattleSystem : Controllable
                         default:
                             //we are ready to do the move
                             break;
-                        
+
                         case 2://1 teammate
                         case 4://1 enemy
                         case 6://1 unit
@@ -241,12 +242,14 @@ public class BattleSystem : Controllable
 
             //Check all bools and perform move if valid
             if (!userDead && !insufficientM && !allTargetsDead)
-            {//perform the action and highlight
+            {
+                //highlight
                 action.getUser().setHighlight(Highlight.ACTING);
                 foreach (Unit target in action.getTargets())
                 {
                     target.setHighlight(Highlight.TARGETTED);
                 }
+
 
                 //perform action
                 action.performAction();
@@ -356,7 +359,7 @@ public class BattleSystem : Controllable
 
     public void setHUDs()
     {
-        for (int i=0; i<team.Count; i++)
+        for (int i = 0; i < team.Count; i++)
         {
             playerHUDs[i].setHUD(team[i]);
         }
@@ -445,5 +448,50 @@ public class BattleSystem : Controllable
             }
         }
         return null;
+    }
+
+    public int getBaseDamage(Unit attacker, Unit defender)
+    {//calculates damage of basic attack by attacker on defender
+        //often used in other actions as well
+        int attack = attacker.attack;
+        int defense = defender.defense;
+        Element attColor = attacker.color;
+        Element defColor = defender.color;
+        int index = ElementManager.instance.elementDict[attColor].Item4;
+        Affinity defAff = defender.weaknesses[index];
+        return getBaseDamage(attack, defense, attColor, defColor, defAff);
+    }
+
+    public int getBaseDamage(int attack, int defense, Element attColor, Element defColor, Affinity defAff)
+    {//used explicitly when one or more arguments is artificially changed for specific action's effect
+        double aff = getAff(defAff);//defAff is affinity to attColor
+        int same = getSame(attColor, defColor);
+        int other = 1;//no use right now
+
+        int damage = (int)Math.Ceiling(Math.Pow(attack, 2) * aff * other *Math.Pow(defense, -1) * Math.Pow(same, -1));
+        return damage;
+    }
+
+    public double getAff(Affinity defAff)
+    {
+        switch (defAff)
+        {
+            case Affinity.WEAK:
+                return 2.0;
+            case Affinity.NORMAL:
+            default:
+                return 1.0;
+            case Affinity.STRONG:
+                return 0.5;
+        }
+    }
+
+    public int getSame(Element attColor, Element defColor)
+    {
+        if (attColor == defColor)
+        {
+            return 3;
+        }
+        return 1;
     }
 }
