@@ -22,11 +22,8 @@ public class BattleInitializer : MonoBehaviour
 
     PresetBattle battle;
     bool isBattleSet = false;
-
-
     int triggeredBattleIndex;//index of most recent battle in battleTriggers
     List<int> activatedTriggers = new List<int>();//list of indeces of activated triggers in OverworldSystem
-
 
 
     public void initBattle(PresetBattle _battle)

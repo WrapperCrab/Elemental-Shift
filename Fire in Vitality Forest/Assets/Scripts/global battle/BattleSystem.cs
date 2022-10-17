@@ -128,15 +128,6 @@ public class BattleSystem : Controllable
         dialogueText.text = "A wild " + enemies[0].unitName + " approaches";
 
 
-
-
-
-
-
-
-
-
-
         //activate needed HUDs
         for (int i=0; i< team.Count; i++)
         {
@@ -197,8 +188,6 @@ public class BattleSystem : Controllable
             bool userDead = false;
             bool insufficientM = false;//can only be true if user is player
             bool allTargetsDead = false;
-
-            //bool skipThisMove = false;
 
             bool actionCompleted = false;
 

@@ -5,7 +5,6 @@ using UnityEngine;
 public class BattleTrigger : MonoBehaviour
 {
     public bool playerInTrigger = false;//true if player walks into trigger
-    public bool battleCompleted = false;//true after associated battle is completed
     public PresetBattle battle;//different for each trigger. Defines the battle to be initiated
 
     // Update is called once per frame

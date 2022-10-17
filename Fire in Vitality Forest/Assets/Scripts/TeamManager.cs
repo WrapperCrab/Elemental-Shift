@@ -46,7 +46,7 @@ public class TeamManager : MonoBehaviour
     }
 
     public void setTeam(List<GameObject> newPlayerGOs)
-    {//!!!This function is not working
+    {
         deleteTeam();
         playerGOs = newPlayerGOs;
         //Debug.Log(newPlayerGOs.Count);
