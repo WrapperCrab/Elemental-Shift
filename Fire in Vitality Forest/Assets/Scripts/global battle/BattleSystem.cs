@@ -61,61 +61,79 @@ public class BattleSystem : Controllable
 
     IEnumerator setupBattle()
     {
-        //spawn the players
         if (BattleInitializer.instance.getIsBattleSet())
         {
             //get info from BattleInitializer
             List<GameObject> enemyPrefabs = BattleInitializer.instance.getBattle().getEnemyPrefabs();
-
             //spawn the enemies (they are prefabs)
             for (int i = 0; i < enemyPrefabs.Count; i++)
             {
                 GameObject enemy = Instantiate(enemyPrefabs[i], enemyBattleStations[i]);
                 enemyGOs.Add(enemy);
+                EnemyUnit enemyUnit = enemy.GetComponent<EnemyUnit>();
+                enemyUnit.updateColor();
+                enemyUnit.scaleSprite();
+                enemies.Add(enemyUnit);
+
+                enemy.SetActive(true);
             }
-            playerGOs = BattleInitializer.instance.getBattle().getPlayerPrefabs();
+
+            playerGOs = BattleInitializer.instance.getBattle().getPlayerGOs();
+            for (int i = 0; i < playerGOs.Count; i++)
+            {
+                GameObject player = playerGOs[i];
+                player.transform.position = playerBattleStations[i].transform.position;
+                PlayerUnit playerUnit = player.GetComponent<PlayerUnit>();
+                playerUnit.updateColor();
+                playerUnit.scaleSprite();
+                team.Add(playerUnit);
+
+                player.SetActive(true);
+            }
+
         }
         else
         {//no battle is set, use default battle (testing only)
             //get info from defaultBattle
             List<GameObject> enemyPrefabs = defaultBattle.getEnemyPrefabs();
-            List<GameObject> playerPrefabs = defaultBattle.getPlayerPrefabs();
+            List<GameObject> playerPrefabs = defaultBattle.getPlayerGOs();//In this specific case, the preset battle contains player prefabs
             for (int i = 0; i < enemyPrefabs.Count; i++)
             {
                 GameObject enemy = Instantiate(enemyPrefabs[i], enemyBattleStations[i]);
                 enemyGOs.Add(enemy);
+                EnemyUnit enemyUnit = enemy.GetComponent<EnemyUnit>();
+                enemyUnit.updateColor();
+                enemyUnit.scaleSprite();
+                enemies.Add(enemyUnit);
+
+                enemy.SetActive(true);
             }
 
             for (int i = 0; i < playerPrefabs.Count; i++)
             {
-                GameObject player = Instantiate(playerPrefabs[i], playerBattleStations[i]);
+                GameObject player = Instantiate(playerPrefabs[i], TeamManager.instance.transform);//child of GameController
+                player.transform.position = playerBattleStations[i].transform.position;//set position
                 playerGOs.Add(player);
+
+                player.transform.position = playerBattleStations[i].transform.position;
+                PlayerUnit playerUnit = player.GetComponent<PlayerUnit>();
+                playerUnit.updateColor();
+                playerUnit.scaleSprite();
+                team.Add(playerUnit);
+
+                player.SetActive(true);
             }
         }
 
-        //ready the players
-        for (int i=0; i<playerGOs.Count; i++)
-        {
-            GameObject playerGO = playerGOs[i];
-            playerGO.SetActive(true);
-            playerGO.GetComponent<PlayerUnit>().updateColor();
-            playerGO.GetComponent<PlayerUnit>().scaleSprite();
-            playerGO.transform.SetParent(playerBattleStations[i]);
-            team.Add(playerGO.GetComponent<PlayerUnit>());
-        }
-
-        //ready the enemies
-        for (int i = 0; i < enemyGOs.Count; i++)
-        {
-            GameObject enemyGO = enemyGOs[i];
-            enemyGO.SetActive(true);
-            enemyGO.GetComponent<EnemyUnit>().updateColor();
-            enemyGO.GetComponent<EnemyUnit>().scaleSprite();
-            enemyGO.transform.SetParent(enemyBattleStations[i]);
-            enemies.Add(enemyGO.GetComponent<EnemyUnit>());
-        }
-
         dialogueText.text = "A wild " + enemies[0].unitName + " approaches";
+
+
+
+
+
+
+
+
 
 
 

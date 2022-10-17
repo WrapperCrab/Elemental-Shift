@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PresetBattle : MonoBehaviour
 {
-    //Each battle has a list of enemies, background, and terrain effects. For now, it just has enemies
+    //Each battle has a list of enemies, background, and terrain effects.
     public List<GameObject> enemyPrefabs;
-    public List<GameObject> playerPrefabs;
+    public List<GameObject> playerGOs;//references to GOs in GameController. Never stop existing
     public List<PlayerUnit> team;
 
     public List<GameObject> getEnemyPrefabs()
@@ -14,14 +14,14 @@ public class PresetBattle : MonoBehaviour
         return enemyPrefabs;
     }
 
-    public List<GameObject> getPlayerPrefabs()
+    public List<GameObject> getPlayerGOs()
     {
-        return playerPrefabs;
+        return playerGOs;
     }
 
-    public void setPlayerPrefabs(List<GameObject> _playerPrefabs)
+    public void setPlayerPrefabs(List<GameObject> _playerGOs)
     {
-        playerPrefabs = _playerPrefabs;
+        playerGOs = _playerGOs;
     }
 
     public void setTeam(List<PlayerUnit> _team)
