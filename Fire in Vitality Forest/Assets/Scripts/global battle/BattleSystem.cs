@@ -355,12 +355,6 @@ public class BattleSystem : Controllable
     IEnumerator battleWon()
     {
         dialogueText.text = "you won the battle!";
-        //!!!I need to make this go back to the overworld. And to deactivate the battle trigger
-        //This means I need the player's position and a reference to the battle trigger
-
-        //Add current player objects to TeamManager
-        TeamManager.instance.setTeam(playerGOs);//parent changed to GameController in this function
-
         yield return new WaitForSeconds(2f);
         SceneManager.LoadScene("Overworld");
     }
