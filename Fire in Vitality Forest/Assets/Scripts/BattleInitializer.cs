@@ -22,9 +22,10 @@ public class BattleInitializer : MonoBehaviour
 
     PresetBattle battle;
     bool isBattleSet = false;
-    public List<BattleTrigger> battleTriggers = new List<BattleTrigger>();//reference to every battle trigger in the overworld.
+
+
     int triggeredBattleIndex;//index of most recent battle in battleTriggers
-    List<int> activatedTriggers = new List<int>();//list of indeces of activated triggers
+    List<int> activatedTriggers;//list of indeces of activated triggers
 
 
 
@@ -33,6 +34,12 @@ public class BattleInitializer : MonoBehaviour
         battle = _battle;
         isBattleSet = true;
         SceneManager.LoadScene("Battle");
+    }
+
+    public void addActivatedTrigger(BattleTrigger battleTrigger)
+    {
+        int index = OverworldSystem.instance.getIndex(battleTrigger);
+        activatedTriggers.Add(index);
     }
 
     public PresetBattle getBattle()
@@ -44,6 +51,8 @@ public class BattleInitializer : MonoBehaviour
     {
         return isBattleSet;
     }
+
+
 
     void OnEnable()
     {
@@ -60,7 +69,7 @@ public class BattleInitializer : MonoBehaviour
         {
             //deactivate relevant triggers
             foreach (int trigger in activatedTriggers){
-                battleTriggers[trigger].gameObject.SetActive(false);
+                OverworldSystem.instance.deactivateTrigger(trigger);
             }
         }
     }

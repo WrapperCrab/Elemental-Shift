@@ -29,8 +29,14 @@ public class BattleTrigger : MonoBehaviour
     {
         Debug.Log("activating battle");
         playerInTrigger = false;
-
         battle.setPlayerPrefabs(TeamManager.instance.getPlayerGOs());//set current player game objects
+
+        BattleInitializer.instance.addActivatedTrigger(this);//!!!Will work?
         BattleInitializer.instance.initBattle(battle);
+    }
+
+    public void deactivate()
+    {//deactivates this trigger. Usually after it has already been activated
+        gameObject.SetActive(false);
     }
 }

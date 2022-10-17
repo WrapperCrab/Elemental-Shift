@@ -823,8 +823,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefabs:
   - {fileID: 1657397430194816326, guid: 73113f3ad6f53024a853414436cc4797, type: 3}
-  playerPrefabs:
-  - {fileID: 122260789378598670, guid: d5010e54a298eb94eb0e7192f5e3bc08, type: 3}
+  playerGOs: []
   team: []
 --- !u!1001 &182078826
 PrefabInstance:
@@ -2015,6 +2014,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2ae6637c13ccce49b21526aabd6d86c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  battleTriggers:
+  - {fileID: 141306438}
 --- !u!1 &512384439
 GameObject:
   m_ObjectHideFlags: 0
