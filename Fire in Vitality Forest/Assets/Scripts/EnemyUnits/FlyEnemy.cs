@@ -2,16 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy1 : EnemyUnit
+public class FlyEnemy : EnemyUnit
 {
-    
-    //skills = {attack}
+
+    //skills = {attack, absorb}
 
     public override Action selectAction()
     {
+        Action action;
         //select move
-        Action action = ScriptableObject.CreateInstance<ActionAttack>();
-        action.setAction(skills[0]);
+        if (currentH > 5)
+        {//use attack
+            action = ScriptableObject.CreateInstance<ActionAttack>();
+            action.setAction(skills[0]);
+        }
+        else
+        {//use absorb
+            action = ScriptableObject.CreateInstance<ActionAbsorb>();
+            action.setAction(skills[1]);
+        }
 
         //select user
         action.setUser(gameObject.GetComponent<EnemyUnit>());

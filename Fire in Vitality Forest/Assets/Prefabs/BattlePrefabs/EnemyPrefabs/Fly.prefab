@@ -71,7 +71,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1778722147
-  m_SortingLayer: 1
+  m_SortingLayer: -2
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: ca5f3c5d13df24b40852260606934677, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -155,7 +155,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1778722147
-  m_SortingLayer: 1
+  m_SortingLayer: -2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: c8e9a60d6a79f5f4da7c2d6af91208af, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -177,7 +177,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1657397430194816325}
-  - component: {fileID: 8469874834084141574}
+  - component: {fileID: 714530534914232913}
   m_Layer: 0
   m_Name: Fly
   m_TagString: Untagged
@@ -202,7 +202,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8469874834084141574
+--- !u!114 &714530534914232913
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -211,7 +211,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1657397430194816326}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e37c07ef1a6aba34e804de31fbc8318d, type: 3}
+  m_Script: {fileID: 11500000, guid: de09efe3a61fb3b41aa644b5dbd2500b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   unitName: Fly
@@ -221,11 +221,11 @@ MonoBehaviour:
   defense: 5
   speed: 5
   color: 3
-  weaknesses: 0000000000000000000000000000000000000000
+  weaknesses: 00000000000000000000000000000000000000000000000000000000
   skills:
   - {fileID: 11400000, guid: c0a4810f2f90bf64e94440107df62fde, type: 2}
   - {fileID: 11400000, guid: 905bfc12b308e1940bb6d02c74a13b19, type: 2}
-  description: 
+  description: A large fly with a voracious appetite!
   height: 3
   sprite: {fileID: 1657397428787722490}
   outline: {fileID: 1378720382587369352}

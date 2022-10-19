@@ -60,8 +60,7 @@ public class BattleInitializer : MonoBehaviour
         SceneManager.sceneLoaded -= OnLevelFinishedLoading;
     }
     void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
-    {
-        Debug.Log("level finished loading!");
+    {//called when any scene first opens
         if (scene.name == "Overworld")
         {
             //deactivate relevant triggers
