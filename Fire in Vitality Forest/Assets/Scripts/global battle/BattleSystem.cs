@@ -48,6 +48,8 @@ public class BattleSystem : Controllable
 
     public List<BattleHUD> playerHUDs;
 
+    bool playerCanAbsorb = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -58,6 +60,15 @@ public class BattleSystem : Controllable
 
         state = BattleState.START;
         StartCoroutine(setupBattle());
+    }
+
+    void Update()
+    {
+        //check if player wants to absorb an attack
+        if (playerCanAbsorb)
+        {
+
+        }
     }
 
     IEnumerator setupBattle()
@@ -261,12 +272,17 @@ public class BattleSystem : Controllable
                     target.setHighlight(Highlight.TARGETTED);
                 }
 
-
-
                 //living targets select whether to absorb the move if it can be absorbed and performs absorb
-                //enemies
+
+                //!!!!!! Extremely Unfinished
+                
                 action.removeAllDeadTargets();
-                bool[] unitsToAbsorb = new bool[action.getTargets().Count];
+                List<Unit> targets = action.getTargets();
+                List<EnemyUnit> enemyTargets = getEnemyUnits(targets);
+                List<PlayerUnit> playerTargets = getPlayerUnits(targets);
+
+                //enemies
+                bool[] enemyUnitsToAbsorb = new bool[enemyTargets];
                 if (action.getAbsorbable())
                 {
                     for (int index=0; index<action.getTargets().Count; index++)
@@ -284,6 +300,12 @@ public class BattleSystem : Controllable
                 }
                 //players
                 //!!!
+                //!!!must first check if player even can absorb
+                playerCanAbsorb = true;
+                //if button is pressed in this time, make absorb status true
+                yield return new WaitForSeconds(2f);
+                playerCanAbsorb = false;
+
 
                 //!!! in place of absorb animations
                 bool doAbsorbAnimations = false;
@@ -478,6 +500,33 @@ public class BattleSystem : Controllable
             }
         }
         return null;
+    }
+
+    List<EnemyUnit> getEnemyUnits(List<Unit> units)
+    {
+        List<EnemyUnit> enemyUnits = new List<EnemyUnit>();
+        foreach (Unit unit in units)
+        {
+            EnemyUnit enemyUnit = unit as EnemyUnit;
+            if (enemyUnit != null)
+            {
+                enemyUnits.Add(enemyUnit);
+            }
+            return enemyUnits;
+        }
+    }
+    List<PlayerUnit> getPlayerUnits(List<Unit> units)
+    {
+        List<PlayerUnit> playerUnits = new List<PlayerUnit>();
+        foreach (Unit unit in units)
+        {
+            PlayerUnit playerUnit = unit as PlayerUnit;
+            if (playerUnit != null)
+            {
+                playerUnits.Add(playerUnit);
+            }
+        }
+        return playerUnits;
     }
     #endregion
 
