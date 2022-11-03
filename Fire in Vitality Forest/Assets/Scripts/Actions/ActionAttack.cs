@@ -7,7 +7,7 @@ public class ActionAttack : Action
 {
     public override void performAction()//this was previously stored in SkillList
     {//effects on units in battle due to this move
-        int damage = BattleSystem.instance.getBaseDamage(user, targets[0]);//damage formula is in this function
+        int damage = BattleSystem.instance.getBaseDamage(user, targets[0], color);//damage formula is in this function
         targets[0].takeDamage(damage);
     }
 

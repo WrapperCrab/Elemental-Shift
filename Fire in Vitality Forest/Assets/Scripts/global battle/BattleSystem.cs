@@ -134,7 +134,7 @@ public class BattleSystem : Controllable
         {
             playerHUDs[i].gameObject.SetActive(true);
         }
-        setHUDs();//updates all HUDs
+        updateHUDs();//updates all HUDs
 
         yield return new WaitForSeconds(2f);
 
@@ -190,8 +190,6 @@ public class BattleSystem : Controllable
             bool insufficientM = false;//can only be true if user is player
             bool allTargetsDead = false;
 
-            bool actionCompleted = false;
-
 
 
             //check if moves fails and "alter" it if needed
@@ -243,6 +241,19 @@ public class BattleSystem : Controllable
             //Check all bools and perform move if valid
             if (!userDead && !insufficientM && !allTargetsDead)
             {
+                //perform action
+                action.updateColor();//sets color to that of user if applicable
+                action.performAction();
+
+                //lower currentM of user
+                action.spendM();
+
+                //update HUD
+                updateHUDs();
+
+                //!!!in place of action's animation and text
+                dialogueText.text = action.moveCompletedText();
+                yield return new WaitForSeconds(2f);
                 //highlight
                 action.getUser().setHighlight(Highlight.ACTING);
                 foreach (Unit target in action.getTargets())
@@ -251,13 +262,41 @@ public class BattleSystem : Controllable
                 }
 
 
-                //perform action
-                action.performAction();
-                //lower currentM of user
-                action.spendM();
 
-                //!!!Here, we will do animations and text during the move
-                actionCompleted = true;
+                //living targets select whether to absorb the move if it can be absorbed and performs absorb
+                //enemies
+                action.removeAllDeadTargets();
+                bool[] unitsToAbsorb = new bool[action.getTargets().Count];
+                if (action.getAbsorbable())
+                {
+                    for (int index=0; index<action.getTargets().Count; index++)
+                    {
+                        EnemyUnit enemyTarget = action.getTargets()[index] as EnemyUnit;
+                        if (enemyTarget != null)
+                        {
+                            unitsToAbsorb[index] = enemyTarget.absorbAction();
+                            if (unitsToAbsorb[index])
+                            {
+                                enemyTarget.combineColor(action.getColor());
+                            }
+                        }
+                    }
+                }
+                //players
+                //!!!
+
+                //!!! in place of absorb animations
+                bool doAbsorbAnimations = false;
+                foreach (bool unitAbsorbed in unitsToAbsorb)
+                {
+                    doAbsorbAnimations = doAbsorbAnimations || unitAbsorbed;
+                }
+
+                if (doAbsorbAnimations)
+                {
+                    dialogueText.text = "absorbing is happening!";
+                    yield return new WaitForSeconds(2f);
+                }
             }
             else if (userDead)
             {
@@ -280,18 +319,8 @@ public class BattleSystem : Controllable
                 yield return new WaitForSeconds(2f);
             }
 
-            //update HUD
-            setHUDs();
-
-            if (actionCompleted)
-            {
-                //!!!later I want to have this reference numbers like damage dealt and stuff
-                dialogueText.text = action.moveCompletedText();
-                yield return new WaitForSeconds(2f);
-            }
-
             //update Highlights
-            setHighlights();
+            updateHighlights();
         }
 
         //clear the previous turn's actions
@@ -352,12 +381,13 @@ public class BattleSystem : Controllable
         SceneManager.LoadScene("Overworld");
     }
 
-    public void battleLost()
+    void battleLost()
     {
         dialogueText.text = "you were defeated.";
     }
 
-    public void setHUDs()
+    #region battleUtilities
+    void updateHUDs()
     {
         for (int i = 0; i < team.Count; i++)
         {
@@ -365,7 +395,7 @@ public class BattleSystem : Controllable
         }
     }
 
-    public void setHighlights()
+    public void updateHighlights()
     {//sets highlight to DEAD if dead, NONE if alive
         foreach (Unit player in team)
         {
@@ -405,13 +435,13 @@ public class BattleSystem : Controllable
         }
     }
 
-    public void clearSkills()
+    void clearSkills()
     {
         actionsToUse.Clear();
     }
 
     //used to sort actions in actionsToUse list
-    public int compareActions(Action a, Action b)
+    int compareActions(Action a, Action b)
     {
         if (a == null || b == null)
         {
@@ -424,7 +454,7 @@ public class BattleSystem : Controllable
         return aUserSpeed.CompareTo(bUserSpeed);
     }
 
-    public Unit findBestTarget(Unit target)
+    Unit findBestTarget(Unit target)
     {//the target is dead. find the best alternative if there is one. 
         var enemyTarget = target as EnemyUnit;
         if (enemyTarget != null)
@@ -449,19 +479,19 @@ public class BattleSystem : Controllable
         }
         return null;
     }
+    #endregion
 
-    public int getBaseDamage(Unit attacker, Unit defender)
+    #region damageCalculation
+
+    public int getBaseDamage(Unit attacker, Unit defender, Element attColor)
     {//calculates damage of basic attack by attacker on defender
         //often used in other actions as well
         int attack = attacker.attack;
         int defense = defender.defense;
-        Element attColor = attacker.color;
         Element defColor = defender.color;
-
 
         int index = ElementManager.instance.elementDict[attColor].Item6;
         Affinity defAff = defender.weaknesses[index];
-
 
         return getBaseDamage(attack, defense, attColor, defColor, defAff);
     }
@@ -498,4 +528,6 @@ public class BattleSystem : Controllable
         }
         return 1;
     }
+
+#endregion
 }

@@ -47,4 +47,9 @@ public class SquarbEnemy : EnemyUnit
 
         return action;
     }
+
+    public override bool absorbAction()
+    {
+        return true;
+    }
 }

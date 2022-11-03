@@ -8,4 +8,9 @@ public class EnemyUnit : Unit
     {//used by enemies to select their move
         return null;//null is treated as pass
     }
+
+    public virtual bool absorbAction()
+    {//used by enemy to decide whether or not to absorb an attack
+        return false;
+    }
 }

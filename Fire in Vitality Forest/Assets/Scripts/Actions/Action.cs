@@ -13,13 +13,16 @@ public class Action : ScriptableObject
     public bool hitsAll = false;//true if affects all teammates or enemies at once
     public bool selfMove = false;//true if it only can affect the user
 
+    public Element color = Element.k;//color of this action. Usually set to the color of the user
+    public bool absorbable = true;//true if it can be absorbed when it is successful
+
     public bool usableOutsideBattle = false;
 
     //These attributes are only nondefault during battle
     protected Unit user;
     protected List<Unit> targets = new List<Unit>();
 
-    public virtual void performAction()//this was previously stored in SkillList
+    public virtual void performAction()
     {//effects on units in battle due to this move
 
     }
@@ -122,6 +125,22 @@ public class Action : ScriptableObject
     public bool hasNoTarget()
     {
         return (!onEnemy && !onTeam);
+    }
+
+    public bool getAbsorbable()
+    {
+        return absorbable;
+    }
+
+
+    public Element getColor()
+    {
+        return color;
+    }
+    public virtual void updateColor()
+    {
+        color = user.getColor();
+        //some moves have inherent colors independent of user and will override this method
     }
 
     public bool getInsufficientM()

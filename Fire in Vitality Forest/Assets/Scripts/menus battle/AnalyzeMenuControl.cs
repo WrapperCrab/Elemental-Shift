@@ -50,7 +50,7 @@ public class AnalyzeMenuControl : MenuControl
         else
         {
             //unhighlight all units
-            BattleSystem.instance.setHighlights();
+            BattleSystem.instance.updateHighlights();
 
             //delete this menu
             Destroy(gameObject);

@@ -5,14 +5,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Absorb", menuName = "Actions/Absorb")]
 public class ActionAbsorb : Action
 {
-    public override void performAction()//this was previously stored in SkillList
+    public override void performAction()
     {//effects on units in battle due to this move
-        int attack = user.attack;
-        int defense = targets[0].defense;
-        int damage = (int)Math.Ceiling(((double)attack / (double)defense));
+        int damage = BattleSystem.instance.getBaseDamage(user, targets[0], color);
 
         targets[0].takeDamage(damage);
-        user.takeDamage(-damage);
+        user.gainHealth(damage);
     }
 
     public override string moveCompletedText()
