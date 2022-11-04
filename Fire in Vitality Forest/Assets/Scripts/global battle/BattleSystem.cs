@@ -49,6 +49,7 @@ public class BattleSystem : Controllable
     public List<BattleHUD> playerHUDs;
 
     bool playerCanAbsorb = false;
+    bool absorbColor = false;
 
     // Start is called before the first frame update
     void Start()
@@ -65,9 +66,14 @@ public class BattleSystem : Controllable
     void Update()
     {
         //check if player wants to absorb an attack
-        if (playerCanAbsorb)
+        if (playerCanAbsorb && state == BattleState.BATTLE)
         {
-
+            Debug.Log("player can absorb!");
+            if (Input.GetKey(KeyCode.Space))
+            {
+                //absorb the color
+                absorbColor = true;
+            }
         }
     }
 
@@ -259,12 +265,10 @@ public class BattleSystem : Controllable
                 //lower currentM of user
                 action.spendM();
 
-                //update HUD
-                updateHUDs();
-
                 //!!!in place of action's animation and text
+                //This will probably be a method call in the user and targets starting an animation on sprite.
                 dialogueText.text = action.moveCompletedText();
-                yield return new WaitForSeconds(2f);
+                yield return new WaitForSeconds(2f);//animations finish during this pause
                 //highlight
                 action.getUser().setHighlight(Highlight.ACTING);
                 foreach (Unit target in action.getTargets())
@@ -272,53 +276,55 @@ public class BattleSystem : Controllable
                     target.setHighlight(Highlight.TARGETTED);
                 }
 
+                //update HUD
+                updateHUDs();
+
+
                 //living targets select whether to absorb the move if it can be absorbed and performs absorb
 
                 //!!!!!! Extremely Unfinished
-                
+
                 action.removeAllDeadTargets();
                 List<Unit> targets = action.getTargets();
                 List<EnemyUnit> enemyTargets = getEnemyUnits(targets);
                 List<PlayerUnit> playerTargets = getPlayerUnits(targets);
 
                 //enemies
-                bool[] enemyUnitsToAbsorb = new bool[enemyTargets];
+                bool[] enemyUnitsToAbsorb = new bool[enemyTargets.Count];
                 if (action.getAbsorbable())
                 {
-                    for (int index=0; index<action.getTargets().Count; index++)
+                    //enemies
+                    foreach (EnemyUnit enemy in enemyTargets)
                     {
-                        EnemyUnit enemyTarget = action.getTargets()[index] as EnemyUnit;
-                        if (enemyTarget != null)
-                        {
-                            unitsToAbsorb[index] = enemyTarget.absorbAction();
-                            if (unitsToAbsorb[index])
-                            {
-                                enemyTarget.combineColor(action.getColor());
-                            }
+                        if (enemy.absorbAction())
+                        {//enemy wants to absorb the action
+                            enemy.combineColor(action.getColor());
+                            //!!! start animation. I may do this in combineColor()
                         }
                     }
-                }
-                //players
-                //!!!
-                //!!!must first check if player even can absorb
-                playerCanAbsorb = true;
-                //if button is pressed in this time, make absorb status true
-                yield return new WaitForSeconds(2f);
-                playerCanAbsorb = false;
 
 
-                //!!! in place of absorb animations
-                bool doAbsorbAnimations = false;
-                foreach (bool unitAbsorbed in unitsToAbsorb)
-                {
-                    doAbsorbAnimations = doAbsorbAnimations || unitAbsorbed;
-                }
+                    //players
+                    //!!!
+                    //!!!must first check if player even can absorb
+                    if (playerTargets.Count != 0)
+                    {
+                        playerCanAbsorb = true;
+                        //if button is pressed in this time, make absorb status true
+                        yield return new WaitForSeconds(2f);
+                        if (absorbColor)
+                        {//player wants to absorb color
+                            playerTargets[0].combineColor(action.getColor());
+                        }
+                        //reset bools
+                        absorbColor = false;
+                        playerCanAbsorb = false;
 
-                if (doAbsorbAnimations)
-                {
-                    dialogueText.text = "absorbing is happening!";
-                    yield return new WaitForSeconds(2f);
+                    }
+
+
                 }
+                
             }
             else if (userDead)
             {
@@ -512,8 +518,8 @@ public class BattleSystem : Controllable
             {
                 enemyUnits.Add(enemyUnit);
             }
-            return enemyUnits;
         }
+        return enemyUnits;
     }
     List<PlayerUnit> getPlayerUnits(List<Unit> units)
     {
