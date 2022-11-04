@@ -1645,6 +1645,7 @@ MonoBehaviour:
   - {fileID: 1699273580}
   - {fileID: 907085131}
   - {fileID: 704371769}
+  damagePopupPrefab: {fileID: 1185611153135311650, guid: fbd2edf0d26db484a8807e4a6e0c1d5c, type: 3}
 --- !u!4 &1293975835
 Transform:
   m_ObjectHideFlags: 0
@@ -1736,7 +1737,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: 1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2410,7 +2411,7 @@ MonoBehaviour:
   m_text: Insert dialogue here...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: e7848e97f549fb547b7d5080d6f59c18, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
