@@ -8,6 +8,8 @@ public class ActionHeal : Action
     public override void performAction()//this was previously stored in SkillList
     {//effects on units in battle due to this move
         int heal = 10;
+
+        base.performAction();//call "attack" animation for user if needed
         targets[0].gainHealth(heal);
     }
 

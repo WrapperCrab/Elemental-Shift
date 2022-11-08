@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Pass
   description: Do nothing this turn
-  index: 0
+  mCost: 0
   onEnemy: 0
   onTeam: 0
   hitsAll: 0
   selfMove: 0
+  color: 0
+  absorbable: 0
+  isAttack: 0
   usableOutsideBattle: 0
-  user: {fileID: 0}
-  targets: []

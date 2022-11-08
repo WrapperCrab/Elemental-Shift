@@ -7,6 +7,8 @@ public class ActionCombineColor : Action
 {
     public override void performAction()
     {//effects on units in battle due to this move
+
+        base.performAction();//call "attack" animation for user if needed
         targets[0].combineColor(color);
     }
 

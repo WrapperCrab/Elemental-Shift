@@ -15,6 +15,7 @@ public class Action : ScriptableObject
 
     public Element color = Element.k;//color of this action. Usually set to the color of the user
     public bool absorbable = true;//true if it can be absorbed when it is successful
+    public bool isAttack = true;//true if it does damage. Means it triggers "attack" animation for user
 
     public bool usableOutsideBattle = false;
 
@@ -24,7 +25,10 @@ public class Action : ScriptableObject
 
     public virtual void performAction()
     {//effects on units in battle due to this move
-
+        if (isAttack)
+        {
+            //trigger "attack" animation for user
+        }
     }
 
     public virtual string moveCompletedText()

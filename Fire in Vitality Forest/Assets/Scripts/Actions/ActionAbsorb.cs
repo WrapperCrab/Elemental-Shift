@@ -8,6 +8,7 @@ public class ActionAbsorb : Action
     public override void performAction()
     {//effects on units in battle due to this move
         int damage = BattleSystem.instance.getBaseDamage(user, targets[0], color);
+        base.performAction();//call "attack" animation for user if needed
 
         targets[0].takeDamage(damage);
         user.gainHealth(damage);
