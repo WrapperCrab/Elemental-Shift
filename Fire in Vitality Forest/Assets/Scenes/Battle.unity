@@ -1645,7 +1645,6 @@ MonoBehaviour:
   - {fileID: 1699273580}
   - {fileID: 907085131}
   - {fileID: 704371769}
-  damagePopupPrefab: {fileID: 1185611153135311650, guid: fbd2edf0d26db484a8807e4a6e0c1d5c, type: 3}
 --- !u!4 &1293975835
 Transform:
   m_ObjectHideFlags: 0

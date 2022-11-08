@@ -103,4 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d450e6d0a9faf54c82b3af563e7e6b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damagePopupPrefab: {fileID: 1185611153135311650, guid: fbd2edf0d26db484a8807e4a6e0c1d5c, type: 3}
+  playerPrefabs: []
+  playerGOs: []
   team: []

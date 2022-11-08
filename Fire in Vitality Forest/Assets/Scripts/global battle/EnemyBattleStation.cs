@@ -33,6 +33,7 @@ public class EnemyBattleStation : MonoBehaviour
 
     public GameObject fillStation(GameObject enemyPrefab)
     {
+        Debug.Log("filling");
         if (!filled)
         {
             filled = true;

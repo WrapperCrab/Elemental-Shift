@@ -47,7 +47,6 @@ public class BattleSystem : Controllable
     public int turnNumber = 0;
 
     public List<BattleHUD> playerHUDs;
-    public DamagePopup damagePopupPrefab;
 
     bool playerCanAbsorb = false;
     bool absorbColor = false;
@@ -87,7 +86,7 @@ public class BattleSystem : Controllable
             //spawn the enemies (they are prefabs)
             for (int i = 0; i < enemyPrefabs.Count; i++)
             {
-                GameObject enemy = Instantiate(enemyPrefabs[i], enemyBattleStations[i]);
+                GameObject enemy = enemyBattleStations[i].GetComponent<EnemyBattleStation>().fillStation(enemyPrefabs[i]);
                 enemyGOs.Add(enemy);
                 EnemyUnit enemyUnit = enemy.GetComponent<EnemyUnit>();
                 enemyUnit.updateColor();
@@ -118,7 +117,7 @@ public class BattleSystem : Controllable
             List<GameObject> playerPrefabs = defaultBattle.getPlayerGOs();//In this specific case, the preset battle contains player prefabs
             for (int i = 0; i < enemyPrefabs.Count; i++)
             {
-                GameObject enemy = Instantiate(enemyPrefabs[i], enemyBattleStations[i]);
+                GameObject enemy = enemyBattleStations[i].GetComponent<EnemyBattleStation>().fillStation(enemyPrefabs[i]);
                 enemyGOs.Add(enemy);
                 EnemyUnit enemyUnit = enemy.GetComponent<EnemyUnit>();
                 enemyUnit.updateColor();
@@ -274,9 +273,6 @@ public class BattleSystem : Controllable
                 action.getUser().setHighlight(Highlight.ACTING);
                 foreach (Unit target in action.getTargets())
                 {
-                    DamagePopup dp = Instantiate(damagePopupPrefab, target.gameObject.transform.position, Quaternion.identity);//!!!testing damage popup
-                    dp.setup(100, Color.black);
-
                     target.setHighlight(Highlight.TARGETTED);
                 }
                 yield return new WaitForSeconds(2f);//animations finish during this pause
@@ -349,6 +345,7 @@ public class BattleSystem : Controllable
         clearSkills();
 
         //get rid of dead enemies (This only happens at the end of each turn since I want enemy revival to be possible)
+        //!!!This is not working
         enemies.RemoveAll(enemy => enemy.currentH <= 0);
         foreach (Transform station in enemyBattleStations)
         {

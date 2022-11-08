@@ -19,6 +19,8 @@ public class TeamManager : MonoBehaviour
 
     #endregion
 
+    public DamagePopup damagePopupPrefab;
+
     //This script keeps track of the current party and their stats
     public List<GameObject> playerPrefabs;//holds sprites and default unit data
     public List<GameObject> playerGOs;//holds current sprites and unit data

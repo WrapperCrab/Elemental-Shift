@@ -33,46 +33,70 @@ public abstract class Unit : MonoBehaviour
 
     protected Highlight highlight = Highlight.NONE;
 
-    public bool getAttacked(int _attack)//this will have more inputs later
-    {
-        int damage = (int)Math.Ceiling(((double)_attack/(double)defense));
-
-        currentH -= damage;
-
-        if (currentH <= 0)
-        {
-            return true;//unit has died
-        }
-        else
-        {
-            return false;
-        }
-    }
-
     public bool takeDamage(int damage)
     {
+        //deal with H
         currentH -= damage;
         currentH = Math.Max(currentH, 0);
         if (currentH == 0)
         {
+            //do "dying" animation 
+
+            //Trigger damage popup above head
+            damagePopup(damage, false);
             return true;//unit has died
         }
         else
         {
+            //do "attacked" animation
+
+            //Trigger damage popup above head
+            damagePopup(damage, false);
             return false;
         }
+
+        
     }
 
-    public void gainHealth(int heal)
-    {
-        currentH += heal;
-        currentH = Math.Min(currentH, maxH);
+    public bool gainHealth(int heal)
+    {//fails if unit is dead
+        if (currentH != 0)
+        {
+            //deal with H
+            currentH += heal;
+            currentH = Math.Min(currentH, maxH);
+
+            //do "healing" animation
+
+            //trigger damage popup above head
+            damagePopup(heal, true);
+
+            return true;
+        }
+        return false;
+    }
+
+    public bool revive(int newHealth)
+    {//fails if unit is not dead
+        if (currentH == 0)
+        {
+            //change unit data
+            currentH = newHealth;
+
+            //do "reviving" animation
+
+            //trigger damage popup above head
+            damagePopup(newHealth, true);
+
+            return true;
+        }
+        return false;
     }
 
     public void setColor(Element newColor)
     {//changes the imbued color of the unit
         color = newColor;
-        updateColor();
+        updateColor();//absorb animation done here
     }
 
     public Element getColor()
@@ -87,7 +111,8 @@ public abstract class Unit : MonoBehaviour
     }
 
     public void updateColor()
-    {
+    {//!!!
+        //do "absorb" animation
         sprite.color = ElementManager.instance.getColorHue(color);
     }
 
@@ -141,5 +166,23 @@ public abstract class Unit : MonoBehaviour
         float scaleFactor = height / sprite.bounds.size.x;
         sprite.size = new Vector2(scaleFactor*sprite.bounds.size.x, scaleFactor*sprite.bounds.size.y);
         outline.size = new Vector2(scaleFactor * outline.bounds.size.x, scaleFactor * outline.bounds.size.y);
+    }
+
+    public void damagePopup(int damage, bool isHeal)
+    {
+        DamagePopup damagePopupPrefab = TeamManager.instance.damagePopupPrefab;
+        Vector2 thisPosition = gameObject.transform.position;
+        float popupPositionX = thisPosition.x;
+        float popupPositionY = thisPosition.y + 2;//should consider height?
+        Vector2 popupPosition = new Vector2(popupPositionX, popupPositionY);
+        DamagePopup dp = Instantiate(damagePopupPrefab, popupPosition, Quaternion.identity);
+        if (isHeal)
+        {
+            dp.setup(damage, Color.green);
+        }
+        else
+        {
+            dp.setup(damage, Color.red);
+        }
     }
 }
